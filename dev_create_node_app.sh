@@ -17,7 +17,7 @@ echo 'initialising node app'
 npm init -y
 
 echo 'installing test frameworks'
-#npm install mocha chai sinon --save-dev
+npm install mocha chai sinon --save-dev
 
 echo 'Update "test" path in package.json'
 sed -i 's/"test": "echo \\"Error: no test specified\\" && exit 1"/"test": ".\/node_modules\/.bin\/mocha --reporter spec"/g' package.json
