@@ -21,7 +21,7 @@ module.exports = class CustomerEngine
     };
 
     return this.customerRepo.addCustomer(customer)
-      .then( ok => res.redirect('/'))
+      .then( ok => res.redirect('/') )
       .catch( err => res.send(err) );
   }
 

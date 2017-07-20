@@ -3,11 +3,16 @@
 const chai = require('chai');
 const assert = require('chai').assert;
 const sinon = require('sinon');
+const sinonStubPromise = require('sinon-stub-promise');
 const CustomerEngine = require('../src/customer-engine');
+
+
+sinonStubPromise(sinon);
 
 
 //In-memory customer database
 class TestCustomerRepository {
+
   constructor() {
     this.database = [
       {
@@ -96,9 +101,7 @@ describe('CustomerEngine Tests', function() {
       var engine = new CustomerEngine(repo);
 
       //Fake an error returned from repository
-      sinon.stub(repo, 'getAllCustomers').callsFake(() => {
-        return Promise.reject('oops! error details...');
-      });
+      sinon.stub(repo, 'getAllCustomers').returnsPromise().rejects('oops! error details...');
 
       //2. Set expectations
       mockRes.expects('send').withArgs('oops! error details...');
@@ -162,12 +165,10 @@ describe('CustomerEngine Tests', function() {
       };
 
       //Fake an error returned from repository
-      sinon.stub(repo, 'addCustomer').callsFake((customer) => {
-        return Promise.reject('oops! error details...');
-      });
+      sinon.stub(repo, 'addCustomer').returnsPromise().rejects('oops! error details...');
 
       //2. Set expectations
-      mockRes.expects('send').withArgs('oops! error details...');
+      //mockRes.expects('send').withArgs('oops! error details...');
 
       //3. Act
       engine.onAddCustomer(mockReq, mockRes.object)
