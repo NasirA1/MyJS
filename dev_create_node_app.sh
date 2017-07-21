@@ -26,6 +26,7 @@ echo "'use strict'
 
 const chai = require('chai');
 const assert = chai.assert; // we are using the 'assert' style of Chai
+const sinon = require('sinon');
 const sinonStubPromise = require('sinon-stub-promise');
 sinonStubPromise(sinon);
 
