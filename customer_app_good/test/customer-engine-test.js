@@ -6,7 +6,6 @@ const sinon = require('sinon');
 const sinonStubPromise = require('sinon-stub-promise');
 const CustomerEngine = require('../src/customer-engine');
 
-
 sinonStubPromise(sinon);
 
 
@@ -54,7 +53,7 @@ class TestCustomerRepository {
 
 describe('CustomerEngine Tests', function() {
 
-  //Mock response object
+  var repo, engine;
   var mockRes = sinon.mock( {
     render: function(page, customers) {},
     send: function(err) {},
@@ -62,66 +61,60 @@ describe('CustomerEngine Tests', function() {
   });
 
 
+  beforeEach( () => {
+      repo = new TestCustomerRepository();
+      engine = new CustomerEngine(repo);
+  });
+
+  afterEach( () => {
+    mockRes.restore();
+  });
+
+
+
   it('Constructor initialises the engine with the given repository', function() {
-    //1. Prepare
-    var repo = new TestCustomerRepository();
-
-    //2. Act
-    var engine = new CustomerEngine(repo);
-
-    //3. Assert
     assert.equal(engine.customerRepo, repo);
   });
 
 
+
   it('onGetAllCustomers sends retrieved customers to the client', function() {
     return new Promise( (resolve, reject) => {
-      //1. Initialise
-      var repo = new TestCustomerRepository();
-      var engine = new CustomerEngine(repo);
 
-      //2. Set expectations
       mockRes.expects('render').withArgs('index', { customers: repo.database } );
 
-      //3. Act
       engine.onGetAllCustomers(null, mockRes.object).then(() => {
-
-      //3. Assert
         if(mockRes.verify()) resolve('pass');
       })
       .catch(ex => reject(ex));
     });
   });
+
 
 
   it('onGetAllCustomers sends error info to the client upon error', function() {
     return new Promise( (resolve, reject) => {
-      //1. Initialise
-      var repo = new TestCustomerRepository();
-      var engine = new CustomerEngine(repo);
 
       //Fake an error returned from repository
-      sinon.stub(repo, 'getAllCustomers').returnsPromise().rejects('oops! error details...');
+      var stub = sinon.stub(repo, 'getAllCustomers');
+      stub.returnsPromise().rejects('oops! error details...');      
 
-      //2. Set expectations
       mockRes.expects('send').withArgs('oops! error details...');
 
-      //3. Act
       engine.onGetAllCustomers(null, mockRes.object).then(() => {
-
-      //4. Assert
-        if(mockRes.verify()) resolve('pass');
+        if(mockRes.verify()) { 
+          stub.restore();
+          resolve('pass');
+        }
       })
       .catch(ex => reject(ex));
     });
   });
 
 
+
   it('onAddCustomer adds new customer and redirects client to the main page', function() {
     return new Promise( (resolve, reject) => {
-      //1. Initialise
-      var repo = new TestCustomerRepository();
-      var engine = new CustomerEngine(repo);
 
       var mockReq = {
         body: {
@@ -130,13 +123,9 @@ describe('CustomerEngine Tests', function() {
         }
       };
 
-      //2. Set expectations
       mockRes.expects('redirect').withArgs('/');
 
-      //3. Act
       engine.onAddCustomer(mockReq, mockRes.object)
-
-      //4. Assert
       .then( () => {
         if(mockRes.verify()) return Promise.resolve('pass');
         else return Promise.reject(new Error('failed to call expected function'));
@@ -148,14 +137,12 @@ describe('CustomerEngine Tests', function() {
       .then( ok => resolve(ok))
       .catch( ex => reject(ex));
     });
-  });
+  });  //end-it
+
 
 
   it('onAddCustomer sends error info to the client upon error', function() {
     return new Promise( (resolve, reject) => {
-      //1. Initialise
-      var repo = new TestCustomerRepository();
-      var engine = new CustomerEngine(repo);
 
       var mockReq = {
         body: {
@@ -165,21 +152,22 @@ describe('CustomerEngine Tests', function() {
       };
 
       //Fake an error returned from repository
-      sinon.stub(repo, 'addCustomer').returnsPromise().rejects('oops! error details...');
+      var stub = sinon.stub(repo, 'addCustomer');
+      stub.returnsPromise().rejects('oops! error details...');
 
-      //2. Set expectations
-      //mockRes.expects('send').withArgs('oops! error details...');
+      mockRes.expects('send').withArgs('oops! error details...');
 
-      //3. Act
       engine.onAddCustomer(mockReq, mockRes.object)
-
-      //4. Assert
       .then( () => {
-        if(mockRes.verify()) resolve('pass');
+        if(mockRes.verify()) { 
+          stub.restore();
+          resolve('pass');
+        }
       })
       .catch(ex => reject(ex));
     });
-  });
+
+  }); //end-it
 
 
 });
