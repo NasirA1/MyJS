@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+	<div class="page-header">
+		<h1>Example Page Header</h1>
+	</div>
+
+  <p>This is some text.</p> 
+	
+  <p>The blockquote element is used to present content from another source:</p>
+  <blockquote>
+    <p>For 50 years, WWF has been protecting the future of nature. The world's leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.</p>
+    <footer>From WWF's website</footer>
+  </blockquote>	
+	
+  <p>The dl element indicates a description list:</p>
+  <dl>
+    <dt>Coffee</dt>
+    <dd>- black hot drink</dd>
+    <dt>Milk</dt>
+    <dd>- white cold drink</dd>
+  </dl>
+	
+  <h3>Code Snippets</h3>
+  <p>Inline snippets of code should be embedded in the code element:</p>
+  <p>The following HTML elements: <code>span</code>, <code>section</code>, and <code>div</code> defines a section in a document.</p>	
+
+  <h3>Keyboard Inputs</h3>
+  <p>To indicate input that is typically entered via the keyboard, use the kbd element:</p>
+  <p>Use <kbd>ctrl + p</kbd> to open the Print dialog box.</p>
+	
+  <h3>Contextual Colors</h3>
+  <p>Use the contextual classes to provide "meaning through colors":</p>
+  <p class="text-muted">This text is muted.</p>
+  <p class="text-primary">This text is important.</p>
+  <p class="text-success">This text indicates success.</p>
+  <p class="text-info">This text represents some information.</p>
+  <p class="text-warning">This text represents a warning.</p>
+  <p class="text-danger">This text represents danger.</p>
+	
+  <h3>Contextual Backgrounds</h3>
+  <p>Use the contextual background classes to provide "meaning through colors":</p>
+  <p class="bg-primary">This text is important.</p>
+  <p class="bg-success">This text indicates success.</p>
+  <p class="bg-info">This text represents some information.</p>
+  <p class="bg-warning">This text represents a warning.</p>
+  <p class="bg-danger">This text represents danger.</p>
+	
+	<br />
+  <p>The <strong class="bg-info">.table</strong> class adds basic styling (light padding and only horizontal dividers) to a table:</p>            
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John</td>
+        <td>Doe</td>
+        <td>john@example.com</td>
+      </tr>
+      <tr>
+        <td>Mary</td>
+        <td>Moe</td>
+        <td>mary@example.com</td>
+      </tr>
+      <tr>
+        <td>July</td>
+        <td>Dooley</td>
+        <td>july@example.com</td>
+      </tr>
+    </tbody>
+  </table>	
+	
+	<div class="row">
+		<div class="col-md-4">
+			<div class="thumbnail">
+				<a href="https://www.w3schools.com/w3images/lights.jpg">
+					<img src="https://www.w3schools.com/w3images/lights.jpg" alt="Lights" style="width:100%">
+					<div class="caption">
+						<p>Lorem ipsum...</p>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="thumbnail">
+				<a href="https://www.w3schools.com/w3images/nature.jpg">
+					<img src="https://www.w3schools.com/w3images/nature.jpg" alt="Nature" style="width:100%">
+					<div class="caption">
+						<p>Lorem ipsum...</p>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="thumbnail">
+				<a href="https://www.w3schools.com/w3images/fjords.jpg">
+					<img src="https://www.w3schools.com/w3images/fjords.jpg" alt="Fjords" style="width:100%">
+					<div class="caption">
+						<p>Lorem ipsum...</p>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>	
+	
+	
+  <h2>Responsive Embed</h2>
+  <p>Create a responsive video and scale it nicely to the parent element with an 16:9 aspect ratio</p>
+  <div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/XGSy3_Czz8k"></iframe>
+  </div>
+	
+	<br /><br />
+  <div class="jumbotron">
+    <h1>Bootstrap Tutorial</h1>      
+    <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.</p>
+  </div>
+  <p>This is some text.</p>      
+  <p>This is another text.</p>      
+	
+	
+	<div class="alert alert-success">
+		<strong>Success!</strong> Indicates a successful or positive action.
+	</div>
+
+	<div class="alert alert-info">
+		<strong>Info!</strong> Indicates a neutral informative change or action.
+	</div>
+
+	<div class="alert alert-warning">
+		<strong>Warning!</strong> Indicates a warning that might need attention.
+	</div>
+
+	<div class="alert alert-danger">
+		<strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+	</div>
+	
+	<div class="alert alert-success alert-dismissable">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>Success!</strong> Indicates a successful or positive action.
+	</div>
+	
+  <h2>Animated Alerts</h2>
+  <p>The .fade and .in classes adds a fading effect when closing the alert message.</p>
+  <div class="alert alert-success alert-dismissable fade in">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> This alert box could indicate a successful or positive action.
+  </div>	
+	
+  <h2>Pagination</h2>
+  <p>The .pagination class provides pagination links:</p>                  
+  <ul class="pagination">
+    <li><a href="#">1</a></li>
+    <li class="active"><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+  </ul>
+	
+	<p>More stuff <a class="btn btn-info btn-xs" href="https://www.w3schools.com/bootstrap">here</a>...</p>
+	
+</div>
+
+</body>
+</html>
