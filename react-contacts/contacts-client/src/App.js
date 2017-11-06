@@ -3,7 +3,7 @@ import Clock from './Clock';
 
 import {
   Button, Alert, DropdownButton, ButtonGroup, MenuItem,
-  Nav, Navbar, NavItem, NavDropdown
+  Nav, Navbar, NavItem, NavDropdown, PageHeader
 } from 'react-bootstrap';
 
 
@@ -11,7 +11,7 @@ class AlertDismissable extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {alertVisible: true };
+    this.state = { alertVisible: true };
   }
 
   getInitialState() {
@@ -25,7 +25,7 @@ class AlertDismissable extends React.Component {
       return (
         <Alert bsStyle="danger" onDismiss={this.handleAlertDismiss.bind(this)}>
           <h4>Oh snap! You got an error!</h4>
-          <p>Change this and that and try again. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.</p>
+          <p>Change this and that and try again. Duis mollis, est non commodo luctus...</p>
           <p>
             <Button bsStyle="danger">Take this action</Button>
             <span> or </span>
@@ -62,48 +62,68 @@ class App extends Component {
   }
 
 
-  render() {    
+  render() {
     return (
       <div className="App">
-        <Clock /> <br />
-        <Button onClick={this.buttonClick}>Click Me</Button> <br /><br />
-        <AlertDismissable /> <br /> <br />
-        <ButtonGroup>
-          <DropdownButton id="dropdown-btn-menu" bsStyle="success" title="Dropdown">
-            <MenuItem key="1">Dropdown link</MenuItem>
-            <MenuItem key="2">Dropdown link</MenuItem>
-          </DropdownButton>
-          <Button bsStyle="info">Middle</Button>
-          <Button bsStyle="info">Right</Button>
-        </ButtonGroup>
+        <nav className="navbar navbar-inverse navbar-fixed-top">
+          <div className="container">
+            <div className="navbar-header">
+              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span className="sr-only">Toggle navigation</span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </button>
+              <a className="navbar-brand" href="#">Contact Manager</a>
+            </div>
+            <div id="navbar" className="navbar-collapse collapse">
+              <form className="navbar-form navbar-right">
+                <div className="form-group">
+                  <input type="text" placeholder="Email" className="form-control"  style={{marginRight: '5px'}} />
+                </div>
+                <div className="form-group">
+                  <input type="password" placeholder="Password" className="form-control" style={{marginRight: '5px'}} />
+                </div>
+                <button type="submit" className="btn btn-success">Sign in</button>
+              </form>
+            </div>
+          </div>
+        </nav>
 
-        <br /><br />
+        <div className="jumbotron">
+          <div className="container">
+            <h1>Welcome</h1>
+            <p>You can view the data as much as you like, but if you want to change it, you need to register!</p>
+            <p><a className="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+          </div>
+        </div>
 
-        <Navbar inverse collapseOnSelect>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <a href="#">React-Bootstrap</a>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav>
-              <NavItem eventKey={1} href="#">Link</NavItem>
-              <NavItem eventKey={2} href="#">Link</NavItem>
-              <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-                <MenuItem eventKey={3.1}>Action</MenuItem>
-                <MenuItem eventKey={3.2}>Another action</MenuItem>
-                <MenuItem eventKey={3.3}>Something else here</MenuItem>
-                <MenuItem divider />
-                <MenuItem eventKey={3.3}>Separated link</MenuItem>
-              </NavDropdown>
-            </Nav>
-            <Nav pullRight>
-              <NavItem eventKey={1} href="#">Link Right</NavItem>
-              <NavItem eventKey={2} href="#">Link Right</NavItem>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+        <div className="container">
+
+          <div className="row">
+            <div className="col-md-4">
+              <h2>Heading</h2>
+              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+              <p><a className="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <div className="col-md-4">
+              <h2>Heading</h2>
+              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+              <p><a className="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <div className="col-md-4">
+              <h2>Heading</h2>
+              <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+              <p><a className="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+          </div>
+
+          <hr />
+          <footer>
+            <p>&copy; 2017 Company, Inc.</p>
+          </footer>
+        </div>
+
       </div>
     );
   }
