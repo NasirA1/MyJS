@@ -42,7 +42,7 @@ class Browse extends Component {
       {Header: 'Address', accessor: 'address'}
     ];
     return (
-      <div class="content">
+      <div className="content">
         <PageHeader>Browse</PageHeader>
         <ReactTable
           data={this.state.contacts} columns={columns}
@@ -58,7 +58,13 @@ class Browse extends Component {
                   loading: false
                 });
               })
-              .catch(err => console.error(err));
+              .catch(err => {
+                //TODO display error alert
+                console.error(err);
+                this.setState({
+                  loading: false
+                });                
+              });
           }}
         />
       </div>
