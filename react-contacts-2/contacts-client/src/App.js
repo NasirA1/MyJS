@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Route, Link, NavLink, withRouter } from 'react-router-dom';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import { Nav, Navbar, NavItem, Jumbotron, Button, PageHeader,
-         Table } from 'react-bootstrap';
+import Axios from 'axios';
+import { Nav, Navbar, NavItem, Jumbotron, Button, PageHeader, Table } from 'react-bootstrap';
 
 
 class Home extends Component {
@@ -23,74 +23,43 @@ class Home extends Component {
 
 
 class Browse extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { contacts: [], loading: false };
+  }
+
   render() {
-    const columns = [
-      {Header: 'ID', accessor: 'id', Cell: props => <span className='number'>{props.value}</span>},
-      {Header: 'First Name', accessor: 'firstName'},
-      {Header: 'Last Name', accessor: 'lastName'},
-      {Header: 'Email', accessor: 'email'},
-      {Header: 'Phone', accessor: 'phone'},
+    const columns = [{
+        Header: 'ID', accessor: 'id', minWidth: 30, 
+        Cell: props => <span style={{float: 'right', marginRight: '1em'}}>{props.value}</span>,
+        sortMethod: (a, b, desc) => parseInt(a) > parseInt(b)? 1: parseInt(a) < parseInt(b)? -1: 0
+      },
+      {Header: 'First Name', minWidth: 60, accessor: 'firstName'},
+      {Header: 'Last Name', minWidth: 60, accessor: 'lastName'},
+      {Header: 'Email', minWidth: 60, accessor: 'email'},
+      {Header: 'Phone', minWidth: 40, accessor: 'phone'},
       {Header: 'Address', accessor: 'address'}
-    ];
-    const data = [
-      {
-        id: '13',
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'johndoe@gmail.com',
-        phone: '07945342233',
-        address: '23 Main Road'
-      },
-      {
-        id: '2',
-        firstName: 'Alice',
-        lastName: 'Wonderland',
-        email: 'alice.wonder@gmail.com',
-        phone: '',
-        address: '55 Maiden Avenue'
-      },
-      {
-        id: '6',
-        firstName: 'Martin',
-        lastName: 'Chol',
-        email: 'mrchol@yahoo.com',
-        phone: '0231223221',
-        address: '34 Balmoral Road'
-      },
-      {
-        id: '4',
-        firstName: 'Sumbyla3l',
-        lastName: 'Sotey',
-        email: 'sotey343@msn.com',
-        phone: '3222322322',
-        address: '23 Main Road'
-      },
-      {
-        id: '34',
-        firstName: 'Mulla',
-        lastName: 'Nasruddin',
-        email: 'mullakhana@gmail.af',
-        phone: '1111111111',
-        address: 'Karte Charrr'
-      },
-      {
-        id: '12',
-        firstName: 'Andrew',
-        lastName: 'Cole',
-        email: 'coleandrewww@mail.com',
-        phone: '55334343343',
-        address: 'Shshshshshsss'
-      }
     ];
     return (
       <div class="content">
         <PageHeader>Browse</PageHeader>
         <ReactTable
-          data={data} columns={columns}
+          data={this.state.contacts} columns={columns}
           defaultPageSize={5}
-          filterable={true}
-          onFetchData={() => null}
-          responsive
+          filterable
+          loading={this.state.loading}
+          onFetchData={(state, instance) => {
+            this.setState({loading: true});
+            Axios.get('http://localhost:8081/contacts')
+              .then(res => {
+                this.setState({
+                  contacts: res.data.Items,
+                  loading: false
+                });
+              })
+              .catch(err => console.error(err));
+          }}
         />
       </div>
     );
