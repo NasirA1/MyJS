@@ -12,7 +12,8 @@ class Login extends Component {
       user: {
         email: '',
         password: ''
-      }
+      },
+      rememberMe: false
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -42,7 +43,7 @@ class Login extends Component {
     this.setState({
       user: user
     });
-  }  
+  }
   
 
   render() {
@@ -71,7 +72,7 @@ class Login extends Component {
 
             <FormGroup>
               <Col smOffset={2} sm={10}>
-                <Checkbox>Remember me</Checkbox>
+                <Checkbox name="rememberMe" onChange={this.handleInputChange}>Remember me</Checkbox>
               </Col>
             </FormGroup>
 
