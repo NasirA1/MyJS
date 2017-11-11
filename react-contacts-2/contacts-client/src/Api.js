@@ -14,5 +14,12 @@ async function getAllContacts() {
   return Axios().get('contacts');
 }
 
+async function isMember(email) {
+  return Axios().get(`members/${email}`);
+}
 
-export { getAllContacts };
+async function register(user) {
+  return Axios().post('register', user);
+}
+
+export { getAllContacts, isMember, register };

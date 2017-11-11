@@ -19,7 +19,8 @@ var users = [];
 
 function validateReqistrationRequest(body) {
   const valid = 
-    validator.isAlpha(body.name) && 
+    validator.isAlpha(body.firstName) && 
+    validator.isAlpha(body.lastName) && 
     validator.isEmail(body.email) &&
     validator.isLength(body.password, { min: 6, max: 32 })
   ? true: false; //Ensures a boolean result is always returned (not undefined or null)
@@ -168,6 +169,18 @@ function sleep(ms){
 
 app.get('/contacts', (req, res) => {
   res.json({ Items: contacts });
+});
+
+
+app.get('/members/:email', (req, res) => {
+  //console.log(JSON.stringify(users, 2));
+  console.log('Looking for:', req.params.email);
+  if(users.find(x => { return x.email === req.params.email })) {
+    res.json({exists: true});
+  }
+  else {
+    res.json({exists: false});    
+  }
 });
 
 
