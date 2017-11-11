@@ -22,4 +22,8 @@ async function register(user) {
   return Axios().post('register', user);
 }
 
-export { getAllContacts, isMember, register };
+async function login(user) {
+  return Axios().post('login', user);
+}
+
+export { getAllContacts, isMember, register, login };

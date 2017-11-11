@@ -174,11 +174,12 @@ app.get('/contacts', (req, res) => {
 
 app.get('/members/:email', (req, res) => {
   //console.log(JSON.stringify(users, 2));
-  console.log('Looking for:', req.params.email);
   if(users.find(x => { return x.email === req.params.email })) {
+    console.log(`${req.params.email} exists.`);
     res.json({exists: true});
   }
   else {
+    console.log(`${req.params.email} available for registration!`);
     res.json({exists: false});    
   }
 });

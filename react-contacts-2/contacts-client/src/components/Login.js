@@ -1,9 +1,50 @@
 import React, { Component } from 'react';
 import { Button, PageHeader, Form, FormGroup, FormControl, Col, ControlLabel, Checkbox } from 'react-bootstrap';
-
+import * as Services from '../Api';
 
 
 class Login extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      user: {
+        email: '',
+        password: ''
+      }
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.onClick = this.onClick.bind(this);
+  }
+
+  async onClick(event) {
+    try {
+      const response = await Services.login(this.state.user);
+      console.log(response.data);
+    } catch(err) {
+      console.error(err);
+    }
+
+    event.preventDefault();
+  }
+
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    var user = this.state.user;
+    user[name] = value;
+
+    this.setState({
+      user: user
+    });
+  }  
+  
+
   render() {
     return (
       <div className="container-fluid" style={{ marginTop: '2em' }}>
@@ -15,7 +56,7 @@ class Login extends Component {
                 Email
             </Col>
               <Col sm={10}>
-                <FormControl type="email" placeholder="Email" />
+                <FormControl type="email" name="email" placeholder="Email" onChange={this.handleInputChange} />
               </Col>
             </FormGroup>
 
@@ -24,7 +65,7 @@ class Login extends Component {
                 Password
             </Col>
               <Col sm={10}>
-                <FormControl type="password" placeholder="Password" />
+                <FormControl type="password" name="password" placeholder="Password" onChange={this.handleInputChange} />
               </Col>
             </FormGroup>
 
@@ -36,7 +77,7 @@ class Login extends Component {
 
             <FormGroup>
               <Col smOffset={2} sm={10}>
-                <Button type="button" style={{ float: 'right' }}>
+                <Button type="button" style={{ float: 'right' }} onClick={this.onClick}>
                   Sign in
               </Button>
               </Col>
