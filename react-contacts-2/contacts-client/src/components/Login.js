@@ -48,6 +48,7 @@ class Login extends Component {
 
   render() {
     return (
+      <div className="container-fixed">
       <Panel header="Login" bsStyle="primary">      
           <Form horizontal>
             <FormGroup controlId="formHorizontalEmail">
@@ -83,6 +84,7 @@ class Login extends Component {
             </FormGroup>
           </Form>
       </Panel>
+      </div>
     );
   }
 }

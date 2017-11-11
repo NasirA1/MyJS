@@ -75,6 +75,7 @@ class Register extends Component {
 
   render() {
     return (
+      <div className="container-fixed">
         <Panel header="Register" bsStyle="primary">
           <Form horizontal>
             <FormGroup controlId="formHorizontalEmail">
@@ -132,6 +133,7 @@ class Register extends Component {
             </FormGroup>
           </Form>
         </Panel>
+      </div>
     );
   }
 }

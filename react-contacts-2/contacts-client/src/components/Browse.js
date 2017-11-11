@@ -26,10 +26,10 @@ class Browse extends Component {
           {Header: 'Address', accessor: 'address'}
         ];
         return (
-          <div className="container-fluid" style={{marginTop: '5em'}}>
+          <div className="container">
             <ReactTable
               data={this.state.contacts} columns={columns}
-              defaultPageSize={10}
+              defaultPageSize={8}
               filterable
               loading={this.state.loading}
               onFetchData={(state, instance) => {
