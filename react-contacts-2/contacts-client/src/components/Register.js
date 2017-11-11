@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Button, PageHeader, Form, FormGroup, FormControl, ControlLabel, Col, Panel, Grid, Row } from 'react-bootstrap';
+import { Button, PageHeader, Form, FormGroup, FormControl, ControlLabel, Col, Panel, Grid, Row, HelpBlock } from 'react-bootstrap';
 import * as Services from '../Api';
 import _ from 'lodash';
+import * as validator from 'validator';
 
 
 class Register extends Component {
@@ -19,6 +20,7 @@ class Register extends Component {
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    //this.getValidationState = this.getValidationState.bind(this);
   }
 
   async memberExists(email) {
@@ -41,16 +43,68 @@ class Register extends Component {
 
   onEmailChange(event) {
     this.handleInputChange(event);
-    event.persist();
-    this.delayedCallback(event);
+    if(this.getEmailValidationState() === 'success') {
+      event.persist();
+      this.delayedCallback(event);
+    }
   }
 
   delayedCallback = _.debounce( (event) => {
     this.memberExists(event.target.value);
   }, 1000);
 
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    let user = this.state.user;
+    user[name] = value;
+
+    this.setState({
+      user: user
+    });
+  }
+
+  getEmailValidationState() {
+    return this.state.user.email.length > 0? 
+      validator.isEmail(this.state.user.email)? 
+        'success': 'error': null;
+  }
+
+  getNameValidationState() {
+    const length = this.state.user.firstName.trim().length;
+    return length > 0? 
+      length > 1? 
+      'success': 'warning': null;  
+  }
+
+  getPasswordValidationState() {
+    const length = this.state.user.password.length;
+    return length > 0? 
+      length > 5? 'success':
+      length > 3? 
+      'warning': 'error': null;  
+  }
+
+  getConfirmPasswordValidationState() {
+    return this.state.user.confirmPassword.length > 0? 
+      this.state.user.confirmPassword === this.state.user.password?
+      'success': 'error': null;
+  }
+
+  formIsValid() {
+    return this.getEmailValidationState() === 'success' && 
+      this.getNameValidationState() === 'success' && 
+      this.getPasswordValidationState() === 'success' && 
+    this.getConfirmPasswordValidationState() === 'success';
+  }
+
   
-  async onRegister() {
+  async submit(event) {
+    event.preventDefault();
+    if(!this.formIsValid()) return;
+    
     try {
       const response = await Services.register(this.state.user);
       console.log(response.data);
@@ -59,40 +113,29 @@ class Register extends Component {
     }
   }
 
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
-    var user = this.state.user;
-    user[name] = value;
-
-    this.setState({
-      user: user
-    });
-  }  
-
 
   render() {
     return (
       <div className="container-fixed">
         <Panel header="Register" bsStyle="primary">
-          <Form horizontal>
-            <FormGroup controlId="formHorizontalEmail">
+          <Form horizontal onSubmit={this.submit.bind(this)}>
+            <FormGroup controlId="formHorizontalEmail" validationState={this.getEmailValidationState()}>
               <Col componentClass={ControlLabel} xs={5}>
                 Email
               </Col>
               <Col xs={7}>
                 <FormControl name="email" type="email" placeholder="Email" onChange={this.onEmailChange.bind(this)} />
+                <FormControl.Feedback />
               </Col>
             </FormGroup>
 
-            <FormGroup controlId="formHorizontalFirstName">
+            <FormGroup controlId="formHorizontalFirstName" validationState={this.getNameValidationState()}>
               <Col componentClass={ControlLabel} xs={5}>
                 First Name
               </Col>
               <Col xs={7}>
                 <FormControl name="firstName" type="text" placeholder="First Name" onChange={this.handleInputChange} />
+                <FormControl.Feedback />
               </Col>
             </FormGroup>
 
@@ -105,32 +148,34 @@ class Register extends Component {
               </Col>
             </FormGroup>
 
-
-            <FormGroup controlId="formHorizontalPassword">
+            <FormGroup controlId="formHorizontalPassword" validationState={this.getPasswordValidationState()}>
               <Col componentClass={ControlLabel} xs={5}>
                 Password
               </Col>
               <Col xs={7}>
                 <FormControl name="password" type="password" placeholder="Password" onChange={this.handleInputChange} />
+                <FormControl.Feedback />
               </Col>
             </FormGroup>
 
-            <FormGroup controlId="formHorizontalConfirmPassword">
+            <FormGroup controlId="formHorizontalConfirmPassword" validationState={this.getConfirmPasswordValidationState()}>
               <Col componentClass={ControlLabel} xs={5}>
                 Confirm Password
               </Col>
               <Col xs={7}>
-                <FormControl name="confirmPassword" type="password" placeholder="Enter password again" onChange={this.handleInputChange} />
+                <FormControl name="confirmPassword" type="password" placeholder="Confirm Password" onChange={this.handleInputChange} />
+                <FormControl.Feedback />                
               </Col>
             </FormGroup>
 
             <FormGroup>
               <Col sm={10} smOffset={2}>
-                <Button type="button" bsStyle="primary" style={{ float: 'right' }} onClick={this.onRegister.bind(this)}>
+                <Button type="submit" style={{ float: 'right' }}>
                   &nbsp;&nbsp;Register&nbsp;&nbsp;
                 </Button>
               </Col>
             </FormGroup>
+            <HelpBlock>Ensure all fields are valid.</HelpBlock>
           </Form>
         </Panel>
       </div>
