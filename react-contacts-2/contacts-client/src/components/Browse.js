@@ -26,8 +26,7 @@ class Browse extends Component {
           {Header: 'Address', accessor: 'address'}
         ];
         return (
-          <div className="container-fluid" style={{marginTop: '2em'}}>
-            <PageHeader>Browse</PageHeader>
+          <div className="container-fluid" style={{marginTop: '5em'}}>
             <ReactTable
               data={this.state.contacts} columns={columns}
               defaultPageSize={10}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, PageHeader, Form, FormGroup, FormControl, ControlLabel, Col } from 'react-bootstrap';
+import { Button, PageHeader, Form, FormGroup, FormControl, ControlLabel, Col, Panel, Grid, Row } from 'react-bootstrap';
 import * as Services from '../Api';
 import _ from 'lodash';
 
@@ -75,66 +75,63 @@ class Register extends Component {
 
   render() {
     return (
-      <div className="container-fluid" style={{ marginTop: '2em' }}>
-        <PageHeader>Register</PageHeader>
-        <div className="center">
+        <Panel header="Register" bsStyle="primary">
           <Form horizontal>
             <FormGroup controlId="formHorizontalEmail">
-              <Col componentClass={ControlLabel} sm={4}>
+              <Col componentClass={ControlLabel} xs={5}>
                 Email
-          </Col>
-              <Col sm={8}>
+              </Col>
+              <Col xs={7}>
                 <FormControl name="email" type="email" placeholder="Email" onChange={this.onEmailChange.bind(this)} />
               </Col>
             </FormGroup>
 
             <FormGroup controlId="formHorizontalFirstName">
-              <Col componentClass={ControlLabel} sm={4}>
+              <Col componentClass={ControlLabel} xs={5}>
                 First Name
-          </Col>
-              <Col sm={8}>
+              </Col>
+              <Col xs={7}>
                 <FormControl name="firstName" type="text" placeholder="First Name" onChange={this.handleInputChange} />
               </Col>
             </FormGroup>
 
             <FormGroup controlId="formHorizontalLastName">
-              <Col componentClass={ControlLabel} sm={4}>
+              <Col componentClass={ControlLabel} xs={5}>
                 Last Name
-          </Col>
-              <Col sm={8}>
+              </Col>
+              <Col xs={7}>
                 <FormControl name="lastName" type="text" placeholder="Last Name" onChange={this.handleInputChange} />
               </Col>
             </FormGroup>
 
 
             <FormGroup controlId="formHorizontalPassword">
-              <Col componentClass={ControlLabel} sm={4}>
+              <Col componentClass={ControlLabel} xs={5}>
                 Password
-          </Col>
-              <Col sm={8}>
+              </Col>
+              <Col xs={7}>
                 <FormControl name="password" type="password" placeholder="Password" onChange={this.handleInputChange} />
               </Col>
             </FormGroup>
 
             <FormGroup controlId="formHorizontalConfirmPassword">
-              <Col componentClass={ControlLabel} sm={4}>
+              <Col componentClass={ControlLabel} xs={5}>
                 Confirm Password
-          </Col>
-              <Col sm={8}>
+              </Col>
+              <Col xs={7}>
                 <FormControl name="confirmPassword" type="password" placeholder="Enter password again" onChange={this.handleInputChange} />
               </Col>
             </FormGroup>
 
             <FormGroup>
-              <Col smOffset={2} sm={10}>
-                <Button type="button" style={{ float: 'right' }} onClick={this.onRegister.bind(this)}>
+              <Col sm={10} smOffset={2}>
+                <Button type="button" bsStyle="primary" style={{ float: 'right' }} onClick={this.onRegister.bind(this)}>
                   &nbsp;&nbsp;Register&nbsp;&nbsp;
-              </Button>
+                </Button>
               </Col>
             </FormGroup>
           </Form>
-        </div>
-      </div>
+        </Panel>
     );
   }
 }

@@ -6,7 +6,7 @@ import { Jumbotron, Button } from 'react-bootstrap';
 class Home extends Component {
   render() {
     return (
-      <div className="container" style={{ marginTop: '2em' }}>
+      <div className="container" style={{ marginTop: '4em' }}>
         <Jumbotron>
           <h1>Welcome!</h1>
           <p>Contacts Manager is a simple web application for managing contacts.  You can <Link to="/browse">browse</Link> our records for as long

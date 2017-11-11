@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, PageHeader, Form, FormGroup, FormControl, Col, ControlLabel, Checkbox } from 'react-bootstrap';
+import { Button, PageHeader, Form, FormGroup, FormControl, Col, ControlLabel, Checkbox, Panel } from 'react-bootstrap';
 import * as Services from '../Api';
 
 
@@ -24,7 +24,7 @@ class Login extends Component {
     try {
       const response = await Services.login(this.state.user);
       console.log(response.data);
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
 
@@ -44,48 +44,45 @@ class Login extends Component {
       user: user
     });
   }
-  
+
 
   render() {
     return (
-      <div className="container-fluid" style={{ marginTop: '2em' }}>
-        <PageHeader>Login</PageHeader>
-        <div className="center">
+      <Panel header="Login" bsStyle="primary">      
           <Form horizontal>
             <FormGroup controlId="formHorizontalEmail">
-              <Col componentClass={ControlLabel} sm={2}>
+              <Col componentClass={ControlLabel} xs={3}>
                 Email
-            </Col>
-              <Col sm={10}>
+              </Col>
+              <Col xs={9}>
                 <FormControl type="email" name="email" placeholder="Email" onChange={this.handleInputChange} />
               </Col>
             </FormGroup>
 
             <FormGroup controlId="formHorizontalPassword">
-              <Col componentClass={ControlLabel} sm={2}>
+              <Col componentClass={ControlLabel} xs={3} >
                 Password
             </Col>
-              <Col sm={10}>
+              <Col xs={9}>
                 <FormControl type="password" name="password" placeholder="Password" onChange={this.handleInputChange} />
               </Col>
             </FormGroup>
 
             <FormGroup>
-              <Col smOffset={2} sm={10}>
+              <Col xs={12}>
                 <Checkbox name="rememberMe" onChange={this.handleInputChange}>Remember me</Checkbox>
               </Col>
             </FormGroup>
 
             <FormGroup>
-              <Col smOffset={2} sm={10}>
+              <Col xs={12}>
                 <Button type="button" style={{ float: 'right' }} onClick={this.onClick}>
                   Sign in
               </Button>
               </Col>
             </FormGroup>
           </Form>
-        </div>
-      </div>
+      </Panel>
     );
   }
 }
