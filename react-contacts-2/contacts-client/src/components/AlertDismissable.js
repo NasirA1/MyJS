@@ -1,39 +1,29 @@
 import React, { Component } from 'react';
-import { Alert, Button } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 
 
 class AlertDismissable extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      alertVisible: true
-    };
-
     this.handleAlertDismiss = this.handleAlertDismiss.bind(this);
-    this.handleAlertShow = this.handleAlertShow.bind(this);
   }
 
   handleAlertDismiss() {
-    this.setState({ alertVisible: false });
-  }
-
-  handleAlertShow() {
-    this.setState({ alertVisible: true });
+     this.props.onDismissClick();
   }
 
   render() {
-    if (this.state.alertVisible) {
+    if (this.props.visibility) {
       return (
-        <Alert bsStyle="danger" onDismiss={this.handleAlertDismiss} style={{marginBottom: '3em'}}>
-          <h4>Oops!</h4>
-          <p>{this.props.text}</p>
+        <Alert bsStyle={this.props.bsStyle} onDismiss={this.handleAlertDismiss} style={{marginBottom: '3em'}}>
+          <h4>{this.props.title}</h4>
+          <p>{this.props.message}</p>
         </Alert>
       );
     }
-
-    return (
-      <Button onClick={this.handleAlertShow}>Show Alert</Button>
-    );
+    else {
+      return(<div></div>);
+    }
   }
 }
 

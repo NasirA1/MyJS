@@ -99,7 +99,7 @@ class Register extends Component {
       this.getConfirmPasswordValidationState() === 'success';
   }
 
-
+  
   async submit(event) {
     event.preventDefault();
     if (!this.formIsValid()) return;
@@ -107,8 +107,11 @@ class Register extends Component {
     try {
       const response = await Services.register(this.state.user);
       console.log(response.data);
+      this.props.setAlert({ message: response.data.message, bsStyle: 'success', visibility: true} );
     } catch (err) {
       console.error(err);
+      console.error(err.response.data.error);
+      this.props.setAlert({ message: err.response.data.error, bsStyle: 'danger', visibility: true});
     }
   }
 

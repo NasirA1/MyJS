@@ -11,12 +11,31 @@ import Register from './Register';
 
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      alert: {
+        title: 'Oops',
+        visibility: false,
+        message: 'Something went wrong!!!',
+        bsStyle: 'danger'
+      }
+    };
+  }
+
   navigateTo(url) {
     this.props.history.push(url);
   }
 
-  onAlertDismiss() {
+  setAlertState(alertState) {
+    let state = this.state;
+    state.alert = alertState;
+    this.setState(state);    
+  }
 
+  onDismissClick() {
+    this.setAlertState({ visibility: false });
   }
 
   render() {
@@ -54,7 +73,10 @@ class App extends Component {
         <Grid>
           <Row>
             <Col lg={6} lgOffset={3}>
-              <AlertDismissable />
+              <AlertDismissable title={this.state.alert.title} message={this.state.alert.message} 
+                bsStyle={this.state.alert.bsStyle} visibility={this.state.alert.visibility}
+                onDismissClick={() => this.onDismissClick()}
+              />
             </Col>
           </Row>
           
@@ -62,7 +84,10 @@ class App extends Component {
             <Route path="/" exact component={Home} />
             <Route path="/browse" component={Browse} />
             <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />          
+            {/* <Route path="/register" component={Register} setAlert={(state) => this.setAlertState(state)} /> */}
+            <Route path="/register" render={ (props) => (
+              <Register {...props} setAlert={(state) => this.setAlertState(state)} />
+            )} />
           </Row>
         </Grid>
       </div>
