@@ -1,8 +1,11 @@
 import axios from 'axios'
 
 function Axios() {
+  const ENDPOINT_BASE_URL = 'http://192.168.0.14';
+  const ENDPOINT_PORT = '8081';
+
   return axios.create({
-    baseURL: `http://localhost:8081/` /*,
+    baseURL: `${ENDPOINT_BASE_URL}:${ENDPOINT_PORT}/` /*,
     headers: {
       Authorization: `Bearer ${store.state.token}`
     }*/

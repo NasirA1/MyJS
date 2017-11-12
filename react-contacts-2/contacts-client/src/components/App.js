@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, NavLink, withRouter } from 'react-router-dom';
-import { Nav, Navbar, NavItem , Button, FormGroup, FormControl } from 'react-bootstrap';
+import { Grid, Row, Col, Nav, Navbar, NavItem , Button, FormGroup, FormControl } from 'react-bootstrap';
+import AlertDismissable from './AlertDismissable';
 import Home from './Home';
 import Browse from './Browse';
 import Login from './Login';
@@ -14,10 +15,14 @@ class App extends Component {
     this.props.history.push(url);
   }
 
+  onAlertDismiss() {
+
+  }
+
   render() {
     return (
-      <div>
-        <Navbar inverse fixedTop collapseOnSelect>
+      <div className="container-fixed">
+        <Navbar inverse collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
               <NavLink to="/">Contacts Manager</NavLink>
@@ -46,10 +51,20 @@ class App extends Component {
           </Nav>
         </Navbar>
 
-        <Route path="/" exact component={Home} />
-        <Route path="/browse" component={Browse} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />        
+        <Grid>
+          <Row>
+            <Col lg={6} lgOffset={3}>
+              <AlertDismissable />
+            </Col>
+          </Row>
+          
+          <Row>
+            <Route path="/" exact component={Home} />
+            <Route path="/browse" component={Browse} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />          
+          </Row>
+        </Grid>
       </div>
     );
   }

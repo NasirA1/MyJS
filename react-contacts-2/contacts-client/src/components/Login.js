@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, PageHeader, Form, FormGroup, FormControl, Col, ControlLabel, Checkbox, Panel } from 'react-bootstrap';
+import { Button, Form, FormGroup, FormControl, Col, ControlLabel, Checkbox, Panel } from 'react-bootstrap';
 import * as Services from '../Api';
 
 
@@ -48,7 +48,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="container-fixed">
+      <Col lg={6} lgOffset={3}>      
       <Panel header="Login" bsStyle="primary">      
           <Form horizontal>
             <FormGroup controlId="formHorizontalEmail">
@@ -84,7 +84,7 @@ class Login extends Component {
             </FormGroup>
           </Form>
       </Panel>
-      </div>
+      </Col>
     );
   }
 }

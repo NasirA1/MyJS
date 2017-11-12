@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import * as Services from '../Api';
-import { PageHeader } from 'react-bootstrap';
 
 
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, PageHeader, Form, FormGroup, FormControl, ControlLabel, Col, Panel, Grid, Row, HelpBlock } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button, Col, Panel } from 'react-bootstrap';
 import * as Services from '../Api';
 import _ from 'lodash';
 import * as validator from 'validator';
@@ -9,18 +9,17 @@ class Register extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       user: {
         email: '',
         firstName: '',
         lastName: '',
         password: '',
         confirmPassword: ''
-      } 
+      }
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
-    //this.getValidationState = this.getValidationState.bind(this);
   }
 
   async memberExists(email) {
@@ -43,13 +42,13 @@ class Register extends Component {
 
   onEmailChange(event) {
     this.handleInputChange(event);
-    if(this.getEmailValidationState() === 'success') {
+    if (this.getEmailValidationState() === 'success') {
       event.persist();
       this.delayedCallback(event);
     }
   }
 
-  delayedCallback = _.debounce( (event) => {
+  delayedCallback = _.debounce((event) => {
     this.memberExists(event.target.value);
   }, 1000);
 
@@ -67,48 +66,48 @@ class Register extends Component {
   }
 
   getEmailValidationState() {
-    return this.state.user.email.length > 0? 
-      validator.isEmail(this.state.user.email)? 
-        'success': 'error': null;
+    return this.state.user.email.length > 0 ?
+      validator.isEmail(this.state.user.email) ?
+        'success' : 'error' : null;
   }
 
   getNameValidationState() {
     const length = this.state.user.firstName.trim().length;
-    return length > 0? 
-      length > 1? 
-      'success': 'warning': null;  
+    return length > 0 ?
+      length > 1 ?
+        'success' : 'warning' : null;
   }
 
   getPasswordValidationState() {
     const length = this.state.user.password.length;
-    return length > 0? 
-      length > 5? 'success':
-      length > 3? 
-      'warning': 'error': null;  
+    return length > 0 ?
+      length > 5 ? 'success' :
+        length > 3 ?
+          'warning' : 'error' : null;
   }
 
   getConfirmPasswordValidationState() {
-    return this.state.user.confirmPassword.length > 0? 
-      this.state.user.confirmPassword === this.state.user.password?
-      'success': 'error': null;
+    return this.state.user.confirmPassword.length > 0 ?
+      this.state.user.confirmPassword === this.state.user.password ?
+        'success' : 'error' : null;
   }
 
   formIsValid() {
-    return this.getEmailValidationState() === 'success' && 
-      this.getNameValidationState() === 'success' && 
-      this.getPasswordValidationState() === 'success' && 
-    this.getConfirmPasswordValidationState() === 'success';
+    return this.getEmailValidationState() === 'success' &&
+      this.getNameValidationState() === 'success' &&
+      this.getPasswordValidationState() === 'success' &&
+      this.getConfirmPasswordValidationState() === 'success';
   }
 
-  
+
   async submit(event) {
     event.preventDefault();
-    if(!this.formIsValid()) return;
-    
+    if (!this.formIsValid()) return;
+
     try {
       const response = await Services.register(this.state.user);
       console.log(response.data);
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
   }
@@ -116,7 +115,7 @@ class Register extends Component {
 
   render() {
     return (
-      <div className="container-fixed">
+      <Col lg={6} lgOffset={3}>
         <Panel header="Register" bsStyle="primary">
           <Form horizontal onSubmit={this.submit.bind(this)}>
             <FormGroup controlId="formHorizontalEmail" validationState={this.getEmailValidationState()}>
@@ -164,21 +163,20 @@ class Register extends Component {
               </Col>
               <Col xs={7}>
                 <FormControl name="confirmPassword" type="password" placeholder="Confirm Password" onChange={this.handleInputChange} />
-                <FormControl.Feedback />                
+                <FormControl.Feedback />
               </Col>
             </FormGroup>
 
             <FormGroup>
               <Col sm={10} smOffset={2}>
-                <Button type="submit" style={{ float: 'right' }}>
+                <Button type="submit" style={{ float: 'right' }} disabled={!this.formIsValid()}>
                   &nbsp;&nbsp;Register&nbsp;&nbsp;
                 </Button>
               </Col>
             </FormGroup>
-            <HelpBlock>Ensure all fields are valid.</HelpBlock>
           </Form>
         </Panel>
-      </div>
+      </Col>
     );
   }
 }
