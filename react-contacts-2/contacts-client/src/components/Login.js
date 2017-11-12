@@ -24,7 +24,7 @@ class Login extends Component {
     return this.state.user.email.length > 0 && this.state.user.password.length > 0;
   }
 
-  
+
   async submit(event) {
     event.preventDefault();
     if (!this.formIsValid()) return;
@@ -32,14 +32,13 @@ class Login extends Component {
     try {
       const response = await Services.login(this.state.user);
       console.log(response.data);
-      this.props.setAlert({ message: response.data.message, bsStyle: 'success', visibility: true} );
+      this.props.setAlert({ message: response.data.message, bsStyle: 'success', visibility: true });
     } catch (err) {
       console.error(err);
-      console.error(err.response.data.error);
-      this.props.setAlert({ message: err.response.data.error, bsStyle: 'danger', visibility: true});
+      this.props.setAlert({ message: err.response.data.error, bsStyle: 'danger', visibility: true });
     }
   }
-  
+
 
 
   handleInputChange(event) {
@@ -58,9 +57,10 @@ class Login extends Component {
 
   render() {
     return (
-      <Col lg={6} lgOffset={3}>      
-      <Panel header="Login" bsStyle="primary">      
-      <Form horizontal onSubmit={this.submit.bind(this)}>
+      <Col lg={6} lgOffset={3}>
+        <div style={{ marginTop: '25%', position: 'relative' }} />
+        <Panel header="Login" bsStyle="primary">
+          <Form horizontal onSubmit={this.submit.bind(this)}>
             <FormGroup controlId="formHorizontalEmail">
               <Col componentClass={ControlLabel} xs={3}>
                 Email
@@ -89,11 +89,11 @@ class Login extends Component {
               <Col xs={12}>
                 <Button type="submit" style={{ float: 'right' }} disabled={!this.formIsValid()}>
                   &nbsp;&nbsp;Sign in&nbsp;&nbsp;
-                </Button>              
+                </Button>
               </Col>
             </FormGroup>
           </Form>
-      </Panel>
+        </Panel>
       </Col>
     );
   }

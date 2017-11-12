@@ -119,6 +119,7 @@ class Register extends Component {
   render() {
     return (
       <Col lg={6} lgOffset={3}>
+        <div style={{ marginTop: '25%', position: 'relative' }} />      
         <Panel header="Register" bsStyle="primary">
           <Form horizontal onSubmit={this.submit.bind(this)}>
             <FormGroup controlId="formHorizontalEmail" validationState={this.getEmailValidationState()}>

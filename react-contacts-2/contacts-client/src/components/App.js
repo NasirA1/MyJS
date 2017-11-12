@@ -72,12 +72,12 @@ class App extends Component {
 
         <Grid>
           <Row>
-            <Col lg={6} lgOffset={3}>
+            <div style={{zIndex: '999', position: 'fixed', width: '400px', left: '50%', marginLeft: '-200px'}}>
               <AlertDismissable title={this.state.alert.title} message={this.state.alert.message} 
                 bsStyle={this.state.alert.bsStyle} visibility={this.state.alert.visibility}
                 onDismissClick={() => this.onDismissClick()}
               />
-            </Col>
+            </div>
           </Row>
           
           <Row>
