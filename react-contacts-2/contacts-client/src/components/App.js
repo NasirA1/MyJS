@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, NavLink, withRouter } from 'react-router-dom';
-import { Grid, Row, Col, Nav, Navbar, NavItem , Button, FormGroup, FormControl } from 'react-bootstrap';
+import { Grid, Row, Col, Nav, Navbar, NavItem , Button, FormGroup, FormControl, Collapse } from 'react-bootstrap';
 import AlertDismissable from './AlertDismissable';
 import Home from './Home';
 import Browse from './Browse';
@@ -31,7 +31,7 @@ class App extends Component {
   setAlertState(alertState) {
     let state = this.state;
     state.alert = alertState;
-    this.setState(state);    
+    this.setState(state);
   }
 
   onDismissClick() {
@@ -72,12 +72,14 @@ class App extends Component {
 
         <Grid>
           <Row>
+            <Collapse in={this.state.alert.visibility}>
             <div style={{zIndex: '999', position: 'fixed', width: '360px', left: '50%', marginLeft: '-180px'}}>
               <AlertDismissable title={this.state.alert.title} message={this.state.alert.message} 
                 bsStyle={this.state.alert.bsStyle} visibility={this.state.alert.visibility}
                 onDismissClick={() => this.onDismissClick()}
               />
             </div>
+            </Collapse>
           </Row>
           
           <Row>

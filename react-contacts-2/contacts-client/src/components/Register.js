@@ -107,11 +107,10 @@ class Register extends Component {
     try {
       const response = await Services.register(this.state.user);
       console.log(response.data);
-      this.props.setAlert({ message: response.data.message, bsStyle: 'success', visibility: true} );
+      this.props.setAlert({ title: 'Success', message: response.data.message, bsStyle: 'success', visibility: true });      
     } catch (err) {
       console.error(err);
-      console.error(err.response.data.error);
-      this.props.setAlert({ message: err.response.data.error, bsStyle: 'danger', visibility: true});
+      this.props.setAlert({ title: 'Oops!', message: err.response.data.error, bsStyle: 'danger', visibility: true });      
     }
   }
 

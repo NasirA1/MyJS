@@ -15,10 +15,12 @@ class AlertDismissable extends Component {
   render() {
     if (this.props.visibility) {
       return (
-        <Alert bsStyle={this.props.bsStyle} onDismiss={this.handleAlertDismiss} style={{marginBottom: '3em'}}>
-          <h4>{this.props.title}</h4>
-          <p>{this.props.message}</p>
-        </Alert>
+        <div>
+          <Alert bsStyle={this.props.bsStyle} onDismiss={this.handleAlertDismiss}>
+            <h4>{this.props.title}</h4>
+            <p>{this.props.message}</p>
+          </Alert>
+        </div>
       );
     }
     else {
