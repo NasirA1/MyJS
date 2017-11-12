@@ -16,10 +16,10 @@ class App extends Component {
 
     this.state = {
       alert: {
-        title: 'Oops',
+        title: '',
         visibility: false,
-        message: 'Something went wrong!!!',
-        bsStyle: 'danger'
+        message: '',
+        bsStyle: ''
       }
     };
   }
@@ -83,8 +83,9 @@ class App extends Component {
           <Row>
             <Route path="/" exact component={Home} />
             <Route path="/browse" component={Browse} />
-            <Route path="/login" component={Login} />
-            {/* <Route path="/register" component={Register} setAlert={(state) => this.setAlertState(state)} /> */}
+            <Route path="/login" render={ (props) => (
+              <Login {...props} setAlert={(state) => this.setAlertState(state)} />
+            )} />
             <Route path="/register" render={ (props) => (
               <Register {...props} setAlert={(state) => this.setAlertState(state)} />
             )} />
