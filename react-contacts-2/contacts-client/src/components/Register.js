@@ -121,49 +121,49 @@ class Register extends Component {
         <Panel header="Register" className="centered" bsStyle="primary">
           <Form horizontal onSubmit={this.submit.bind(this)}>
             <FormGroup controlId="formHorizontalEmail" validationState={this.getEmailValidationState()}>
-              <Col componentClass={ControlLabel} xs={5}>
+              <Col componentClass={ControlLabel} xs={5} lg={3}>
                 Email
               </Col>
-              <Col xs={7}>
+              <Col xs={7} lg={9}>
                 <FormControl name="email" type="email" placeholder="Email" onChange={this.onEmailChange.bind(this)} />
                 <FormControl.Feedback />
               </Col>
             </FormGroup>
 
             <FormGroup controlId="formHorizontalFirstName" validationState={this.getNameValidationState()}>
-              <Col componentClass={ControlLabel} xs={5}>
+              <Col componentClass={ControlLabel} xs={5} lg={3}>
                 First Name
               </Col>
-              <Col xs={7}>
+              <Col xs={7} lg={9}>
                 <FormControl name="firstName" type="text" placeholder="First Name" onChange={this.handleInputChange} />
                 <FormControl.Feedback />
               </Col>
             </FormGroup>
 
             <FormGroup controlId="formHorizontalLastName">
-              <Col componentClass={ControlLabel} xs={5}>
+              <Col componentClass={ControlLabel} xs={5} lg={3}>
                 Last Name
               </Col>
-              <Col xs={7}>
+              <Col xs={7} lg={9}>
                 <FormControl name="lastName" type="text" placeholder="Last Name" onChange={this.handleInputChange} />
               </Col>
             </FormGroup>
 
             <FormGroup controlId="formHorizontalPassword" validationState={this.getPasswordValidationState()}>
-              <Col componentClass={ControlLabel} xs={5}>
+              <Col componentClass={ControlLabel} xs={5} lg={3}>
                 Password
               </Col>
-              <Col xs={7}>
+              <Col xs={7} lg={9}>
                 <FormControl name="password" type="password" placeholder="Password" onChange={this.handleInputChange} />
                 <FormControl.Feedback />
               </Col>
             </FormGroup>
 
             <FormGroup controlId="formHorizontalConfirmPassword" validationState={this.getConfirmPasswordValidationState()}>
-              <Col componentClass={ControlLabel} xs={5}>
+              <Col componentClass={ControlLabel} xs={5} lg={3}>
                 Confirm Password
               </Col>
-              <Col xs={7}>
+              <Col xs={7} lg={9}>
                 <FormControl name="confirmPassword" type="password" placeholder="Confirm Password" onChange={this.handleInputChange} />
                 <FormControl.Feedback />
               </Col>

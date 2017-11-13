@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, FormControl, Col, ControlLabel, Checkbox, Panel } from 'react-bootstrap';
+import { Button, Form, FormGroup, FormControl, Col, Checkbox, Panel } from 'react-bootstrap';
 import * as Services from '../Api';
 
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, NavLink, withRouter } from 'react-router-dom';
-import { Grid, Row, Col, Nav, Navbar, NavItem , Button, FormGroup, FormControl, Collapse } from 'react-bootstrap';
+import { Grid, Row, Nav, Navbar, NavItem , Button, FormControl, Collapse } from 'react-bootstrap';
 import AlertDismissable from './AlertDismissable';
 import Home from './Home';
 import Browse from './Browse';
@@ -41,7 +41,7 @@ class App extends Component {
   render() {
     return (
       <div className="container-fixed">
-        <Navbar inverse collapseOnSelect>
+        <Navbar inverse collapseOnSelect style={{zIndex: '998'}}>
           <Navbar.Header>
             <Navbar.Brand>
               <NavLink to="/">Contacts Manager</NavLink>
