@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<style>
+		.centerform h1 {
+			margin: 0;
+		}
+		.centerform {
+			max-width: 500px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			/**FOR DEMO ONLY**/
+			margin: 0;
+			padding: 20px 30px 30px;
+			box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+			background: white;
+			/**FOR DEMO ONLY**/
+		}
+		@media (max-width: 500px) {
+			.centerform {
+				min-width: 100%;
+				/**FOR DEMO ONLY**/
+				box-shadow: none;
+				background: rgba(12, 13, 14, 0.055);
+				/**FOR DEMO ONLY**/
+			}
+		}	
+	</style>
+	
+</head>
+<body>
+
+<div class="container">
+
+<hr style="border: 5px solid" />
+
+<div>
+	<form class="form-horizontal centerform">
+		<div class="input-group" style="margin-bottom: 5px">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+			<input id="email" type="text" class="form-control" name="email" placeholder="Email">
+		</div>
+		<div class="input-group"  style="margin-bottom: 5px">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+			<input id="password" type="password" class="form-control" name="password" placeholder="Password">			
+		</div>
+		<div>
+			<input class="btn pull-right" type="submit" />
+		</div>
+	</form>
+</div>
+	
+</div>
+
+</body>
+</html>
