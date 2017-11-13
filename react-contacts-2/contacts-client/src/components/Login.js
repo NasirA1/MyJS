@@ -19,6 +19,13 @@ class Login extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
+  componentWillMount() {
+    if(this.props.store.getState().user.isLoggedIn) {
+      this.props.store.dispatch({ type: 'USER_LOGOUT' });
+      this.props.navigateTo('/browse');
+    }
+  }
+
 
   formIsValid() {
     return this.state.user.email.length > 0 && this.state.user.password.length > 0;
@@ -32,7 +39,9 @@ class Login extends Component {
     try {
       const response = await Services.login(this.state.user);
       console.log(response.data);
-      this.props.setAlert({ title: 'Success', message: response.data.message, bsStyle: 'success', visibility: true });
+      this.props.store.dispatch( { type: 'USER_LOGIN', firstName: response.data.firstName, token: response.data.token } );
+      this.props.setAlert({ title: 'Login', message: response.data.message, bsStyle: 'success', visibility: true });
+      this.props.navigateTo('/browse');
     } catch (err) {
       console.error(err);
       this.props.setAlert({ title: 'Oops!', message: err.response.data.error, bsStyle: 'danger', visibility: true });

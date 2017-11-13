@@ -39,6 +39,8 @@ class App extends Component {
   }
 
   render() {
+    const appState = this.props.store.getState();
+
     return (
       <div className="container-fixed">
         <Navbar inverse collapseOnSelect style={{zIndex: '998'}}>
@@ -53,15 +55,15 @@ class App extends Component {
               <NavItem eventKey={1} onClick={this.navigateTo.bind(this, "/browse")}>Browse</NavItem>
             </Nav>
             <Nav pullRight>
-              <NavItem eventKey={2} onClick={this.navigateTo.bind(this, "/login")}>Login</NavItem>
+              <NavItem eventKey={2} onClick={this.navigateTo.bind(this, "/login")}>{ appState.user.isLoggedIn? 'Logout': 'Login' }</NavItem>
               <NavItem eventKey={3} onClick={this.navigateTo.bind(this, "/register")}>Register</NavItem>
             </Nav>
             <Navbar.Form pullRight>
               <div className="input-group">
                 <FormControl type="text" bsSize="small" placeholder="Search" />
-                <span class="input-group-btn">
+                <span className="input-group-btn">
                 <Button bsSize="small" type="submit" bsStyle="success">
-                  <span class="glyphicon glyphicon-search"></span>
+                  <span className="glyphicon glyphicon-search"></span>
                 </Button>
                 </span>
               </div>
@@ -90,7 +92,11 @@ class App extends Component {
             <Route path="/" exact component={Home} />
             <Route path="/browse" component={Browse} />
             <Route path="/login" render={ (props) => (
-              <Login {...props} setAlert={(state) => this.setAlertState(state)} />
+              <Login {...props} 
+                setAlert={(state) => this.setAlertState(state)}
+                store={this.props.store}
+                navigateTo={(url) => this.navigateTo(url)}
+              />
             )} />
             <Route path="/register" render={ (props) => (
               <Register {...props} setAlert={(state) => this.setAlertState(state)} />

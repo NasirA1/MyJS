@@ -20,7 +20,6 @@ var users = [];
 function validateReqistrationRequest(body) {
   const valid = 
     validator.isAlpha(body.firstName) && 
-    validator.isAlpha(body.lastName) && 
     validator.isEmail(body.email) &&
     validator.isLength(body.password, { min: 6, max: 32 })
   ? true: false; //Ensures a boolean result is always returned (not undefined or null)
@@ -92,12 +91,14 @@ app.post('/register', (req, res) => {
 
 
 app.post('/login', (req, res) => {
-  if(users.find(x => { return x.email === req.body.email && x.password === req.body.password })) {
+  const user = users.find(x => { return x.email === req.body.email && x.password === req.body.password });
+  if(user) {
     console.log('Login - User matched: ', req.body);
     const token = createToken(req.body);
     res.json({
+      firstName: user.firstName,
       token: token,
-      message: 'Enjoy your token!'
+      message: `Welcome, ${user.firstName}!`
     });
   }
   else {
