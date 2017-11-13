@@ -16,7 +16,33 @@
     body {
       background-color: #FFCC00;
     }
+
+		.centered {
+			max-width: 500px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: -1;
+			/**FOR DEMO ONLY**/
+			/* margin: 0;
+			padding: 20px 30px 30px;
+			box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+			background: white; */
+			/**FOR DEMO ONLY**/
+		}
+		@media (max-width: 500px) {
+			.centered {
+				min-width: 100%;
+				/**FOR DEMO ONLY**/
+				/* box-shadow: none;
+				background: rgba(12, 13, 14, 0.055); */
+				/**FOR DEMO ONLY**/
+			}
+		}	
+
   </style>
+  
   <title>Contacts Manager</title>
 </head>
 

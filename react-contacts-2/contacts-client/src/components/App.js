@@ -57,10 +57,14 @@ class App extends Component {
               <NavItem eventKey={3} onClick={this.navigateTo.bind(this, "/register")}>Register</NavItem>
             </Nav>
             <Navbar.Form pullRight>
-              <FormGroup>
-                <FormControl type="text" placeholder="Search" />
-              </FormGroup>{' '}
-              <Button type="submit">Search</Button>
+              <div className="input-group">
+                <FormControl type="text" bsSize="small" placeholder="Search" />
+                <span class="input-group-btn">
+                <Button bsSize="small" type="submit" bsStyle="success">
+                  <span class="glyphicon glyphicon-search"></span>
+                </Button>
+                </span>
+              </div>
             </Navbar.Form>
           </Navbar.Collapse>
         </Navbar>

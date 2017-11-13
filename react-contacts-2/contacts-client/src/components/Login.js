@@ -57,34 +57,22 @@ class Login extends Component {
 
   render() {
     return (
-      <Col lg={6} lgOffset={3}>
-        <div style={{ marginTop: '25%', position: 'relative' }} />
-        <Panel header="Login" bsStyle="primary">
+      <Col>
+        <Panel header="Login" className="centered" bsStyle="primary">
           <Form horizontal onSubmit={this.submit.bind(this)}>
-            <FormGroup controlId="formHorizontalEmail">
-              <Col componentClass={ControlLabel} xs={3}>
-                Email
-              </Col>
-              <Col xs={9}>
-                <FormControl type="email" name="email" placeholder="Email" onChange={this.handleInputChange} />
-              </Col>
-            </FormGroup>
-
-            <FormGroup controlId="formHorizontalPassword">
-              <Col componentClass={ControlLabel} xs={3} >
-                Password
-            </Col>
-              <Col xs={9}>
-                <FormControl type="password" name="password" placeholder="Password" onChange={this.handleInputChange} />
-              </Col>
-            </FormGroup>
-
+            <div className="input-group" style={{marginBottom: '5px'}}>
+              <span className="input-group-addon"><i className="glyphicon glyphicon-user"></i></span>
+              <FormControl type="email" name="email" placeholder="Email" onChange={this.handleInputChange} />
+            </div>
+            <div className="input-group"  style={{marginBottom: '5px'}}>
+              <span className="input-group-addon"><i className="glyphicon glyphicon-lock"></i></span>
+              <FormControl type="password" name="password" placeholder="Password" onChange={this.handleInputChange} />			
+            </div>
             <FormGroup>
               <Col xs={12}>
                 <Checkbox name="rememberMe" onChange={this.handleInputChange}>Remember me</Checkbox>
               </Col>
             </FormGroup>
-
             <FormGroup>
               <Col xs={12}>
                 <Button type="submit" style={{ float: 'right' }} disabled={!this.formIsValid()}>
