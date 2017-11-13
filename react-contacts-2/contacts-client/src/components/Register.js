@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, Button, Col, Panel } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button, Col, Panel, HelpBlock } from 'react-bootstrap';
 import * as Services from '../Api';
 import _ from 'lodash';
 import * as validator from 'validator';
@@ -15,7 +15,8 @@ class Register extends Component {
         firstName: '',
         lastName: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        unavailable: false
       }
     };
 
@@ -40,8 +41,12 @@ class Register extends Component {
     }
   }
 
-  onEmailChange(event) {
+  onEmailChange(event) {    
     this.handleInputChange(event);
+    let user = this.state.user;    
+    user.unavailable = false;
+    this.setState({user: user});
+    
     if (this.getEmailValidationState() === 'success') {
       event.persist();
       this.delayedCallback(event);
@@ -49,7 +54,17 @@ class Register extends Component {
   }
 
   delayedCallback = _.debounce((event) => {
-    this.memberExists(event.target.value);
+    let user = this.state.user;    
+    
+    this.memberExists(event.target.value).then( result => {
+      user.unavailable = result;
+      console.log(user.unavailable);
+      this.setState({user: user});
+    })
+    .catch(err => {
+      user.unavailable = false;
+      this.setState({user: user});      
+    });
   }, 1000);
 
   handleInputChange(event) {
@@ -66,8 +81,8 @@ class Register extends Component {
   }
 
   getEmailValidationState() {
-    return this.state.user.email.length > 0 ?
-      validator.isEmail(this.state.user.email) ?
+    return this.state.user.email.length > 0?
+      this.state.user.unavailable === false && validator.isEmail(this.state.user.email) ?
         'success' : 'error' : null;
   }
 
@@ -115,19 +130,31 @@ class Register extends Component {
     }
   }
 
+  getHelpText() {
+    if(this.state.user.email.trim().length > 0 && 
+        this.state.user.unavailable) {
+      return (
+        <span style={{ position: 'fixed' }} className='help-block small'>User ID already taken. Choose a different one!</span>
+      );
+    }
+  return (<span></span>);
+  }
 
   render() {
     return (
       <Col>
         <Panel header="Register" className="centered" bsStyle="primary">
           <Form horizontal onSubmit={this.submit.bind(this)}>
-            <FormGroup controlId="formHorizontalEmail" validationState={this.getEmailValidationState()}>
+            <FormGroup controlId="formHorizontalEmail" validationState={this.getEmailValidationState()} style={{marginBottom: '25px'}}>
               <Col componentClass={ControlLabel} xs={5} lg={3}>
                 Email
               </Col>
               <Col xs={7} lg={9}>
                 <FormControl name="email" type="email" placeholder="Email" onChange={this.onEmailChange.bind(this)} />
                 <FormControl.Feedback />
+              </Col>
+              <Col xs={7} xsOffset={5} lg={9} lgOffset={3}>              
+                { this.getHelpText() }
               </Col>
             </FormGroup>
 
