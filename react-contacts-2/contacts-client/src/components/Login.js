@@ -22,7 +22,7 @@ class Login extends Component {
   componentWillMount() {
     if(this.props.store.getState().user.isLoggedIn) {
       this.props.store.dispatch({ type: 'USER_LOGOUT' });
-      this.props.navigateTo('/browse');
+      this.props.navigateTo('/');
     }
   }
 

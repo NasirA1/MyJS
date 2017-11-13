@@ -55,6 +55,7 @@ class App extends Component {
               <NavItem eventKey={1} onClick={this.navigateTo.bind(this, "/browse")}>Browse</NavItem>
             </Nav>
             <Nav pullRight>
+            <NavItem>{appState.user.isLoggedIn? 'Welcome, ' + appState.user.firstName + '!': ''}</NavItem>
               <NavItem eventKey={2} onClick={this.navigateTo.bind(this, "/login")}>{ appState.user.isLoggedIn? 'Logout': 'Login' }</NavItem>
               <NavItem eventKey={3} onClick={this.navigateTo.bind(this, "/register")}>Register</NavItem>
             </Nav>
@@ -99,7 +100,10 @@ class App extends Component {
               />
             )} />
             <Route path="/register" render={ (props) => (
-              <Register {...props} setAlert={(state) => this.setAlertState(state)} />
+              <Register {...props} 
+                setAlert={(state) => this.setAlertState(state)}
+                navigateTo={(url) => this.navigateTo(url)}
+              />
             )} />
           </Row>
         </Grid>
