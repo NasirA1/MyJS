@@ -40,7 +40,6 @@ class Login extends Component {
       const response = await Services.login(this.state.user);
       console.log(response.data);
       this.props.store.dispatch( { type: 'USER_LOGIN', firstName: response.data.firstName, token: response.data.token } );
-      this.props.setAlert({ title: 'Login', message: response.data.message, bsStyle: 'success', visibility: true });
       this.props.navigateTo('/browse');
     } catch (err) {
       console.error(err);

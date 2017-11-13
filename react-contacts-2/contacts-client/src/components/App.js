@@ -38,6 +38,15 @@ class App extends Component {
     this.setAlertState({ visibility: false });
   }
 
+  getUserLink() {
+    if(this.props.store.getState().user.isLoggedIn) {
+      return (
+        <Navbar.Link href="#">{this.props.store.getState().user.firstName}</Navbar.Link>
+      );
+    }
+    return null;
+  }
+  
   render() {
     const appState = this.props.store.getState();
 
@@ -55,10 +64,13 @@ class App extends Component {
               <NavItem eventKey={1} onClick={this.navigateTo.bind(this, "/browse")}>Browse</NavItem>
             </Nav>
             <Nav pullRight>
-            <NavItem>{appState.user.isLoggedIn? 'Welcome, ' + appState.user.firstName + '!': ''}</NavItem>
               <NavItem eventKey={2} onClick={this.navigateTo.bind(this, "/login")}>{ appState.user.isLoggedIn? 'Logout': 'Login' }</NavItem>
               <NavItem eventKey={3} onClick={this.navigateTo.bind(this, "/register")}>Register</NavItem>
             </Nav>
+            <Navbar.Text pullRight>
+              {appState.user.isLoggedIn? 'Logged in as: ': ''}
+              { this.getUserLink() }
+            </Navbar.Text>            
             <Navbar.Form pullRight>
               <div className="input-group">
                 <FormControl type="text" bsSize="small" placeholder="Search" />
