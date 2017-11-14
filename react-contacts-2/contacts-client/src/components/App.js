@@ -83,11 +83,15 @@ class App extends Component {
             </Navbar.Form>
           </Navbar.Collapse>
         </Navbar>
-        <Navbar inverse fixedBottom collapseOnSelect style={{marginTop: '2em'}}>
+
+        {/* footer */}
+        <div>
+        <Navbar inverse fixedBottom>
           <Nav>
             <NavItem>© Copyright 2017</NavItem>
           </Nav>
         </Navbar>
+        </div>
 
         <Grid>
           <Row>
