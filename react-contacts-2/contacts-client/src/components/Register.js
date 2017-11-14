@@ -134,7 +134,7 @@ class Register extends Component {
     if(this.state.user.email.trim().length > 0 && 
         this.state.user.unavailable) {
       return (
-        <span style={{ position: 'fixed' }} className='help-block small'>User ID already taken. Choose a different one!</span>
+        <span style={{ position: 'fixed' }} className='help-block small'>User ID already taken!</span>
       );
     }
   return (<span></span>);

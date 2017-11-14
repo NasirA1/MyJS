@@ -27,6 +27,7 @@ class Browse extends Component {
         return (
           <div>
             <ReactTable
+              style={{background: 'white'}}
               className="-striped -highlight"
               data={this.state.contacts} columns={columns}
               defaultPageSize={8}
