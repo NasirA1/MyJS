@@ -15,19 +15,21 @@ class Browse extends Component {
       render() {
         const columns = [{
             Header: 'ID', accessor: 'id', minWidth: 50, 
-            Cell: props => <span style={{float: 'right', marginRight: '1em'}}>{props.value}</span>,
+            Cell: row => <span style={{float: 'right', marginRight: '1em'}}>{row.value}</span>,
             sortMethod: (a, b, desc) => parseInt(a, 10) > parseInt(b, 10)? 1: parseInt(a, 10) < parseInt(b, 10)? -1: 0
           },
-          {Header: 'First Name', minWidth: 150, accessor: 'firstName'},
-          {Header: 'Last Name', minWidth: 150, accessor: 'lastName'},
-          {Header: 'Email', minWidth: 200, accessor: 'email'},
-          {Header: 'Phone', minWidth: 150, accessor: 'phone'},
-          {Header: 'Address', minWidth: 300, accessor: 'address'}
+          {Header: 'First Name', accessor: 'firstName'},
+          {Header: 'Last Name', accessor: 'lastName'},
+          {
+            Header: 'Email', accessor: 'email',
+            Cell: row => <a href={`mailto:${row.value}`}>{row.value}</a>,
+          },
+          {Header: 'Phone', accessor: 'phone'},
+          {Header: 'Address', accessor: 'address'}
         ];
         return (
           <div>
             <ReactTable
-              style={{background: 'white'}}
               className="-striped -highlight"
               data={this.state.contacts} columns={columns}
               defaultPageSize={8}
