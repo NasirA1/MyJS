@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, Button, Col, Panel, HelpBlock } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button, Col, Panel } from 'react-bootstrap';
 import * as Services from '../Api';
 import _ from 'lodash';
 import * as validator from 'validator';
