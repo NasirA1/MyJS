@@ -2,6 +2,25 @@ import React, { Component } from 'react';
 import * as Services from '../Api';
 
 
+//TODO make it work!
+function handleFilter(id, value) {
+  [...document.getElementsByClassName('st-row')].forEach(row => {
+    [...row.getElementsByTagName('td')].some(cell => {
+      if (cell.className === 'td-' + id) {
+        if (!cell.innerHTML.startsWith(value)) {
+          row.style.display = 'none';
+          return true;
+        }
+        else {
+          row.style.display = 'table-row';
+          return true;
+        }
+      }
+    });
+  });
+}
+
+
 class Browse extends Component {
     
       constructor(props) {
@@ -42,7 +61,7 @@ class Browse extends Component {
         ];
                 
         return (
-          <div style={{ borderRadius: '5px', border: '1px none', padding: '5px', backgroundColor: 'white' }}>
+          <div className="simple-table">
             <table>
               {/* <caption>All Records</caption> */}
               <thead>
@@ -53,15 +72,23 @@ class Browse extends Component {
                 </tr>
               </thead>
               <tbody>
+              <tr className="filter-row">
+			          <td><input id="id" className="filter-input" type="text" onInput={handleFilter(this.id, this.value)} /></td>
+			          <td><input id="firstName" className="filter-input" type="text" onInput={handleFilter(this.id, this.value)} /></td>
+                <td><input id="lastName" className="filter-input" type="text" onInput={handleFilter(this.id, this.value)} /></td>
+                <td><input id="email" className="filter-input" type="text" onInput={handleFilter(this.id, this.value)} /></td>
+                <td><input id="phone" className="filter-input" type="text" onInput={handleFilter(this.id, this.value)} /></td>
+                <td><input id="address" className="filter-input" type="text" onInput={handleFilter(this.id, this.value)} /></td>
+		          </tr>                
                 {this.state.contacts.map( (row, i) => {
                   return (
-                  <tr key={i}>
-                    <td data-label='ID'>{ row.id }</td>
-                    <td data-label='First Name'>{ row.firstName }</td>
-                    <td data-label='Last Name'>{ row.lastName }</td>
-                    <td data-label='Email'><a href={`mailto:${row.email}`}>{ row.email }</a></td>
-                    <td data-label='Phone'>{ row.phone }</td>
-                    <td data-label='Address'>{ row.address }</td>
+                  <tr className="st-row" key={i}>
+                    <td className="td-id" data-label='ID'>{ row.id }</td>
+                    <td className="td-firstName" data-label='First Name'>{ row.firstName }</td>
+                    <td className="td-lastName" data-label='Last Name'>{ row.lastName }</td>
+                    <td className="td-email" data-label='Email'><a href={`mailto:${row.email}`}>{ row.email }</a></td>
+                    <td className="td-phone-" data-label='Phone'>{ row.phone }</td>
+                    <td className="td-address" data-label='Address'>{ row.address }</td>
                   </tr>);
                 })}                
               </tbody>
