@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+	table {
+		width: 100%;
+		background: #f1f1c1;
+	}
+	
+	table tr:nth-child(even) {
+			background-color: #eee;
+	}
+	table tr:nth-child(odd) {
+			background-color: #fff;
+	}
+	table th {
+			color: white;
+			background-color: black;
+	}
+	
+	table tfoot tr td {
+		background-color: lightblue;
+		color: white;
+	}
+	
+	.filter-input {
+		width: 100%;
+		border: 1px solid;
+	}
+	
+</style>
+</head>
+<body>
+
+<table class="simple-table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Age</th>
+		</tr>
+	</thead>
+	
+	<tfoot>
+		<tr>
+			<td>The</td>
+			<td>Footer</td>
+		</tr>
+	</tfoot>
+	
+	
+	<tbody>
+		<tr>
+			<td><input id="name" class="filter-input" type="text" oninput="handleFilter(this.id, this.value);" /></td>
+			<td><input id="age" class="filter-input" type="text" oninput="handleFilter(this.id, this.value);" /></td>
+		</tr>
+		<tr class="row">
+			<td class="td-name">Gomez</td>
+			<td class="td-age">35</td>
+		</tr>
+		<tr class="row">
+			<td class="td-name">Bob</td>
+			<td class="td-age">21</td>
+		</tr>
+		<tr class="row">
+			<td class="td-name">Alice</td>
+			<td class="td-age">34</td>
+		</tr>
+		<tr class="row">
+			<td class="td-name">Batata</td>
+			<td class="td-age">22</td>
+		</tr>		
+		<tr class="row">
+			<td class="td-name">Zarik</td>
+			<td class="td-age">1</td>
+		</tr>		
+	</tbody>
+		
+</table>
+
+<script>
+	function handleFilter(id, value) {
+		[...document.getElementsByClassName('row')].forEach(row => {
+			[...row.getElementsByTagName('td')].some(cell => {
+				if(cell.className === 'td-' + id) {
+					if(!cell.innerHTML.startsWith(value)) {
+						row.style.display = 'none';
+						return true;
+					}
+					else {
+						row.style.display = 'table-row';
+						return true;
+					}
+				}
+			});
+		});
+	}
+</script>
+
+</body>
+</html>

@@ -1,24 +1,6 @@
 import React, { Component } from 'react';
 import * as Services from '../Api';
-
-
-//TODO make it work!
-function handleFilter(id, value) {
-  [...document.getElementsByClassName('st-row')].forEach(row => {
-    [...row.getElementsByTagName('td')].some(cell => {
-      if (cell.className === 'td-' + id) {
-        if (!cell.innerHTML.startsWith(value)) {
-          row.style.display = 'none';
-          return true;
-        }
-        else {
-          row.style.display = 'table-row';
-          return true;
-        }
-      }
-    });
-  });
-}
+import ReactDOM from 'react-dom';
 
 
 class Browse extends Component {
@@ -26,6 +8,7 @@ class Browse extends Component {
       constructor(props) {
         super(props);
         this.state = { contacts: [], loading: false };
+        this.handleFilter = this.handleFilter.bind(this);
       }
 
       componentWillMount() {
@@ -49,7 +32,27 @@ class Browse extends Component {
             });                
           });
       }
-    
+
+      handleFilter(event) {
+        const id = event.target.id;
+        const value = event.target.value;
+        
+        [...document.getElementsByClassName('st-row')].forEach(row => {
+          [...row.getElementsByTagName('td')].some(cell => {
+            if (cell.className === 'td-' + id) {
+              if (!cell.innerHTML.startsWith(value)) {
+                row.style.display = 'none';
+                return true;
+              }
+              else {
+                row.style.display = 'table-row';
+                return true;
+              }
+            }
+          })
+        });
+      }
+          
       render() {
         const columns = [
           {Header: 'ID', accessor: 'id'},
@@ -73,12 +76,12 @@ class Browse extends Component {
               </thead>
               <tbody>
               <tr className="filter-row">
-			          <td><input id="id" className="filter-input" type="text" onInput={handleFilter(this.id, this.value)} /></td>
-			          <td><input id="firstName" className="filter-input" type="text" onInput={handleFilter(this.id, this.value)} /></td>
-                <td><input id="lastName" className="filter-input" type="text" onInput={handleFilter(this.id, this.value)} /></td>
-                <td><input id="email" className="filter-input" type="text" onInput={handleFilter(this.id, this.value)} /></td>
-                <td><input id="phone" className="filter-input" type="text" onInput={handleFilter(this.id, this.value)} /></td>
-                <td><input id="address" className="filter-input" type="text" onInput={handleFilter(this.id, this.value)} /></td>
+			          <td><input id="id" className="filter-input" type="text" onChange={this.handleFilter} /></td>
+			          <td><input id="firstName" className="filter-input" type="text" onChange={this.handleFilter} /></td>
+                <td><input id="lastName" className="filter-input" type="text" onChange={this.handleFilter} /></td>
+                <td><input id="email" className="filter-input" type="text" onChange={this.handleFilter} /></td>
+                <td><input id="phone" className="filter-input" type="text" onChange={this.handleFilter} /></td>
+                <td><input id="address" className="filter-input" type="text" onChange={this.handleFilter} /></td>
 		          </tr>                
                 {this.state.contacts.map( (row, i) => {
                   return (
