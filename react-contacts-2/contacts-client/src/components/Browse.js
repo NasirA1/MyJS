@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as Services from '../Api';
-import ReactDOM from 'react-dom';
 
 
 class Browse extends Component {
@@ -36,19 +35,28 @@ class Browse extends Component {
       handleFilter(event) {
         const id = event.target.id;
         const value = event.target.value;
-        
+        return this.onFilter(id, value);
+      }
+
+      onFilter(id, value, fnShowPredicate) {
         [...document.getElementsByClassName('st-row')].forEach(row => {
           [...row.getElementsByTagName('td')].some(cell => {
             if (cell.className === 'td-' + id) {
-              if (!cell.innerHTML.startsWith(value)) {
-                row.style.display = 'none';
-                return true;
+              let showCell = false;
+              if(fnShowPredicate) 
+                showCell = fnShowPredicate(value, cell.textContent);
+              else 
+                showCell = cell.textContent.startsWith(value);
+              if (showCell) {
+                row.style.display = 'table-row';
+                return true;                
               }
               else {
-                row.style.display = 'table-row';
-                return true;
+                row.style.display = 'none';
+                return true;                
               }
             }
+            return false;
           })
         });
       }
@@ -81,7 +89,13 @@ class Browse extends Component {
                 <td><input id="lastName" className="filter-input" type="text" onChange={this.handleFilter} /></td>
                 <td><input id="email" className="filter-input" type="text" onChange={this.handleFilter} /></td>
                 <td><input id="phone" className="filter-input" type="text" onChange={this.handleFilter} /></td>
-                <td><input id="address" className="filter-input" type="text" onChange={this.handleFilter} /></td>
+                <td><input id="address" className="filter-input" type="text" 
+                  onChange={(event) => { 
+                    this.onFilter(event.target.id, event.target.value, (needle, haystack) => {
+                      return haystack.includes(needle);
+                    }); 
+                  }} 
+                /></td>
 		          </tr>                
                 {this.state.contacts.map( (row, i) => {
                   return (
@@ -90,7 +104,7 @@ class Browse extends Component {
                     <td className="td-firstName" data-label='First Name'>{ row.firstName }</td>
                     <td className="td-lastName" data-label='Last Name'>{ row.lastName }</td>
                     <td className="td-email" data-label='Email'><a href={`mailto:${row.email}`}>{ row.email }</a></td>
-                    <td className="td-phone-" data-label='Phone'>{ row.phone }</td>
+                    <td className="td-phone" data-label='Phone'>{ row.phone }</td>
                     <td className="td-address" data-label='Address'>{ row.address }</td>
                   </tr>);
                 })}                
