@@ -6,8 +6,9 @@ class Browse extends Component {
     
       constructor(props) {
         super(props);
-        this.state = { contacts: [], loading: false };
+        this.state = { contacts: [], loading: false, sortToggle: false };
         this.handleFilter = this.handleFilter.bind(this);
+        this.sort = this.sort.bind(this);
       }
 
       componentWillMount() {
@@ -37,6 +38,20 @@ class Browse extends Component {
         const value = event.target.value;
         return this.onFilter(id, value);
       }
+
+      sort(event) {
+        this.sortRows(event.target.dataset.column, this.state.sortToggle);
+        let sortToggle = !this.state.sortToggle;
+        this.setState({sortToggle: sortToggle});
+      }
+
+      sortRows(column, ascending) {
+        let sortedRows = this.state.contacts.sort( (a, b) => {
+          return (ascending? a[column] < b[column]: a[column] > b[column]);
+        });
+        this.setState({contacts: sortedRows });
+      }
+      
 
       /**
        * Handler triggered when user types into any of the FILTER input boxes
@@ -85,7 +100,7 @@ class Browse extends Component {
               <thead>
                 <tr key={-1}> 
                 {columns.map( (col, i) => {
-                  return (<th scope='col' key={i}>{col.Header}</th>);
+                  return (<th data-column={col.accessor} key={i} onClick={this.sort}>{col.Header}</th>);
                 })}
                 </tr>
               </thead>
