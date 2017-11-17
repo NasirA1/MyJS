@@ -38,6 +38,13 @@ class Browse extends Component {
         return this.onFilter(id, value);
       }
 
+      /**
+       * Handler triggered when user types into any of the FILTER input boxes
+       * 
+       * @param {*} id Id of the target element
+       * @param {*} value value of the target element
+       * @param {*} fnShowPredicate is a predicate search function in the form of `(needle, haystack) => boolean` passed to onFilter
+       */
       onFilter(id, value, fnShowPredicate) {
         [...document.getElementsByClassName('st-row')].forEach(row => {
           [...row.getElementsByTagName('td')].some(cell => {
