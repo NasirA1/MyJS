@@ -41,12 +41,12 @@
 			}
 		}
 
-  .simple-table .container {
+  .contacts-table .container {
     border: 1px solid lightgray;
     border-radius: 5px;
   }
 
-	.simple-table table {
+	.contacts-table table {
 		margin: 0;
 		padding: 0;
 		width: 100%;
@@ -54,24 +54,24 @@
     cursor: pointer;
 	}
 
-	.simple-table table caption {
+	.contacts-table table caption {
 		font-size: 1.5em;
 		margin: .5em 0 .75em;
 	}
 
-	.simple-table table tr {
+	.contacts-table table tr {
 		background: #f8f8f8;
 		padding: .35em;
 	}
 
-	.simple-table table th,
-	.simple-table table td {
+	.contacts-table table th,
+	.contacts-table table td {
     border-bottom: 1px solid #ddd;
 		padding: .625em;
 		text-align: left;
 	}
 
-	.simple-table table th {
+	.contacts-table table th {
     font-weight: normal;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -79,54 +79,54 @@
 		color: white;
 	}
 
-  .simple-table tr:nth-child(even) {
+  .contacts-table tr:nth-child(even) {
     background-color: #f0f0f0;
   }
 
-  .simple-table tr:hover {
+  .contacts-table tr:hover {
     background-color: #ddd;
   }
   
 
-  .simple-table table tr:last-child td:first-child {
+  .contacts-table table tr:last-child td:first-child {
     border-bottom-left-radius: 5px;
   }
 
-  .simple-table table tr:last-child td:last-child {
+  .contacts-table table tr:last-child td:last-child {
     border-bottom-right-radius: 5px;
   }
 
-  .simple-table table th:first-child {
+  .contacts-table table th:first-child {
     border-top-left-radius: 5px;
   }
   
-  .simple-table table th:last-child {
+  .contacts-table table th:last-child {
     border-top-right-radius: 5px;
   }
 
-	.simple-table .filter-input {
+	.contacts-table .filter-input {
 		width: 100%;
 		border: 1px solid lightgray;
     border-radius: 5px;
     padding: 5px;
 	}
 
-  .simple-table .filter-row {
+  .contacts-table .filter-row {
     background-color: #ddd;
   }
   
 
 
 	@media screen and (max-width: 600px) {
-		.simple-table table, .container {
+		.contacts-table table, .container {
 			border: 0;
 		}
 
-		.simple-table table caption {
+		.contacts-table table caption {
 			font-size: 1.3em;
 		}
 
-		.simple-table table thead {
+		.contacts-table table thead {
 			border: none;
 			clip: rect(0 0 0 0);
 			height: 1px;
@@ -137,27 +137,27 @@
 			width: 1px;
 		}
 
-		.simple-table table tr {
+		.contacts-table table tr {
 			border-bottom: 3px solid #ddd;
 			display: block;
 			margin-bottom: .625em;
 		}
 
-		.simple-table table td {
+		.contacts-table table td {
 			border-bottom: 1px solid #ddd;
 			display: block;
 			font-size: .8em;
 			text-align: right;
 		}
 
-		.simple-table table td:before {
+		.contacts-table table td:before {
 			content: attr(data-label);
 			float: left;
 			font-weight: bold;
 			text-transform: uppercase;
 		}
 
-		.simple-table table td:last-child {
+		.contacts-table table td:last-child {
 			border-bottom: 0;
 		}
 	}

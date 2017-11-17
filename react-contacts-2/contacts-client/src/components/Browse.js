@@ -79,7 +79,7 @@ class Browse extends Component {
         ];
                 
         return (
-          <div className="simple-table">
+          <div className="contacts-table">
             <table>
               {/* <caption>All Records</caption> */}
               <thead>
