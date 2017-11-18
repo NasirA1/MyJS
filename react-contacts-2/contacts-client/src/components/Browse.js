@@ -40,9 +40,15 @@ class Browse extends Component {
           });
       }
 
-      onEditContactCloseClick() {
+      onEditContactCancelClick() {
         this.setState({ showEditContact: false });
-      }          
+      }
+
+      onEditContactOKClick(event) {
+        event.preventDefault();        
+        console.log("we're here!");
+        this.setState({ showEditContact: false });        
+      }
 
       handleFilter(event) {
         const id = event.target.id;
@@ -149,8 +155,9 @@ class Browse extends Component {
             </table>
             <EditContact 
               showModal={this.state.showEditContact}
-              onCloseClick={this.onEditContactCloseClick.bind(this)} 
-              contact={this.state.contacts[this.state.currentRowIndex]} 
+              onCancelClick={this.onEditContactCancelClick.bind(this)}
+              onOKClick={this.onEditContactOKClick.bind(this)}
+              contact={this.state.contacts[this.state.currentRowIndex]}
             />            
           </div>
         );

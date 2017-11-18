@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as Services from '../Api';
 import { Button, Modal, Grid, Row, Col, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 
@@ -38,17 +37,17 @@ class EditContact extends Component {
         <Modal
           show={this.props.showModal}
           onEnter={this.onOpen.bind(this)}
-          onHide={this.props.onCloseClick}
+          onHide={this.props.onCancelClick}
           keyboard enforceFocus restoreFocus 
           backdrop="static"
         >
+        <Form horizontal onSubmit={this.props.onOKClick}>
           <Modal.Header closeButton>
-            <Modal.Title>Edit Contact: {this.props.contact? this.props.contact.firstName: ''}</Modal.Title>
+            <Modal.Title>{this.props.contact? this.props.contact.firstName + ' ' + this.props.contact.lastName: ''}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Grid fluid>
               <Row className>
-              <Form horizontal>
               <FormGroup controlId="formHorizontalFirstName" >
                   <Col lg={3} componentClass={ControlLabel} style={{textAlign: 'left'}} >
                     First Name
@@ -97,14 +96,14 @@ class EditContact extends Component {
                     <FormControl.Feedback />
                   </Col>
                 </FormGroup>
-              </Form>
               </Row>
             </Grid>
           </Modal.Body>
           <Modal.Footer>
-            <Button bsStyle="danger" style={{width: '100px'}} onClick={this.props.onCloseClick}>Cancel</Button>
-            <Button bsStyle="success" type="submit" style={{width: '100px'}} onClick={this.props.onCloseClick}>Save</Button>
+            <Button bsStyle="danger" style={{width: '100px'}} onClick={this.props.onCancelClick}>Cancel</Button>
+            <Button bsStyle="success" type="submit" style={{width: '100px'}}>OK</Button>
           </Modal.Footer>
+          </Form>          
         </Modal>
       </div>
     );
