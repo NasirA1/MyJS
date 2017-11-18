@@ -49,49 +49,49 @@ class EditContact extends Component {
               <Row>
               <Form horizontal>
               <FormGroup controlId="formHorizontalFirstName" >
-                  <Col lg={1} componentClass={ControlLabel}>
+                  <Col lg={2} componentClass={ControlLabel} >
                     First Name
                   </Col>                                  
-                  <Col lg={5}>
+                  <Col lg={4}>
                     <FormControl name="firstName" type="text" placeholder="First Name" value={current? current.firstName: ''} onChange={this.handleInputChange} />
                     <FormControl.Feedback />
                   </Col>
                 </FormGroup>
 
                 <FormGroup controlId="formHorizontalLastName">
-                  <Col lg={1} componentClass={ControlLabel}>
+                  <Col lg={2} componentClass={ControlLabel}>
                     Last Name
                   </Col>
-                  <Col lg={5}>
+                  <Col lg={4}>
                     <FormControl name="lastName" type="text" placeholder="Last Name" value={current? current.lastName: ''} onChange={this.handleInputChange} />
                   </Col>
                 </FormGroup>
                 
                 <FormGroup controlId="formHorizontalEmail">
-                  <Col lg={1} componentClass={ControlLabel}>
+                  <Col lg={2} componentClass={ControlLabel}>
                     Email
                 </Col>
-                  <Col lg={5}>
+                  <Col lg={4}>
                     <FormControl name="email" type="email" placeholder="Email" value={current? current.email: ''} onChange={this.handleInputChange} />
                     <FormControl.Feedback />
                   </Col>
                 </FormGroup>
 
                 <FormGroup controlId="formHorizontalPhone">
-                  <Col lg={1} componentClass={ControlLabel}>
+                  <Col lg={2} componentClass={ControlLabel}>
                     Phone
                 </Col>
-                  <Col lg={5}>
+                  <Col lg={4}>
                     <FormControl name="phone" type="text" placeholder="Phone Number" value={current? current.phone: ''} onChange={this.handleInputChange} />
                     <FormControl.Feedback />
                   </Col>
                 </FormGroup>
                 
                 <FormGroup controlId="formHorizontalAddress">
-                  <Col lg={1} componentClass={ControlLabel}>
+                  <Col lg={2} componentClass={ControlLabel}>
                     Address
                   </Col>
-                  <Col lg={5}>
+                  <Col lg={4}>
                     <FormControl name="address" componentClass="textarea" placeholder="Address" value={current? current.address: ''} onChange={this.handleInputChange} />
                     <FormControl.Feedback />
                   </Col>
@@ -101,8 +101,8 @@ class EditContact extends Component {
             </Grid>
           </Modal.Body>
           <Modal.Footer>
-            <Button bsStyle="danger" style={{width: '70px'}} onClick={this.props.onCloseClick}>Cancel</Button>
-            <Button bsStyle="success" type="submit" style={{width: '70px'}} onClick={this.props.onCloseClick}>Save</Button>
+            <Button bsStyle="danger" style={{width: '80px'}} onClick={this.props.onCloseClick}>Cancel</Button>
+            <Button bsStyle="success" type="submit" style={{width: '80px'}} onClick={this.props.onCloseClick}>Save</Button>
           </Modal.Footer>
         </Modal>
       </div>
