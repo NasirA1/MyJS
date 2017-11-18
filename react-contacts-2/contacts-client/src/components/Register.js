@@ -199,7 +199,7 @@ class Register extends Component {
 
             <FormGroup>
               <Col sm={10} smOffset={2}>
-                <Button type="submit" style={{ float: 'right' }} disabled={!this.formIsValid()}>
+                <Button type="submit" style={{ float: 'right' }} bsStyle="primary" disabled={!this.formIsValid()}>
                   &nbsp;&nbsp;Register&nbsp;&nbsp;
                 </Button>
               </Col>

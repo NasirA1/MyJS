@@ -101,7 +101,8 @@ class EditContact extends Component {
             </Grid>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.props.onCloseClick}>Close</Button>
+            <Button bsStyle="danger" style={{width: '70px'}} onClick={this.props.onCloseClick}>Cancel</Button>
+            <Button bsStyle="success" type="submit" style={{width: '70px'}} onClick={this.props.onCloseClick}>Save</Button>
           </Modal.Footer>
         </Modal>
       </div>

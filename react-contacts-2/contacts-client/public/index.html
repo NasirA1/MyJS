@@ -2,21 +2,22 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="theme-color" content="#000000">
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
-  <style>
-    html, body {
-      height: 100%;
-    }
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="theme-color" content="#000000">
+	<link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+	<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+	<style>
+		html,
+		body {
+			height: 100%;
+		}
 
-    body {
+		body {
 			background-color: #FFCC00;
 		}
-		
+
 		.centered {
 			max-width: 500px;
 			position: absolute;
@@ -31,6 +32,7 @@
 			background: white; */
 			/**FOR DEMO ONLY**/
 		}
+
 		@media (max-width: 500px) {
 			.centered {
 				min-width: 100%;
@@ -41,136 +43,165 @@
 			}
 		}
 
-  .contacts-table .container {
-    border: 1px solid lightgray;
-    border-radius: 5px;
-  }
+		.contacts-table .container {
+			border: 1px solid lightgray;
+			border-radius: 5px;
+		}
 
-	.contacts-table table {
-		margin: 0;
-		padding: 0;
-		width: 100%;
-		table-layout: fixed;
-    cursor: pointer;
-	}
-
-	.contacts-table table caption {
-		font-size: 1.5em;
-		margin: .5em 0 .75em;
-	}
-
-	.contacts-table table tr {
-		background: #f8f8f8;
-		padding: .35em;
-	}
-
-	.contacts-table table th,
-	.contacts-table table td {
-    border-bottom: 1px solid #ddd;
-		padding: .625em;
-		text-align: left;
-	}
-
-	.contacts-table table th {
-    font-weight: normal;
-    padding-top: 10px;
-    padding-bottom: 10px;
-		background-color: #337ab7;
-		color: white;
-	}
-
-  .contacts-table tr:nth-child(even) {
-    background-color: #f0f0f0;
-  }
-
-  .contacts-table tr:hover {
-    background-color: #ddd;
-  }
-  
-
-  .contacts-table table tr:last-child td:first-child {
-    border-bottom-left-radius: 5px;
-  }
-
-  .contacts-table table tr:last-child td:last-child {
-    border-bottom-right-radius: 5px;
-  }
-
-  .contacts-table table th:first-child {
-    border-top-left-radius: 5px;
-  }
-  
-  .contacts-table table th:last-child {
-    border-top-right-radius: 5px;
-  }
-
-	.contacts-table .filter-input {
-		width: 100%;
-		border: 1px solid lightgray;
-    border-radius: 5px;
-    padding: 5px;
-	}
-
-  .contacts-table .filter-row {
-    background-color: #ddd;
-  }
-  
-
-
-	@media screen and (max-width: 600px) {
-		.contacts-table table, .container {
-			border: 0;
+		.contacts-table table {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			table-layout: fixed;
+			cursor: pointer;
 		}
 
 		.contacts-table table caption {
-			font-size: 1.3em;
-		}
-
-		.contacts-table table thead {
-			border: none;
-			clip: rect(0 0 0 0);
-			height: 1px;
-			margin: -1px;
-			overflow: hidden;
-			padding: 0;
-			position: absolute;
-			width: 1px;
+			font-size: 1.5em;
+			margin: .5em 0 .75em;
 		}
 
 		.contacts-table table tr {
-			border-bottom: 3px solid #ddd;
-			display: block;
-			margin-bottom: .625em;
+			background: #f8f8f8;
+			padding: .35em;
 		}
 
+		.contacts-table table th,
 		.contacts-table table td {
 			border-bottom: 1px solid #ddd;
-			display: block;
-			font-size: .8em;
-			text-align: right;
+			padding: .625em;
+			text-align: left;
 		}
 
-		.contacts-table table td:before {
-			content: attr(data-label);
-			float: left;
-			font-weight: bold;
-			text-transform: uppercase;
+		.contacts-table table th {
+			font-weight: normal;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			background-color: #337ab7;
+			color: white;
 		}
 
-		.contacts-table table td:last-child {
-			border-bottom: 0;
+		.contacts-table tr:nth-child(even) {
+			background-color: #f0f0f0;
 		}
-	}
 
-  </style>
-  
-  <title>Contacts Manager</title>
+		.contacts-table tr:hover {
+			background-color: #ddd;
+		}
+
+
+		.contacts-table table tr:last-child td:first-child {
+			border-bottom-left-radius: 5px;
+		}
+
+		.contacts-table table tr:last-child td:last-child {
+			border-bottom-right-radius: 5px;
+		}
+
+		.contacts-table table th:first-child {
+			border-top-left-radius: 5px;
+		}
+
+		.contacts-table table th:last-child {
+			border-top-right-radius: 5px;
+		}
+
+		.contacts-table .filter-input {
+			width: 100%;
+			border: 1px solid lightgray;
+			border-radius: 5px;
+			padding: 5px;
+		}
+
+		.contacts-table .filter-row {
+			background-color: #ddd;
+		}
+
+
+
+		@media screen and (max-width: 600px) {
+			.contacts-table table,
+			.container {
+				border: 0;
+			}
+
+			.contacts-table table caption {
+				font-size: 1.3em;
+			}
+
+			.contacts-table table thead {
+				border: none;
+				clip: rect(0 0 0 0);
+				height: 1px;
+				margin: -1px;
+				overflow: hidden;
+				padding: 0;
+				position: absolute;
+				width: 1px;
+			}
+
+			.contacts-table table tr {
+				border-bottom: 3px solid #ddd;
+				display: block;
+				margin-bottom: .625em;
+			}
+
+			.contacts-table table td {
+				border-bottom: 1px solid #ddd;
+				display: block;
+				font-size: .8em;
+				text-align: right;
+			}
+
+			.contacts-table table td:before {
+				content: attr(data-label);
+				float: left;
+				font-weight: bold;
+				text-transform: uppercase;
+			}
+
+			.contacts-table table td:last-child {
+				border-bottom: 0;
+			}
+		}
+
+
+
+		.modal-header {
+			/* background-color: #C49F0F; */
+			background-color: #337ab7;
+			padding: 9px 15px;
+			color: #FFF;
+			font-family: Verdana, sans-serif;
+			border-bottom: 1px solid #eee;
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+		}
+
+		.modal-body {
+			background-color: #F8E69E;
+			padding: 9px 15px;
+			color: #000;
+			font-family: Verdana, sans-serif;
+			border-bottom: 4px solid #C49F0F;
+		}
+
+		.modal-footer {
+			background-color: #FAEDBC;
+			color: #FFF;
+			border-bottom-left-radius: 15px;
+			border-bottom-right-radius: 15px;
+		}
+		
+	</style>
+
+	<title>Contacts Manager</title>
 </head>
 
 <body>
-  <noscript>
-    You need to enable JavaScript to run this app.
-  </noscript>
+	<noscript>
+		You need to enable JavaScript to run this app.
+	</noscript>
 	<div id="root"></div>
 	<div style="height: 60px;"></div>
 </body>

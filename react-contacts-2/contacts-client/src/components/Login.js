@@ -83,7 +83,7 @@ class Login extends Component {
             </FormGroup>
             <FormGroup>
               <Col xs={12}>
-                <Button type="submit" style={{ float: 'right' }} disabled={!this.formIsValid()}>
+                <Button type="submit" bsStyle="primary" style={{ float: 'right' }} disabled={!this.formIsValid()}>
                   &nbsp;&nbsp;Sign in&nbsp;&nbsp;
                 </Button>
               </Col>
