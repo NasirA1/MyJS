@@ -108,11 +108,6 @@ class Browse extends Component {
 
         return (
           <div className="contacts-table">
-            <EditContact 
-              showModal={this.state.showEditContact}
-              onCloseClick={this.onEditContactCloseClick.bind(this)} 
-              contact={this.state.contacts[this.state.currentRowIndex]} 
-            />
             <table>
               {/* <caption>All Records</caption> */}
               <thead>
@@ -152,6 +147,11 @@ class Browse extends Component {
                 })}                
               </tbody>
             </table>
+            <EditContact 
+              showModal={this.state.showEditContact}
+              onCloseClick={this.onEditContactCloseClick.bind(this)} 
+              contact={this.state.contacts[this.state.currentRowIndex]} 
+            />            
           </div>
         );
       }

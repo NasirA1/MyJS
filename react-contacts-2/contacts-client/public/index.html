@@ -166,6 +166,16 @@
 		}
 
 
+		/* center dialog vertically on large screens */
+		@media screen and (min-width: 600px) {
+			.modal-dialog {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -55%) !important;
+   		}
+		}
+
 		.modal-header {
 			background-color: #337ab7;
 			padding: 9px 15px;
@@ -190,9 +200,9 @@
 		.modal-footer {
 			background-color: #FAEDBC;
 			color: #FFF;
-			border-bottom-left-radius: 15px;
-			border-bottom-right-radius: 15px;
-		}
+			border-bottom-left-radius: 5px;
+			border-bottom-right-radius: 5px;
+		}		
 		
 	</style>
 

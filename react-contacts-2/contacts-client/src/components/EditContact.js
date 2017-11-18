@@ -39,59 +39,60 @@ class EditContact extends Component {
           show={this.props.showModal}
           onEnter={this.onOpen.bind(this)}
           onHide={this.props.onCloseClick}
-          keyboard enforceFocus restoreFocus
+          keyboard enforceFocus restoreFocus 
+          backdrop="static"
         >
           <Modal.Header closeButton>
             <Modal.Title>Edit Contact: {this.props.contact? this.props.contact.firstName: ''}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Grid>
-              <Row>
+            <Grid fluid>
+              <Row className>
               <Form horizontal>
               <FormGroup controlId="formHorizontalFirstName" >
-                  <Col lg={2} componentClass={ControlLabel} >
+                  <Col lg={3} componentClass={ControlLabel} style={{textAlign: 'left'}} >
                     First Name
                   </Col>                                  
-                  <Col lg={4}>
+                  <Col lg={9}>
                     <FormControl name="firstName" type="text" placeholder="First Name" value={current? current.firstName: ''} onChange={this.handleInputChange} />
                     <FormControl.Feedback />
                   </Col>
                 </FormGroup>
 
                 <FormGroup controlId="formHorizontalLastName">
-                  <Col lg={2} componentClass={ControlLabel}>
+                  <Col lg={3} componentClass={ControlLabel} style={{textAlign: 'left'}} >
                     Last Name
                   </Col>
-                  <Col lg={4}>
+                  <Col lg={9}>
                     <FormControl name="lastName" type="text" placeholder="Last Name" value={current? current.lastName: ''} onChange={this.handleInputChange} />
                   </Col>
                 </FormGroup>
                 
                 <FormGroup controlId="formHorizontalEmail">
-                  <Col lg={2} componentClass={ControlLabel}>
+                  <Col lg={3} componentClass={ControlLabel} style={{textAlign: 'left'}} >
                     Email
                 </Col>
-                  <Col lg={4}>
+                  <Col lg={9}>
                     <FormControl name="email" type="email" placeholder="Email" value={current? current.email: ''} onChange={this.handleInputChange} />
                     <FormControl.Feedback />
                   </Col>
                 </FormGroup>
 
                 <FormGroup controlId="formHorizontalPhone">
-                  <Col lg={2} componentClass={ControlLabel}>
+                  <Col lg={3} componentClass={ControlLabel} style={{textAlign: 'left'}} >
                     Phone
                 </Col>
-                  <Col lg={4}>
-                    <FormControl name="phone" type="text" placeholder="Phone Number" value={current? current.phone: ''} onChange={this.handleInputChange} />
+                  <Col lg={9}>
+                    <FormControl name="phone" type="tel" placeholder="Phone Number" value={current? current.phone: ''} onChange={this.handleInputChange} />
                     <FormControl.Feedback />
                   </Col>
                 </FormGroup>
                 
                 <FormGroup controlId="formHorizontalAddress">
-                  <Col lg={2} componentClass={ControlLabel}>
+                  <Col lg={3} componentClass={ControlLabel} style={{textAlign: 'left'}} >
                     Address
                   </Col>
-                  <Col lg={4}>
+                  <Col lg={9}>
                     <FormControl name="address" componentClass="textarea" placeholder="Address" value={current? current.address: ''} onChange={this.handleInputChange} />
                     <FormControl.Feedback />
                   </Col>
@@ -101,8 +102,8 @@ class EditContact extends Component {
             </Grid>
           </Modal.Body>
           <Modal.Footer>
-            <Button bsStyle="danger" style={{width: '80px'}} onClick={this.props.onCloseClick}>Cancel</Button>
-            <Button bsStyle="success" type="submit" style={{width: '80px'}} onClick={this.props.onCloseClick}>Save</Button>
+            <Button bsStyle="danger" style={{width: '100px'}} onClick={this.props.onCloseClick}>Cancel</Button>
+            <Button bsStyle="success" type="submit" style={{width: '100px'}} onClick={this.props.onCloseClick}>Save</Button>
           </Modal.Footer>
         </Modal>
       </div>
