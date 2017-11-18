@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import * as Services from '../Api';
+import EditContact from './EditContact';
 
 
 class Browse extends Component {
     
       constructor(props) {
         super(props);
-        this.state = { contacts: [], loading: false, sortToggle: false };
+        this.state = { 
+          contacts: [], 
+          loading: false, 
+          sortToggle: false,
+          showEditContact: false,
+          currentRowIndex: -1
+        };
         this.handleFilter = this.handleFilter.bind(this);
         this.sort = this.sort.bind(this);
       }
@@ -32,6 +39,10 @@ class Browse extends Component {
             });                
           });
       }
+
+      onEditContactCloseClick() {
+        this.setState({ showEditContact: false });
+      }          
 
       handleFilter(event) {
         const id = event.target.id;
@@ -97,6 +108,11 @@ class Browse extends Component {
 
         return (
           <div className="contacts-table">
+            <EditContact 
+              showModal={this.state.showEditContact}
+              onCloseClick={this.onEditContactCloseClick.bind(this)} 
+              contact={this.state.contacts[this.state.currentRowIndex]} 
+            />
             <table>
               {/* <caption>All Records</caption> */}
               <thead>
@@ -125,7 +141,7 @@ class Browse extends Component {
 		          </tr>                
                 {this.state.contacts.map( (row, i) => {
                   return (
-                  <tr className="st-row" key={i}>
+                  <tr className="st-row" key={i} onClick={() => this.setState({currentRowIndex: i, showEditContact: true})} >
                     <td className="td-id" data-label='ID'>{ row.id }</td>
                     <td className="td-firstName" data-label='First Name'>{ row.firstName }</td>
                     <td className="td-lastName" data-label='Last Name'>{ row.lastName }</td>
