@@ -36,18 +36,20 @@ class Browse extends Component {
       handleFilter(event) {
         const id = event.target.id;
         const value = event.target.value;
-        return this.onFilter(id, value);
+        return this.filter(id, value);
       }
 
       sort(event) {
-        this.sortRows(event.target.dataset.column, this.state.sortToggle);
+        this.sortRows(event.target.dataset.column, this.state.sortToggle, event.target.dataset.numeric);
         let sortToggle = !this.state.sortToggle;
         this.setState({sortToggle: sortToggle});
       }
 
-      sortRows(column, ascending) {
+      sortRows(column, ascending, numeric) {
         let sortedRows = this.state.contacts.sort( (a, b) => {
-          return (ascending? a[column] < b[column]: a[column] > b[column]);
+          const left = numeric? parseInt(a[column], 10): a[column];
+          const right = numeric? parseInt(b[column], 10): b[column];
+          return (ascending? left < right: left > right);
         });
         this.setState({contacts: sortedRows });
       }
@@ -58,9 +60,9 @@ class Browse extends Component {
        * 
        * @param {*} id Id of the target element
        * @param {*} value value of the target element
-       * @param {*} fnShowPredicate is a predicate search function in the form of `(needle, haystack) => boolean` passed to onFilter
+       * @param {*} fnShowPredicate is a predicate search function in the form of `(needle, haystack) => boolean` passed to filter
        */
-      onFilter(id, value, fnShowPredicate) {
+      filter(id, value, fnShowPredicate) {
         [...document.getElementsByClassName('st-row')].forEach(row => {
           [...row.getElementsByTagName('td')].some(cell => {
             if (cell.className === 'td-' + id) {
@@ -85,14 +87,14 @@ class Browse extends Component {
           
       render() {
         const columns = [
-          {Header: 'ID', accessor: 'id'},
-          {Header: 'First Name', accessor: 'firstName'},
-          {Header: 'Last Name', accessor: 'lastName'},
-          {Header: 'Email', accessor: 'email'},
-          {Header: 'Phone', accessor: 'phone'},
-          {Header: 'Address', accessor: 'address'}
+          {header: 'ID', accessor: 'id'},
+          {header: 'First Name', accessor: 'firstName'},
+          {header: 'Last Name', accessor: 'lastName'},
+          {header: 'Email', accessor: 'email'},
+          {header: 'Phone', accessor: 'phone'},
+          {header: 'Address', accessor: 'address'}
         ];
-                
+
         return (
           <div className="contacts-table">
             <table>
@@ -100,7 +102,9 @@ class Browse extends Component {
               <thead>
                 <tr key={-1}> 
                 {columns.map( (col, i) => {
-                  return (<th data-column={col.accessor} key={i} onClick={this.sort}>{col.Header}</th>);
+                  if(i === 0)
+                    return (<th data-numeric={true} data-column={col.accessor} key={i} onClick={this.sort}>{col.header}</th>);
+                  return (<th data-column={col.accessor} key={i} onClick={this.sort}>{col.header}</th>);
                 })}
                 </tr>
               </thead>
@@ -113,7 +117,7 @@ class Browse extends Component {
                 <td><input id="phone" className="filter-input" type="text" onChange={this.handleFilter} /></td>
                 <td><input id="address" className="filter-input" type="text" 
                   onChange={(event) => { 
-                    this.onFilter(event.target.id, event.target.value, (needle, haystack) => {
+                    this.filter(event.target.id, event.target.value, (needle, haystack) => {
                       return haystack.includes(needle);
                     }); 
                   }} 
