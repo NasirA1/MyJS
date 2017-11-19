@@ -40,6 +40,8 @@ class EditContact extends Component {
           onHide={this.props.onCancelClick}
           keyboard enforceFocus restoreFocus 
           backdrop="static"
+          animation 
+          autoFocus
         >
         <Form horizontal onSubmit={this.props.onOKClick}>
           <Modal.Header closeButton>
