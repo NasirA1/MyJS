@@ -43,7 +43,8 @@ class Login extends Component {
       this.props.navigateTo('/browse');
     } catch (err) {
       console.error(err);
-      this.props.setAlert({ title: 'Oops!', message: err.response.data.error, bsStyle: 'danger', visibility: true });
+      const msg = err.response && err.response.data? err.response.data.error: err.message;
+      this.props.setAlert({ title: 'Oops!', message: msg, bsStyle: 'danger', visibility: true });
     }
   }
 

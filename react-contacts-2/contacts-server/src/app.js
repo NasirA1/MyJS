@@ -186,4 +186,19 @@ app.get('/members/:email', (req, res) => {
 });
 
 
+/// From this point below, all endpoints require a token
 app.use('/', apiRoutes);
+
+app.post('/contacts', (req, res) => {
+  let old = contacts.find(x => { return x.id === req.body.id });
+  if(old) {
+    Object.assign(old, req.body);
+    res.json({ message: 'ok' });
+  } 
+  else {
+    console.log('Update failed for: ', req.body);
+    res.status(403).json({
+      error: 'Updated failed - contact does not exist!'
+    });
+  }
+});

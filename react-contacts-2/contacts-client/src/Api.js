@@ -1,20 +1,25 @@
 import axios from 'axios'
 
-function Axios() {
+function Axios(token) {
   const ENDPOINT_BASE_URL = 'http://192.168.0.14';
   const ENDPOINT_PORT = '8081';
 
   return axios.create({
-    baseURL: `${ENDPOINT_BASE_URL}:${ENDPOINT_PORT}/` /*,
-    headers: {
-      Authorization: `Bearer ${store.state.token}`
-    }*/
+    baseURL: `${ENDPOINT_BASE_URL}:${ENDPOINT_PORT}/`,
+    headers: { 
+     /* 'Authorization': `Bearer-${token}`, */
+      'x-access-token': token
+    }
   });
 }
 
 
 async function getAllContacts() {
   return Axios().get('contacts');
+}
+
+async function updateContact(contact, token) {
+  return Axios(token).post('contacts', contact);
 }
 
 async function isMember(email) {
@@ -29,4 +34,4 @@ async function login(user) {
   return Axios().post('login', user);
 }
 
-export { getAllContacts, isMember, register, login };
+export { getAllContacts, isMember, register, login, updateContact };

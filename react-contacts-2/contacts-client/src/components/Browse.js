@@ -12,7 +12,8 @@ class Browse extends Component {
           loading: false, 
           sortToggle: false,
           showEditContact: false,
-          currentRowIndex: -1
+          currentRowIndex: -1,
+          currentRow: null
         };
         this.handleFilter = this.handleFilter.bind(this);
         this.sort = this.sort.bind(this);
@@ -32,23 +33,47 @@ class Browse extends Component {
             });
           })
           .catch(err => {
-            //TODO display error alert
-            console.error(err);
-            this.setState({
+              console.error(err);
+              const msg = err.response && err.response.data? err.response.data.error: err.message;
+              this.props.setAlert({ title: 'Oops!', message: msg, bsStyle: 'danger', visibility: true });    
+              this.setState({
               loading: false
             });                
           });
       }
+
 
       onEditContactCancelClick() {
         this.setState({ showEditContact: false });
       }
 
       onEditContactOKClick(event) {
-        event.preventDefault();        
-        console.log("we're here!");
-        this.setState({ showEditContact: false });        
+        event.preventDefault();
+        Services.updateContact(this.state.currentRow, this.props.store.getState().user.token)
+        .then(res => {
+          console.log(res);
+          let contacts = this.state.contacts;
+          contacts[this.state.currentRowIndex] = Object.assign({}, this.state.currentRow);
+          this.setState({ contacts: contacts, showEditContact: false });
+        })
+        .catch(err => {
+          console.error(err);
+          const msg = err.response && err.response.data? err.response.data.error: err.message;
+          this.props.setAlert({ title: 'Oops!', message: msg, bsStyle: 'danger', visibility: true });    
+          this.setState({ showEditContact: false });          
+        });
       }
+
+      onEditContactInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+    
+        let currentRow = this.state.currentRow;
+        currentRow[name] = value;
+        this.setState({ currentRow: currentRow });
+      }
+          
 
       handleFilter(event) {
         const id = event.target.id;
@@ -119,7 +144,7 @@ class Browse extends Component {
               <thead>
                 <tr key={-1}> 
                 {columns.map( (col, i) => {
-                  if(i === 0)
+                  if(i === 0) //first row numeric sort
                     return (<th data-numeric={true} data-column={col.accessor} key={i} onClick={this.sort}>{col.header}</th>);
                   return (<th data-column={col.accessor} key={i} onClick={this.sort}>{col.header}</th>);
                 })}
@@ -142,7 +167,10 @@ class Browse extends Component {
 		          </tr>                
                 {this.state.contacts.map( (row, i) => {
                   return (
-                  <tr className="st-row" key={i} onClick={() => this.setState({currentRowIndex: i, showEditContact: true})} >
+                  <tr className="st-row" key={i} onClick={() => {
+                    let selectedRow = Object.assign({}, this.state.contacts[i]);
+                    this.setState({currentRow: selectedRow, currentRowIndex: i, showEditContact: true});                                
+                    }} >
                     <td className="td-id" data-label='ID'>{ row.id }</td>
                     <td className="td-firstName" data-label='First Name'>{ row.firstName }</td>
                     <td className="td-lastName" data-label='Last Name'>{ row.lastName }</td>
@@ -155,9 +183,10 @@ class Browse extends Component {
             </table>
             <EditContact 
               showModal={this.state.showEditContact}
+              onInputChange = {this.onEditContactInputChange.bind(this)}
               onCancelClick={this.onEditContactCancelClick.bind(this)}
               onOKClick={this.onEditContactOKClick.bind(this)}
-              contact={this.state.contacts[this.state.currentRowIndex]}
+              contact={this.state.currentRow}
             />            
           </div>
         );

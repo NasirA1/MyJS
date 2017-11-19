@@ -2,41 +2,16 @@ import React, { Component } from 'react';
 import { Button, Modal, Grid, Row, Col, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 
-class EditContact extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = { contact: null };
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  onOpen() {
-    this.setState({
-      contact: Object.assign({}, this.props.contact)
-    });
-  }
-
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
-    let contact = this.state.contact;
-    contact[name] = value;
-
-    this.setState({
-      contact: contact
-    });
-  }
+class EditContact extends Component {  
 
   render() {
-    let current = this.state.contact;
+    if(!this.props.contact)
+      return (<div></div>);
 
     return (
       <div>
         <Modal
           show={this.props.showModal}
-          onEnter={this.onOpen.bind(this)}
           onHide={this.props.onCancelClick}
           keyboard enforceFocus restoreFocus 
           backdrop="static"
@@ -45,7 +20,7 @@ class EditContact extends Component {
         >
         <Form horizontal onSubmit={this.props.onOKClick}>
           <Modal.Header closeButton>
-            <Modal.Title>{this.props.contact? this.props.contact.firstName + ' ' + this.props.contact.lastName: ''}</Modal.Title>
+            <Modal.Title>{this.props.contact.firstName + ' ' + this.props.contact.lastName}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Grid fluid>
@@ -55,7 +30,7 @@ class EditContact extends Component {
                     First Name
                   </Col>                                  
                   <Col lg={9}>
-                    <FormControl name="firstName" type="text" placeholder="First Name" value={current? current.firstName: ''} onChange={this.handleInputChange} />
+                    <FormControl name="firstName" type="text" placeholder="First Name" value={this.props.contact.firstName}  onChange={this.props.onInputChange} />
                     <FormControl.Feedback />
                   </Col>
                 </FormGroup>
@@ -65,7 +40,7 @@ class EditContact extends Component {
                     Last Name
                   </Col>
                   <Col lg={9}>
-                    <FormControl name="lastName" type="text" placeholder="Last Name" value={current? current.lastName: ''} onChange={this.handleInputChange} />
+                    <FormControl name="lastName" type="text" placeholder="Last Name" value={this.props.contact.lastName}  onChange={this.props.onInputChange} />
                   </Col>
                 </FormGroup>
                 
@@ -74,7 +49,7 @@ class EditContact extends Component {
                     Email
                 </Col>
                   <Col lg={9}>
-                    <FormControl name="email" type="email" placeholder="Email" value={current? current.email: ''} onChange={this.handleInputChange} />
+                    <FormControl name="email" type="email" placeholder="Email" value={this.props.contact.email} onChange={this.props.onInputChange} />
                     <FormControl.Feedback />
                   </Col>
                 </FormGroup>
@@ -84,7 +59,7 @@ class EditContact extends Component {
                     Phone
                 </Col>
                   <Col lg={9}>
-                    <FormControl name="phone" type="tel" placeholder="Phone Number" value={current? current.phone: ''} onChange={this.handleInputChange} />
+                    <FormControl name="phone" type="tel" placeholder="Phone Number" value={this.props.contact.phone} onChange={this.props.onInputChange} />
                     <FormControl.Feedback />
                   </Col>
                 </FormGroup>
@@ -94,7 +69,7 @@ class EditContact extends Component {
                     Address
                   </Col>
                   <Col lg={9}>
-                    <FormControl name="address" componentClass="textarea" placeholder="Address" value={current? current.address: ''} onChange={this.handleInputChange} />
+                    <FormControl name="address" componentClass="textarea" placeholder="Address" value={this.props.contact.address} onChange={this.props.onInputChange} />
                     <FormControl.Feedback />
                   </Col>
                 </FormGroup>

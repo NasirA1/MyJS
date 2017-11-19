@@ -107,7 +107,13 @@ class App extends Component {
           
           <Row>
             <Route path="/" exact component={Home} />
-            <Route path="/browse" component={Browse} />
+            <Route path="/browse" render={ (props) => (
+              <Browse {...props} 
+                setAlert={(state) => this.setAlertState(state)}
+                store={this.props.store}
+                navigateTo={(url) => this.navigateTo(url)}
+              />
+            )} />
             <Route path="/login" render={ (props) => (
               <Login {...props} 
                 setAlert={(state) => this.setAlertState(state)}
