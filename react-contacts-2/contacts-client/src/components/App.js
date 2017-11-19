@@ -29,9 +29,14 @@ class App extends Component {
   }
 
   setAlertState(alertState) {
-    let state = this.state;
-    state.alert = alertState;
-    this.setState(state);
+    this.setState( { alert: alertState });
+
+    //auto-hide after 5 seconds
+    if(alertState.visibility) {
+      setTimeout( () => {
+        this.setState( { alert: { visibility: false } } );
+      }, 5000);
+    }
   }
 
   onDismissClick() {
