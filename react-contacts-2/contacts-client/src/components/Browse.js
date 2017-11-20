@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 import * as Services from '../Api';
 import EditContact from './EditContact';
 
@@ -178,8 +178,21 @@ class Browse extends Component {
 
         return (
           <div className="contacts-table">
-            <div style={{ float: 'right', marginBottom: '10px'}}>
-              <a className="btn icon-btn btn-success" onClick={ 
+            <div className="btn-group" style={{ float: 'right', marginBottom: '10px'}}>
+            <a className="btn icon-btn btn-default" style={{color: 'gray'}} onClick={ 
+                (event) => {
+                  event.preventDefault();
+                  this.setState( {
+                    currentRowIndex: -1,
+                    currentRow: createNewContact(),
+                    showEditContact: true,
+                  });
+                } 
+              }>
+                <span className="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger"></span>
+                Del
+              </a>            
+              <a className="btn icon-btn btn-default" style={{color: 'gray'}} onClick={
                 (event) => {
                   event.preventDefault();
                   this.setState( {
