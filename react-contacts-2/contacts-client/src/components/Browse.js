@@ -26,6 +26,7 @@ class Browse extends Component {
         super(props);
         this.state = { 
           contacts: [], 
+          selected: {},
           loading: false, 
           sortToggle: false,
           showEditContact: false,
@@ -34,10 +35,20 @@ class Browse extends Component {
         };
         this.handleFilter = this.handleFilter.bind(this);
         this.handleSort = this.handleSort.bind(this);
+        this.handleToggleAll = this.handleToggleAll.bind(this);
       }
 
       componentWillMount() {
         this.fetchData();
+      }
+
+
+      fillSelectedMap(contacts, isSelected) {
+        let selectedMap = {};
+        contacts.forEach(contact => {
+          selectedMap[contact.id] = isSelected;
+        });
+        return selectedMap;
       }
 
       fetchData() {
@@ -46,6 +57,7 @@ class Browse extends Component {
           .then(res => {
             this.setState({
               contacts: res.data.Items,
+              selected: this.fillSelectedMap(res.data.Items, false),
               loading: false
             });
           })
@@ -75,10 +87,12 @@ class Browse extends Component {
           .then(res => {
             console.log(res);
             let contacts = this.state.contacts;
+            let selected = this.state.selected;
             let newContact = Object.assign({}, this.state.currentRow);
             newContact.id = res.data.id;
             contacts.push(newContact);
-            this.setState({ contacts: contacts, showEditContact: false });
+            selected[newContact.id] = false;
+            this.setState({ contacts: contacts, selected: selected, showEditContact: false });
           })
           .catch(err => {
             console.error(err);
@@ -134,6 +148,20 @@ class Browse extends Component {
           return (ascending? left < right: left > right);
         });
         this.setState({contacts: sortedRows });
+      }
+
+      handleToggle(e, id) {
+        let selected = this.state.selected;
+        selected[id] = e.target.checked;
+        this.setState( { selected: selected } );
+      }
+
+      handleToggleAll(event) {
+        let selected = this.state.selected;        
+        Object.keys(selected).forEach( key => {
+          selected[key] = event.target.checked;
+        });
+        this.setState( { selected: selected } );
       }
       
 
@@ -207,7 +235,7 @@ class Browse extends Component {
               {/* <caption>All Records</caption> */}
               <thead>
                 <tr key={-1}>
-                <th className="td-select" data-column="selectAll" key={0}>
+                <th className="td-select" key={0}>
                   Select
                 </th>
                 {columns.map( (col, i) => {
@@ -219,11 +247,8 @@ class Browse extends Component {
               </thead>
               <tbody>
               <tr className="filter-row">
-                <td className="td-select" data-column="selectAll">
-                  <Checkbox 
-                    onChange={(event) => console.log(event)} 
-                    onClick={(event) => {console.log(event); Util.cancelBubble(event); }} 
-                  />                  
+                <td className="td-select">
+                  <Checkbox onChange={this.handleToggleAll} onClick={(e) => Util.cancelBubble(e)} />
                 </td>
 			          <td><input id="id" className="filter-input" type="text" onChange={this.handleFilter} /></td>
 			          <td><input id="firstName" className="filter-input" type="text" onChange={this.handleFilter} /></td>
@@ -246,8 +271,9 @@ class Browse extends Component {
                     }} >
                     <td className="td-select">
                       <Checkbox 
-                        onChange={(event) => console.log(event)} 
-                        onClick={(event) => {console.log(event); Util.cancelBubble(event); }} 
+                        checked={this.state.selected[row.id]} 
+                        onChange={(e) => this.handleToggle(e, row.id)}
+                        onClick={(e) => Util.cancelBubble(e)} 
                       />
                     </td>
                     <td className="td-id" data-label="ID">{ row.id }</td>
