@@ -111,7 +111,7 @@ app.post('/login', (req, res) => {
 
 
 
-const contacts = [
+var contacts = [
   {
     id: '13',
     firstName: 'John',
@@ -163,6 +163,12 @@ const contacts = [
 ];
 
 
+function generateId() {
+  const max = Math.max.apply(Math, contacts.map((contact) => contact.id));
+  return max + 1;
+}
+
+
 function sleep(ms){
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -197,8 +203,39 @@ app.post('/contacts', (req, res) => {
   } 
   else {
     console.log('Update failed for: ', req.body);
-    res.status(403).json({
+    res.status(400).json({
       error: 'Updated failed - contact does not exist!'
+    });
+  }
+});
+
+
+app.put('/contacts', (req, res) => {
+  let exists = contacts.find(x => { return x.id === req.body.id });
+  if(!exists) {
+    req.body.id = generateId();
+    contacts.push(req.body);
+    res.json({ message: 'ok' });
+  } 
+  else {
+    console.log('Insert failed for: ', req.body);
+    res.status(409).json({
+      error: 'Insert failed - Contact already exists!'
+    });
+  }
+});
+
+
+app.delete('/contacts', (req, res) => {
+  let found = contacts.find(x => { return x.id === req.body.id });
+  if(found) {
+    contacts.splice(contacts.indexOf(found), 1);
+    res.json({ message: 'ok' });
+  } 
+  else {
+    console.log('Delete failed for: ', req.body);
+    res.status(400).json({
+      error: 'Delete failed - Contact does not exist!'
     });
   }
 });
