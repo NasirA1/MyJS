@@ -253,7 +253,7 @@ class Browse extends Component {
                     <td className="td-id">{ row.id }</td>
                     <td className="td-firstName">{ row.firstName }</td>
                     <td className="td-lastName">{ row.lastName }</td>
-                    <td className="td-email"><a href={`mailto:${row.email}`}>{ row.email }</a></td>
+                    <td className="td-email"><a href={`mailto:${row.email}`} onClick={(event) => Util.cancelBubble(event)}>{ row.email }</a></td>
                     <td className="td-phone">{ row.phone }</td>
                     <td className="td-address">{ row.address }</td>
                   </tr>);
