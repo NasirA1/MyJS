@@ -18,6 +18,10 @@ async function getAllContacts() {
   return Axios().get('contacts');
 }
 
+async function insertContact(contact, token) {
+  return Axios(token).put('contacts', contact);
+}
+
 async function updateContact(contact, token) {
   return Axios(token).post('contacts', contact);
 }
@@ -34,4 +38,12 @@ async function login(user) {
   return Axios().post('login', user);
 }
 
-export { getAllContacts, isMember, register, login, updateContact };
+
+export { 
+  getAllContacts, 
+  isMember, 
+  register, 
+  login, 
+  insertContact, 
+  updateContact 
+};

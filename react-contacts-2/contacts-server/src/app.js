@@ -215,7 +215,7 @@ app.put('/contacts', (req, res) => {
   if(!exists) {
     req.body.id = generateId();
     contacts.push(req.body);
-    res.json({ message: 'ok' });
+    res.json({ message: 'ok', id: req.body.id });
   } 
   else {
     console.log('Insert failed for: ', req.body);

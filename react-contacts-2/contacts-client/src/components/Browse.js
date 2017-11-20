@@ -1,6 +1,22 @@
 import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 import * as Services from '../Api';
 import EditContact from './EditContact';
+
+
+const NEW_ROW_ID = -1;
+
+function createNewContact() {
+  return {
+    id: NEW_ROW_ID,
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    address: ''
+  };
+}
+
 
 
 class Browse extends Component {
@@ -47,21 +63,44 @@ class Browse extends Component {
         this.setState({ showEditContact: false });
       }
 
+      haveNewRow() {
+        return this.state.currentRow && this.state.currentRow.id === NEW_ROW_ID;
+      }
+
       onEditContactOKClick(event) {
         event.preventDefault();
-        Services.updateContact(this.state.currentRow, this.props.store.getState().user.token)
-        .then(res => {
-          console.log(res);
-          let contacts = this.state.contacts;
-          contacts[this.state.currentRowIndex] = Object.assign({}, this.state.currentRow);
-          this.setState({ contacts: contacts, showEditContact: false });
-        })
-        .catch(err => {
-          console.error(err);
-          const msg = err.response && err.response.data? err.response.data.error: err.message;
-          this.props.setAlert({ title: 'Oops!', message: msg, bsStyle: 'danger', visibility: true });    
-          this.setState({ showEditContact: false });          
-        });
+        if(this.haveNewRow()) {
+          Services.insertContact(this.state.currentRow, this.props.store.getState().user.token)
+          .then(res => {
+            console.log(res);
+            let contacts = this.state.contacts;
+            let newContact = Object.assign({}, this.state.currentRow);
+            newContact.id = res.data.id;
+            contacts.push(newContact);
+            this.setState({ contacts: contacts, showEditContact: false });
+          })
+          .catch(err => {
+            console.error(err);
+            const msg = err.response && err.response.data? err.response.data.error: err.message;
+            this.props.setAlert({ title: 'Oops!', message: msg, bsStyle: 'danger', visibility: true });    
+            this.setState({ showEditContact: false });
+          });
+        }
+        else {
+          Services.updateContact(this.state.currentRow, this.props.store.getState().user.token)
+          .then(res => {
+            console.log(res);
+            let contacts = this.state.contacts;
+            contacts[this.state.currentRowIndex] = Object.assign({}, this.state.currentRow);
+            this.setState({ contacts: contacts, showEditContact: false });
+          })
+          .catch(err => {
+            console.error(err);
+            const msg = err.response && err.response.data? err.response.data.error: err.message;
+            this.props.setAlert({ title: 'Oops!', message: msg, bsStyle: 'danger', visibility: true });    
+            this.setState({ showEditContact: false });
+          });  
+        }
       }
 
       onEditContactInputChange(event) {
@@ -139,6 +178,21 @@ class Browse extends Component {
 
         return (
           <div className="contacts-table">
+            <div style={{ float: 'right', marginBottom: '10px'}}>
+              <a className="btn icon-btn btn-success" onClick={ 
+                (event) => {
+                  event.preventDefault();
+                  this.setState( {
+                    currentRowIndex: -1,
+                    currentRow: createNewContact(),
+                    showEditContact: true,
+                  });
+                } 
+              }>
+                <span className="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
+                New
+              </a>
+            </div>
             <table>
               {/* <caption>All Records</caption> */}
               <thead>
