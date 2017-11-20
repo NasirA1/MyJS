@@ -32,7 +32,7 @@ class Browse extends Component {
           currentRow: null
         };
         this.handleFilter = this.handleFilter.bind(this);
-        this.sort = this.sort.bind(this);
+        this.handleSort = this.handleSort.bind(this);
       }
 
       componentWillMount() {
@@ -120,7 +120,7 @@ class Browse extends Component {
         return this.filter(id, value);
       }
 
-      sort(event) {
+      handleSort(event) {
         this.sortRows(event.target.dataset.column, this.state.sortToggle, event.target.dataset.numeric);
         let sortToggle = !this.state.sortToggle;
         this.setState({sortToggle: sortToggle});
@@ -212,8 +212,8 @@ class Browse extends Component {
                 <tr key={-1}> 
                 {columns.map( (col, i) => {
                   if(i === 0) //first row numeric sort
-                    return (<th data-numeric={true} data-column={col.accessor} key={i} onClick={this.sort}>{col.header}</th>);
-                  return (<th data-column={col.accessor} key={i} onClick={this.sort}>{col.header}</th>);
+                    return (<th data-numeric={true} data-column={col.accessor} key={i} onClick={this.handleSort}>{col.header}</th>);
+                  return (<th data-column={col.accessor} key={i} onClick={this.handleSort}>{col.header}</th>);
                 })}
                 </tr>
               </thead>
