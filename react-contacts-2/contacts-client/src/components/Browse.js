@@ -250,12 +250,12 @@ class Browse extends Component {
                         onClick={(event) => {console.log(event); Util.cancelBubble(event); }} 
                       />
                     </td>
-                    <td className="td-id">{ row.id }</td>
-                    <td className="td-firstName">{ row.firstName }</td>
-                    <td className="td-lastName">{ row.lastName }</td>
-                    <td className="td-email"><a href={`mailto:${row.email}`} onClick={(event) => Util.cancelBubble(event)}>{ row.email }</a></td>
-                    <td className="td-phone">{ row.phone }</td>
-                    <td className="td-address">{ row.address }</td>
+                    <td className="td-id" data-label="ID">{ row.id }</td>
+                    <td className="td-firstName" data-label="First Name">{ row.firstName }</td>
+                    <td className="td-lastName" data-label="Last Name">{ row.lastName }</td>
+                    <td className="td-email" data-label="Email"><a href={`mailto:${row.email}`} onClick={(event) => Util.cancelBubble(event)}>{ row.email }</a></td>
+                    <td className="td-phone" data-label="Phone">{ row.phone }</td>
+                    <td className="td-address" data-label="Address">{ row.address }</td>
                   </tr>);
                 })}                
               </tbody>

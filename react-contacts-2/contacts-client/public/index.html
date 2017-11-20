@@ -18,6 +18,8 @@
 			background-color: #FFCC00;
 		}
 
+
+    /* Centers both vertically and horizontally */
 		.centered {
 			max-width: 500px;
 			position: absolute;
@@ -32,8 +34,6 @@
 			background: white; */
 			/**FOR DEMO ONLY**/
 		}
-
-
 		@media (max-width: 500px) {
 			.centered {
 				min-width: 100%;
@@ -45,6 +45,7 @@
 		}
 
 
+    /* The Browse page responsive table */
 		.contacts-table .container {
 			border: 1px solid lightgray;
 			border-radius: 5px;
@@ -75,16 +76,19 @@
 			text-align: left;
 		}
 
-		.contacts-table .td-select {
-			width: 75px;
-			text-align: center;
-			padding: 0;
-		}
+    /* only applicable to large screens */
+		@media screen and (min-width: 600px) {
+      .contacts-table .td-select {
+        width: 75px;
+        text-align: center;
+        padding: 0;
+      }
 
-		.contacts-table .td-id {
-			width: 70px;
-			text-align: right;
-		}		
+      .contacts-table .td-id {
+        width: 70px;
+        text-align: right;
+      }
+    }
 
 		.contacts-table table th {
 			font-weight: normal;
@@ -131,6 +135,7 @@
 		}
 
 
+    /* Small (mobile) screens */
 		@media screen and (max-width: 600px) {
 			.contacts-table table,
 			.container {
@@ -178,17 +183,8 @@
 		}
 
 
-		/* center dialog vertically on large screens */
 
-		@media screen and (min-width: 600px) {
-			.modal-dialog {
-				position: absolute;
-				top: 45%;
-				left: 50%;
-				transform: translate(-50%, -55%) !important;
-			}
-		}
-
+    /* Modal dialogs */
 		.modal-header {
 			background-color: #337ab7;
 			padding: 9px 15px;
@@ -217,6 +213,19 @@
 			border-bottom-right-radius: 5px;
 		}
 
+		/* center dialog vertically on large screens */
+		@media screen and (min-width: 600px) {
+			.modal-dialog {
+				position: absolute;
+				top: 45%;
+				left: 50%;
+				transform: translate(-50%, -55%) !important;
+			}
+		}
+    
+
+
+    /* Rounded buttons */
     .btn-glyphicon {
       padding:8px;
       background:#ffffff;
