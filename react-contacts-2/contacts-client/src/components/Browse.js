@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-// import { Button } from 'react-bootstrap';
+import { Checkbox } from 'react-bootstrap';
 import * as Services from '../Api';
 import EditContact from './EditContact';
+import * as Util from '../util';
 
 
 const NEW_ROW_ID = -1;
@@ -182,11 +183,7 @@ class Browse extends Component {
             <a className="btn icon-btn btn-default" style={{color: 'gray'}} onClick={ 
                 (event) => {
                   event.preventDefault();
-                  this.setState( {
-                    currentRowIndex: -1,
-                    currentRow: createNewContact(),
-                    showEditContact: true,
-                  });
+                  console.log('TODO');
                 } 
               }>
                 <span className="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger"></span>
@@ -209,26 +206,35 @@ class Browse extends Component {
             <table>
               {/* <caption>All Records</caption> */}
               <thead>
-                <tr key={-1}> 
+                <tr key={-1}>
+                <th className="td-select" data-column="selectAll" key={0}>
+                  Select
+                </th>
                 {columns.map( (col, i) => {
                   if(i === 0) //first row numeric sort
-                    return (<th data-numeric={true} data-column={col.accessor} key={i} onClick={this.handleSort}>{col.header}</th>);
+                    return (<th className="td-id" data-numeric={true} data-column={col.accessor} key={i} onClick={this.handleSort}>{col.header}</th>);
                   return (<th data-column={col.accessor} key={i} onClick={this.handleSort}>{col.header}</th>);
                 })}
                 </tr>
               </thead>
               <tbody>
               <tr className="filter-row">
+                <td className="td-select" data-column="selectAll">
+                  <Checkbox 
+                    onChange={(event) => console.log(event)} 
+                    onClick={(event) => {console.log(event); Util.cancelBubble(event); }} 
+                  />                  
+                </td>
 			          <td><input id="id" className="filter-input" type="text" onChange={this.handleFilter} /></td>
 			          <td><input id="firstName" className="filter-input" type="text" onChange={this.handleFilter} /></td>
                 <td><input id="lastName" className="filter-input" type="text" onChange={this.handleFilter} /></td>
                 <td><input id="email" className="filter-input" type="text" onChange={this.handleFilter} /></td>
                 <td><input id="phone" className="filter-input" type="text" onChange={this.handleFilter} /></td>
                 <td><input id="address" className="filter-input" type="text" 
-                  onChange={(event) => { 
+                  onChange={(event) => {
                     this.filter(event.target.id, event.target.value, (needle, haystack) => {
                       return haystack.includes(needle);
-                    }); 
+                    });
                   }} 
                 /></td>
 		          </tr>                
@@ -238,12 +244,18 @@ class Browse extends Component {
                     let selectedRow = Object.assign({}, this.state.contacts[i]);
                     this.setState({currentRow: selectedRow, currentRowIndex: i, showEditContact: true});                                
                     }} >
-                    <td className="td-id" data-label='ID'>{ row.id }</td>
-                    <td className="td-firstName" data-label='First Name'>{ row.firstName }</td>
-                    <td className="td-lastName" data-label='Last Name'>{ row.lastName }</td>
-                    <td className="td-email" data-label='Email'><a href={`mailto:${row.email}`}>{ row.email }</a></td>
-                    <td className="td-phone" data-label='Phone'>{ row.phone }</td>
-                    <td className="td-address" data-label='Address'>{ row.address }</td>
+                    <td className="td-select">
+                      <Checkbox 
+                        onChange={(event) => console.log(event)} 
+                        onClick={(event) => {console.log(event); Util.cancelBubble(event); }} 
+                      />
+                    </td>
+                    <td className="td-id">{ row.id }</td>
+                    <td className="td-firstName">{ row.firstName }</td>
+                    <td className="td-lastName">{ row.lastName }</td>
+                    <td className="td-email"><a href={`mailto:${row.email}`}>{ row.email }</a></td>
+                    <td className="td-phone">{ row.phone }</td>
+                    <td className="td-address">{ row.address }</td>
                   </tr>);
                 })}                
               </tbody>
