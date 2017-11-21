@@ -74,7 +74,7 @@ class App extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <NavItem eventKey={1} onClick={this.navigateTo.bind(this, "/browse")} /*disabled={!this.props.store.getState().user.isLoggedIn}*/>Browse</NavItem>
+              <NavItem eventKey={1} onClick={this.navigateTo.bind(this, "/browse")} disabled={!this.props.store.getState().user.isLoggedIn}>Browse</NavItem>
             </Nav>
             <Nav pullRight>
               <NavItem eventKey={2} onClick={this.navigateTo.bind(this, "/login")}>{ appState.user.isLoggedIn? 'Logout': 'Login' }</NavItem>
