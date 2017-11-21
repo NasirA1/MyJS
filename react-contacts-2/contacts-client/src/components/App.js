@@ -29,8 +29,16 @@ class App extends Component {
   }
 
   setAlertState(alertState) {
+    //quick hack for session expiry handling
+    if(alertState.message === 'Failed to authenticate token' ||
+       alertState.message === 'No token provided') {
+      alertState.message = 'Session expired. Please log in!';
+      this.props.store.dispatch({ type: 'USER_LOGOUT' });      
+      this.navigateTo('login');
+    }
+  
     this.setState( { alert: alertState });
-
+    
     //auto-hide after 5 seconds
     if(alertState.visibility) {
       setTimeout( () => {
@@ -66,7 +74,7 @@ class App extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <NavItem eventKey={1} onClick={this.navigateTo.bind(this, "/browse")}>Browse</NavItem>
+              <NavItem eventKey={1} onClick={this.navigateTo.bind(this, "/browse")} /*disabled={!this.props.store.getState().user.isLoggedIn}*/>Browse</NavItem>
             </Nav>
             <Nav pullRight>
               <NavItem eventKey={2} onClick={this.navigateTo.bind(this, "/login")}>{ appState.user.isLoggedIn? 'Logout': 'Login' }</NavItem>

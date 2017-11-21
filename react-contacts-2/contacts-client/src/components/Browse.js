@@ -54,7 +54,7 @@ class Browse extends Component {
 
       fetchData() {
         this.setState({loading: true});
-        Services.getAllContacts()
+        Services.getAllContacts(this.props.store.getState().user.token)
           .then(res => {
             this.setState({
               contacts: res.data.Items,
