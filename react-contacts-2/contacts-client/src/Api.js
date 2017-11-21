@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 function Axios(token) {
-  const ENDPOINT_BASE_URL = 'http://192.168.0.14';
-  //const ENDPOINT_BASE_URL = 'http://172.28.229.226';
+  //const ENDPOINT_BASE_URL = 'http://192.168.0.14';
+  const ENDPOINT_BASE_URL = 'http://172.28.229.226';
   const ENDPOINT_PORT = '8081';
 
   return axios.create({
@@ -23,8 +23,8 @@ async function insertContact(contact, token) {
   return Axios(token).put('contacts', contact);
 }
 
-async function deleteContact(contactId, token) {
-  return Axios(token).delete('contacts', { id: contactId});
+async function deleteContacts(contactIds, token) {
+  return Axios(token).post('contacts/delete', { ids: contactIds});
 }
 
 async function updateContact(contact, token) {
@@ -50,5 +50,6 @@ export {
   register, 
   login, 
   insertContact, 
-  updateContact
+  updateContact,
+  deleteContacts
 };

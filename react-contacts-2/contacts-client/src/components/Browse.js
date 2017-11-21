@@ -36,6 +36,7 @@ class Browse extends Component {
         this.handleFilter = this.handleFilter.bind(this);
         this.handleSort = this.handleSort.bind(this);
         this.handleToggleAll = this.handleToggleAll.bind(this);
+        this.handleDeleteContacts = this.handleDeleteContacts.bind(this);
       }
 
       componentWillMount() {
@@ -114,7 +115,7 @@ class Browse extends Component {
             const msg = err.response && err.response.data? err.response.data.error: err.message;
             this.props.setAlert({ title: 'Oops!', message: msg, bsStyle: 'danger', visibility: true });    
             this.setState({ showEditContact: false });
-          });  
+          });
         }
       }
 
@@ -163,6 +164,25 @@ class Browse extends Component {
         });
         this.setState( { selected: selected } );
       }
+
+      handleDeleteContacts(event) {
+        const ids = Object.keys(this.state.selected).filter(key => this.state.selected[key]);
+        if(ids.length <= 0) {
+          console.log('no item selected');
+          return;
+        }
+
+        Services.deleteContacts(ids, this.props.store.getState().user.token)
+        .then(res => {
+          const contacts = this.state.contacts.filter(contact => !res.data.deleted.includes(contact.id) );
+          this.setState( { contacts: contacts, selected: this.fillSelectedMap(contacts, false) } );
+        })
+        .catch(err => {
+          console.error(err);
+          const msg = err.response && err.response.data? err.response.data.error: err.message;
+          this.props.setAlert({ title: 'Oops!', message: msg, bsStyle: 'danger', visibility: true });
+        });      
+      }
       
 
       /**
@@ -208,12 +228,7 @@ class Browse extends Component {
         return (
           <div className="contacts-table">
             <div className="btn-group" style={{ float: 'right', marginBottom: '10px'}}>
-            <a className="btn icon-btn btn-default" style={{color: 'gray'}} onClick={ 
-                (event) => {
-                  event.preventDefault();
-                  console.log('TODO');
-                } 
-              }>
+              <a className="btn icon-btn btn-default" style={{color: 'gray'}} onClick={this.handleDeleteContacts}>
                 <span className="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger"></span>
                 Del
               </a>            

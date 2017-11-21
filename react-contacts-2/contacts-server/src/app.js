@@ -226,16 +226,16 @@ app.put('/contacts', (req, res) => {
 });
 
 
-app.delete('/contacts', (req, res) => {
-  let found = contacts.find(x => { return x.id === req.body.id });
-  if(found) {
-    contacts.splice(contacts.indexOf(found), 1);
-    res.json({ message: 'ok' });
-  } 
-  else {
-    console.log('Delete failed for: ', req.body);
-    res.status(400).json({
-      error: 'Delete failed - Contact does not exist!'
-    });
-  }
+app.post('/contacts/delete', (req, res) => {
+  let deleted = [];
+
+  req.body.ids.forEach(id => {
+    let found = contacts.find(x => { return x.id === id });
+    if(found) {
+      contacts.splice(contacts.indexOf(found), 1);
+      deleted.push(id);
+    }
+  });
+
+  res.json({ message: 'ok', deleted: deleted});
 });
