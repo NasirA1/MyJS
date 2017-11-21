@@ -90,7 +90,7 @@ function validateReqistrationRequest(body) {
 
 function createToken(payload) {
   let token = jwt.sign(payload, 'secret', {
-    expiresIn: 20 //3600 //expires 1 hour
+    expiresIn: 3600 //expires 1 hour
   });
 
   return token;
