@@ -86,7 +86,6 @@ class Browse extends Component {
         if(this.haveNewRow()) {
           Services.insertContact(this.state.currentRow, this.props.store.getState().user.token)
           .then(res => {
-            console.log(res);
             let contacts = this.state.contacts;
             let selected = this.state.selected;
             let newContact = Object.assign({}, this.state.currentRow);
