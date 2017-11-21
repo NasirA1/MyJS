@@ -104,7 +104,6 @@ class Browse extends Component {
         else {
           Services.updateContact(this.state.currentRow, this.props.store.getState().user.token)
           .then(res => {
-            console.log(res);
             let contacts = this.state.contacts;
             contacts[this.state.currentRowIndex] = Object.assign({}, this.state.currentRow);
             this.setState({ contacts: contacts, showEditContact: false });
