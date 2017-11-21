@@ -19,7 +19,6 @@ function createNewContact() {
 }
 
 
-
 class Browse extends Component {
     
       constructor(props) {
@@ -27,6 +26,7 @@ class Browse extends Component {
         this.state = { 
           contacts: [], 
           selected: {},
+          toggleAll: false,
           loading: false, 
           sortToggle: false,
           showEditContact: false,
@@ -162,7 +162,7 @@ class Browse extends Component {
         Object.keys(selected).forEach( key => {
           selected[key] = event.target.checked;
         });
-        this.setState( { selected: selected } );
+        this.setState( { selected: selected, toggleAll: !this.state.toggleAll } );
       }
 
       handleDeleteContacts(event) {
@@ -175,7 +175,7 @@ class Browse extends Component {
         Services.deleteContacts(ids, this.props.store.getState().user.token)
         .then(res => {
           const contacts = this.state.contacts.filter(contact => !res.data.deleted.includes(contact.id) );
-          this.setState( { contacts: contacts, selected: this.fillSelectedMap(contacts, false) } );
+          this.setState( { contacts: contacts, selected: this.fillSelectedMap(contacts, false), toggleAll: false } );
         })
         .catch(err => {
           console.error(err);
@@ -263,7 +263,10 @@ class Browse extends Component {
               <tbody>
               <tr className="filter-row">
                 <td className="td-select">
-                  <Checkbox onChange={this.handleToggleAll} onClick={(e) => Util.cancelBubble(e)} />
+                  <Checkbox 
+                    checked={this.state.toggleAll}
+                    onChange={this.handleToggleAll} onClick={(e) => Util.cancelBubble(e)}
+                  />
                 </td>
 			          <td><input id="id" className="filter-input" type="text" onChange={this.handleFilter} /></td>
 			          <td><input id="firstName" className="filter-input" type="text" onChange={this.handleFilter} /></td>
@@ -286,9 +289,9 @@ class Browse extends Component {
                     }} >
                     <td className="td-select">
                       <Checkbox 
-                        checked={this.state.selected[row.id]} 
+                        checked={this.state.selected[row.id]}
                         onChange={(e) => this.handleToggle(e, row.id)}
-                        onClick={(e) => Util.cancelBubble(e)} 
+                        onClick={(e) => Util.cancelBubble(e)}
                       />
                     </td>
                     <td className="td-id" data-label="ID">{ row.id }</td>

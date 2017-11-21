@@ -165,7 +165,7 @@ var contacts = [
 
 function generateId() {
   const max = contacts.length > 0? Math.max.apply(Math, contacts.map((contact) => contact.id)): 0;
-  return max + 1;
+  return (max + 1).toString();
 }
 
 
