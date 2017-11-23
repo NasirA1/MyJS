@@ -66,8 +66,8 @@ class Login extends Component {
 
   render() {
     return (
-      <Col lg={4} lgOffset={4} className="vertical-align-parent">
-      <div className="vertical-align-child">
+      <Col lg={4} lgOffset={4}>
+      <div className="centered-parent"><div className="centered-child">
         <Panel header="Login" className="" bsStyle="primary">
         <Grid fluid>
           <Row>          
@@ -82,11 +82,6 @@ class Login extends Component {
             </div>
             <FormGroup>
               <Col xs={12}>
-                <Checkbox name="rememberMe" onChange={this.handleInputChange}>Remember me</Checkbox>
-              </Col>
-            </FormGroup>
-            <FormGroup>
-              <Col xs={12}>
                 <Button type="submit" bsStyle="primary" style={{ float: 'right' }} disabled={!this.formIsValid()}>
                   &nbsp;&nbsp;Sign in&nbsp;&nbsp;
                 </Button>
@@ -96,7 +91,7 @@ class Login extends Component {
           </Row>
         </Grid>          
         </Panel>
-        </div>
+        </div></div>
       </Col>
     );
   }

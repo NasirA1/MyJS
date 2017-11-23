@@ -9,8 +9,7 @@
 	<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
 	<style>
-		html,
-		body {
+		html, body {
 			height: 100%;
 		}
 
@@ -44,23 +43,37 @@
 			}
 		}
 
-
-    .vertical-align-parent {
-      text-align: center;
-      height: 430px;
+    .centered-parent {
+			/* needed by vertical center in child */
+			height: 350px;
+			
+			/* horizontal center of child */
+			text-align: center;
+			
+			/* border: 1px dashed red; */
     }
 
-    .vertical-align-child {
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%);
+    .centered-child {
+			/* autosize to content */
+			display: inline-block;
+			
+			/* vertical-align center */
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+			
+			/* For Demo purpose only */
+			/* border: 1px dashed gray;
+			padding: 30px; */
     }
+		
 
-    @media only screen and (min-width: 40em) {
-      .vertical-align-parent {
-        height: 670px;
+    @media screen and (min-width: 40em) {
+      .centered-parent {
+        height: 700px;
       }
     }
+
 
 
     /* The Browse page responsive table */
