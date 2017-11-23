@@ -135,74 +135,73 @@ class Register extends Component {
     if (this.state.user.email.trim().length > 0 &&
       this.state.user.unavailable) {
       return (
-        <span style={{ position: 'fixed' }} className='help-block small'>User ID already taken!</span>
+        <span style={{float: 'right', margin: '0'}} className='help-block small'>User ID already taken!</span>
       );
     }
-    return (<span></span>);
+    return null;
   }
 
   render() {
     return (
-      <Col lg={6} lgOffset={3} className="vertical-align-parent">
+      <Col lg={4} lgOffset={4} className="vertical-align-parent">
         <div className="vertical-align-child">
         <Panel header="Register" bsStyle="primary">
           <Grid fluid>
             <Row>
               <Form horizontal onSubmit={this.submit.bind(this)}>
-                <FormGroup controlId="formHorizontalEmail" validationState={this.getEmailValidationState()} style={{ marginBottom: '25px' }}>
-                  <Col componentClass={ControlLabel} xs={5} lg={3}>
-                    Email
-                  </Col>
-                  <Col xs={7} lg={9}>
-                    <FormControl name="email" type="email" placeholder="Email" onChange={this.onEmailChange.bind(this)} />
-                    <FormControl.Feedback />
-                  </Col>
-                  <Col xs={7} xsOffset={5} lg={9} lgOffset={3}>
-                    {this.getHelpText()}
+                <FormGroup controlId="formHorizontalEmail" validationState={this.getEmailValidationState()}>
+                  <Col lg={12}>
+                    <div className="input-group">
+                      <span className="input-group-addon"><i className="glyphicon glyphicon-envelope"></i></span>
+                      <FormControl name="email" type="email" placeholder="Email" onChange={this.onEmailChange.bind(this)} />
+                      <FormControl.Feedback />
+                    </div>
+                    {this.getHelpText()}                    
                   </Col>
                 </FormGroup>
 
                 <FormGroup controlId="formHorizontalFirstName" validationState={this.getNameValidationState()}>
-                  <Col componentClass={ControlLabel} xs={5} lg={3}>
-                    First Name
-                  </Col>
-                  <Col xs={7} lg={9}>
-                    <FormControl name="firstName" type="text" placeholder="First Name" onChange={this.handleInputChange} />
-                    <FormControl.Feedback />
+                  <Col lg={12}>
+                    <div className="input-group">
+                      <span className="input-group-addon"><i className="glyphicon glyphicon-user"></i></span>
+                      <FormControl name="firstName" type="text" placeholder="First Name" onChange={this.handleInputChange} />
+                      <FormControl.Feedback />
+                    </div>
                   </Col>
                 </FormGroup>
 
                 <FormGroup controlId="formHorizontalLastName">
-                  <Col componentClass={ControlLabel} xs={5} lg={3}>
-                    Last Name
-                  </Col>
-                  <Col xs={7} lg={9}>
-                    <FormControl name="lastName" type="text" placeholder="Last Name" onChange={this.handleInputChange} />
+                  <Col lg={12}>
+                    <div className="input-group">
+                      <span className="input-group-addon"><i className="glyphicon glyphicon-user"></i></span>
+                      <FormControl name="lastName" type="text" placeholder="Last Name" onChange={this.handleInputChange} />
+                    </div>
                   </Col>
                 </FormGroup>
 
                 <FormGroup controlId="formHorizontalPassword" validationState={this.getPasswordValidationState()}>
-                  <Col componentClass={ControlLabel} xs={5} lg={3}>
-                    Password
-                  </Col>
-                  <Col xs={7} lg={9}>
-                    <FormControl name="password" type="password" placeholder="Password" onChange={this.handleInputChange} />
-                    <FormControl.Feedback />
+                  <Col lg={12}>
+                    <div className="input-group">
+                      <span className="input-group-addon"><i className="glyphicon glyphicon-lock"></i></span>
+                      <FormControl name="password" type="password" placeholder="Password" onChange={this.handleInputChange} />
+                      <FormControl.Feedback />
+                    </div>
                   </Col>
                 </FormGroup>
 
                 <FormGroup controlId="formHorizontalConfirmPassword" validationState={this.getConfirmPasswordValidationState()}>
-                  <Col componentClass={ControlLabel} xs={5} lg={3}>
-                    Confirm Password
+                  <Col lg={12}>
+                    <div className="input-group">
+                      <span className="input-group-addon"><i className="glyphicon glyphicon-lock"></i></span>
+                      <FormControl name="confirmPassword" type="password" placeholder="Confirm Password" onChange={this.handleInputChange} />
+                      <FormControl.Feedback />
+                    </div>
                   </Col>
-                  <Col xs={7} lg={9}>
-                    <FormControl name="confirmPassword" type="password" placeholder="Confirm Password" onChange={this.handleInputChange} />
-                    <FormControl.Feedback />
-                  </Col>
+
                 </FormGroup>
 
                 <FormGroup>
-                  <Col sm={10} smOffset={2}>
+                  <Col lg={10} lgOffset={2}>
                     <Button type="submit" style={{ float: 'right' }} bsStyle="primary" disabled={!this.formIsValid()}>
                       &nbsp;&nbsp;Register&nbsp;&nbsp;
                     </Button>

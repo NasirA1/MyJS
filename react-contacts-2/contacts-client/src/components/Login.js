@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, FormControl, Col, Checkbox, Panel } from 'react-bootstrap';
+import { Button, Form, FormGroup, FormControl, Col, Checkbox, Panel, Grid, Row } from 'react-bootstrap';
 import * as Services from '../Api';
 
 
@@ -66,8 +66,11 @@ class Login extends Component {
 
   render() {
     return (
-      <Col>
-        <Panel header="Login" className="centered" bsStyle="primary">
+      <Col lg={4} lgOffset={4} className="vertical-align-parent">
+      <div className="vertical-align-child">
+        <Panel header="Login" className="" bsStyle="primary">
+        <Grid fluid>
+          <Row>          
           <Form horizontal onSubmit={this.submit.bind(this)}>
             <div className="input-group" style={{marginBottom: '5px'}}>
               <span className="input-group-addon"><i className="glyphicon glyphicon-user"></i></span>
@@ -90,7 +93,10 @@ class Login extends Component {
               </Col>
             </FormGroup>
           </Form>
+          </Row>
+        </Grid>          
         </Panel>
+        </div>
       </Col>
     );
   }
