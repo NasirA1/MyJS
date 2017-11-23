@@ -1,0 +1,91 @@
+<html>
+<head>
+
+<style>
+html, body {
+  height: 99%;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+
+.container {
+}
+
+.centered-parent {
+  /* needed by vertical center in child */
+  height: 100%;
+  
+  /* horizontal center of child */
+  text-align: center;
+  
+  border: 1px dashed gray;  
+}
+
+.centered-child {
+  /* autosize to content */
+  display: inline-block;
+  
+  /* vertical-align center */
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  /* For Demo purpose only */
+  /* border: 1px dashed gray; */
+  /* padding: 30px; */
+}
+
+
+input, label {
+  padding: 5px;
+}
+
+input[type=email],
+input[type=password] {
+  text-align: left;
+}
+
+label {
+  text-align: right;
+}
+
+input[type=submit] {
+  grid-column: 2 / 2;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-gap: 16px;
+}
+
+fieldset {
+  padding: 50px;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+  <div class="centered-parent">
+    <div class="centered-child">
+      <fieldset>
+        <legend>Sign in</legend>
+        <form method="post">
+          <label for="email">Email</label><input type="email" placeholder="Email" name="email" />
+          <label for="password">Password</label><input type="password" placeholder="Password" name="password" />
+          <input type="submit" value="Sign in" />
+        </form>
+      </fieldset>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
