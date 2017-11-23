@@ -44,10 +44,24 @@
 			}
 		}
 
-    .vertical-align {
-      display: flex;
-      align-items: center;
+
+    .vertical-align-parent {
+      text-align: center;
+      height: 430px;
     }
+
+    .vertical-align-child {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    @media only screen and (min-width: 40em) {
+      .vertical-align-parent {
+        height: 670px;
+      }
+    }
+
 
     /* The Browse page responsive table */
 		.contacts-table .container {

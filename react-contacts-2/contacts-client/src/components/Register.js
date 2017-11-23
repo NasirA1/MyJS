@@ -143,8 +143,8 @@ class Register extends Component {
 
   render() {
     return (
-      <Col lg={6} lgOffset={3}>
-        <div>
+      <Col lg={6} lgOffset={3} className="vertical-align-parent">
+        <div className="vertical-align-child">
         <Panel header="Register" bsStyle="primary">
           <Grid fluid>
             <Row>
