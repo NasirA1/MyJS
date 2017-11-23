@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, Button, Col, Panel } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button, Col, Panel, Grid, Row } from 'react-bootstrap';
 import * as Services from '../Api';
 import _ from 'lodash';
 import * as validator from 'validator';
@@ -41,12 +41,12 @@ class Register extends Component {
     }
   }
 
-  onEmailChange(event) {    
+  onEmailChange(event) {
     this.handleInputChange(event);
-    let user = this.state.user;    
+    let user = this.state.user;
     user.unavailable = false;
-    this.setState({user: user});
-    
+    this.setState({ user: user });
+
     if (this.getEmailValidationState() === 'success') {
       event.persist();
       this.delayedCallback(event);
@@ -54,17 +54,17 @@ class Register extends Component {
   }
 
   delayedCallback = _.debounce((event) => {
-    let user = this.state.user;    
-    
-    this.memberExists(event.target.value).then( result => {
+    let user = this.state.user;
+
+    this.memberExists(event.target.value).then(result => {
       user.unavailable = result;
       console.log(user.unavailable);
-      this.setState({user: user});
+      this.setState({ user: user });
     })
-    .catch(err => {
-      user.unavailable = false;
-      this.setState({user: user});      
-    });
+      .catch(err => {
+        user.unavailable = false;
+        this.setState({ user: user });
+      });
   }, 1000);
 
   handleInputChange(event) {
@@ -81,7 +81,7 @@ class Register extends Component {
   }
 
   getEmailValidationState() {
-    return this.state.user.email.length > 0?
+    return this.state.user.email.length > 0 ?
       this.state.user.unavailable === false && validator.isEmail(this.state.user.email) ?
         'success' : 'error' : null;
   }
@@ -114,7 +114,7 @@ class Register extends Component {
       this.getConfirmPasswordValidationState() === 'success';
   }
 
-  
+
   async submit(event) {
     event.preventDefault();
     if (!this.formIsValid()) return;
@@ -126,87 +126,93 @@ class Register extends Component {
       this.props.navigateTo('/login');
     } catch (err) {
       console.error(err);
-      const msg = err.response && err.response.data? err.response.data.error: err.message;
-      this.props.setAlert({ title: 'Oops!', message: msg, bsStyle: 'danger', visibility: true });    
+      const msg = err.response && err.response.data ? err.response.data.error : err.message;
+      this.props.setAlert({ title: 'Oops!', message: msg, bsStyle: 'danger', visibility: true });
     }
   }
 
   getHelpText() {
-    if(this.state.user.email.trim().length > 0 && 
-        this.state.user.unavailable) {
+    if (this.state.user.email.trim().length > 0 &&
+      this.state.user.unavailable) {
       return (
         <span style={{ position: 'fixed' }} className='help-block small'>User ID already taken!</span>
       );
     }
-  return (<span></span>);
+    return (<span></span>);
   }
 
   render() {
     return (
-      <Col>
-        <Panel header="Register" className="centered" bsStyle="primary">
-          <Form horizontal onSubmit={this.submit.bind(this)}>
-            <FormGroup controlId="formHorizontalEmail" validationState={this.getEmailValidationState()} style={{marginBottom: '25px'}}>
-              <Col componentClass={ControlLabel} xs={5} lg={3}>
-                Email
-              </Col>
-              <Col xs={7} lg={9}>
-                <FormControl name="email" type="email" placeholder="Email" onChange={this.onEmailChange.bind(this)} />
-                <FormControl.Feedback />
-              </Col>
-              <Col xs={7} xsOffset={5} lg={9} lgOffset={3}>              
-                { this.getHelpText() }
-              </Col>
-            </FormGroup>
+      <Col lg={6} lgOffset={3}>
+        <div>
+        <Panel header="Register" bsStyle="primary">
+          <Grid fluid>
+            <Row>
+              <Form horizontal onSubmit={this.submit.bind(this)}>
+                <FormGroup controlId="formHorizontalEmail" validationState={this.getEmailValidationState()} style={{ marginBottom: '25px' }}>
+                  <Col componentClass={ControlLabel} xs={5} lg={3}>
+                    Email
+                  </Col>
+                  <Col xs={7} lg={9}>
+                    <FormControl name="email" type="email" placeholder="Email" onChange={this.onEmailChange.bind(this)} />
+                    <FormControl.Feedback />
+                  </Col>
+                  <Col xs={7} xsOffset={5} lg={9} lgOffset={3}>
+                    {this.getHelpText()}
+                  </Col>
+                </FormGroup>
 
-            <FormGroup controlId="formHorizontalFirstName" validationState={this.getNameValidationState()}>
-              <Col componentClass={ControlLabel} xs={5} lg={3}>
-                First Name
-              </Col>
-              <Col xs={7} lg={9}>
-                <FormControl name="firstName" type="text" placeholder="First Name" onChange={this.handleInputChange} />
-                <FormControl.Feedback />
-              </Col>
-            </FormGroup>
+                <FormGroup controlId="formHorizontalFirstName" validationState={this.getNameValidationState()}>
+                  <Col componentClass={ControlLabel} xs={5} lg={3}>
+                    First Name
+                  </Col>
+                  <Col xs={7} lg={9}>
+                    <FormControl name="firstName" type="text" placeholder="First Name" onChange={this.handleInputChange} />
+                    <FormControl.Feedback />
+                  </Col>
+                </FormGroup>
 
-            <FormGroup controlId="formHorizontalLastName">
-              <Col componentClass={ControlLabel} xs={5} lg={3}>
-                Last Name
-              </Col>
-              <Col xs={7} lg={9}>
-                <FormControl name="lastName" type="text" placeholder="Last Name" onChange={this.handleInputChange} />
-              </Col>
-            </FormGroup>
+                <FormGroup controlId="formHorizontalLastName">
+                  <Col componentClass={ControlLabel} xs={5} lg={3}>
+                    Last Name
+                  </Col>
+                  <Col xs={7} lg={9}>
+                    <FormControl name="lastName" type="text" placeholder="Last Name" onChange={this.handleInputChange} />
+                  </Col>
+                </FormGroup>
 
-            <FormGroup controlId="formHorizontalPassword" validationState={this.getPasswordValidationState()}>
-              <Col componentClass={ControlLabel} xs={5} lg={3}>
-                Password
-              </Col>
-              <Col xs={7} lg={9}>
-                <FormControl name="password" type="password" placeholder="Password" onChange={this.handleInputChange} />
-                <FormControl.Feedback />
-              </Col>
-            </FormGroup>
+                <FormGroup controlId="formHorizontalPassword" validationState={this.getPasswordValidationState()}>
+                  <Col componentClass={ControlLabel} xs={5} lg={3}>
+                    Password
+                  </Col>
+                  <Col xs={7} lg={9}>
+                    <FormControl name="password" type="password" placeholder="Password" onChange={this.handleInputChange} />
+                    <FormControl.Feedback />
+                  </Col>
+                </FormGroup>
 
-            <FormGroup controlId="formHorizontalConfirmPassword" validationState={this.getConfirmPasswordValidationState()}>
-              <Col componentClass={ControlLabel} xs={5} lg={3}>
-                Confirm Password
-              </Col>
-              <Col xs={7} lg={9}>
-                <FormControl name="confirmPassword" type="password" placeholder="Confirm Password" onChange={this.handleInputChange} />
-                <FormControl.Feedback />
-              </Col>
-            </FormGroup>
+                <FormGroup controlId="formHorizontalConfirmPassword" validationState={this.getConfirmPasswordValidationState()}>
+                  <Col componentClass={ControlLabel} xs={5} lg={3}>
+                    Confirm Password
+                  </Col>
+                  <Col xs={7} lg={9}>
+                    <FormControl name="confirmPassword" type="password" placeholder="Confirm Password" onChange={this.handleInputChange} />
+                    <FormControl.Feedback />
+                  </Col>
+                </FormGroup>
 
-            <FormGroup>
-              <Col sm={10} smOffset={2}>
-                <Button type="submit" style={{ float: 'right' }} bsStyle="primary" disabled={!this.formIsValid()}>
-                  &nbsp;&nbsp;Register&nbsp;&nbsp;
-                </Button>
-              </Col>
-            </FormGroup>
-          </Form>
+                <FormGroup>
+                  <Col sm={10} smOffset={2}>
+                    <Button type="submit" style={{ float: 'right' }} bsStyle="primary" disabled={!this.formIsValid()}>
+                      &nbsp;&nbsp;Register&nbsp;&nbsp;
+                    </Button>
+                  </Col>
+                </FormGroup>
+              </Form>
+            </Row>
+          </Grid>
         </Panel>
+        </div>
       </Col>
     );
   }

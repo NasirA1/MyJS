@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Jumbotron } from 'react-bootstrap';
+import { Jumbotron, Button, ButtonToolbar, Well } from 'react-bootstrap';
 
 
 class Home extends Component {
+
   render() {
     return (
-      <div className="container">
-        <Jumbotron>
+      <div>
+        <Jumbotron style={{textAlign: 'center'}}>
           <h1>Welcome!</h1>
           <p>Contacts Manager is a simple multi-user web application for managing contacts.  
-            Please <Link to="/login">login</Link> or <Link to="/register">register</Link> to start using the system.
+            Please <em>log in</em> or <em>register</em> to start using the system.
           </p>
+          <br />
+          <Well bsSize="lg" style={{maxWidth: '260px'}} className="center-block">
+            <Link to="/login"><Button bsSize="lg" bsStyle="primary">&nbsp;&nbsp;Login&nbsp;&nbsp;</Button></Link>{' '}
+            <Link to="/register"><Button bsSize="lg" bsStyle="primary">Register</Button></Link>
+          </Well>
+
         </Jumbotron>
       </div>
     );

@@ -24,7 +24,7 @@ class EditContact extends Component {
           </Modal.Header>
           <Modal.Body>
             <Grid fluid>
-              <Row className>
+              <Row>
               <FormGroup controlId="formHorizontalFirstName" >
                   <Col lg={3} componentClass={ControlLabel} style={{textAlign: 'left'}} >
                     First Name
