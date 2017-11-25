@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Checkbox, Pagination } from 'react-bootstrap';
+import { Checkbox, Pagination, Well } from 'react-bootstrap';
 import * as Services from '../Api';
 import EditContact from './EditContact';
 import * as Util from '../util';
@@ -27,7 +27,7 @@ class Browse extends Component {
           contacts: [], 
           selected: {},
           activePage: 1,
-          pageSize: 20,
+          pageSize: 10,
           pageCount: 1,
           toggleAll: false,
           loading: false, 
@@ -56,33 +56,32 @@ class Browse extends Component {
         return selectedMap;
       }
 
-      fetchData() {
+      async fetchData(pageNo) {
+        if(!pageNo) pageNo = 1;
         this.setState({loading: true});
-        Services.getAllContacts(this.props.store.getState().user.token, this.state.pageSize, this.state.activePage)
-          .then(res => {
-            const pageCount = Math.floor( res.data.totalRows / this.state.pageSize )
-                            + (res.data.totalRows % this.state.pageSize? 1: 0);
-            this.setState({
-              contacts: res.data.Items,
-              pageCount: pageCount,
-              selected: this.fillSelectedMap(res.data.Items, false),
-              loading: false
-            });
-          })
-          .catch(err => {
-              console.error(err);
-              const msg = err.response && err.response.data? err.response.data.error: err.message;
-              this.props.setAlert({ title: 'Oops!', message: msg, bsStyle: 'danger', visibility: true });    
-              this.setState({
-              loading: false
-            });                
+        try {
+          let res = await Services.getAllContacts(this.props.store.getState().user.token, this.state.pageSize, pageNo);
+          const pageCount = Math.floor( res.data.totalRows / this.state.pageSize )
+                          + (res.data.totalRows % this.state.pageSize? 1: 0);
+          this.setState({
+            contacts: res.data.Items,
+            pageCount: pageCount,
+            activePage: pageNo,
+            selected: this.fillSelectedMap(res.data.Items, false),
+            loading: false
           });
+        } 
+        catch(err) {
+          console.error(err);
+          const msg = err.response && err.response.data? err.response.data.error: err.message;
+          this.props.setAlert({ title: 'Oops!', message: msg, bsStyle: 'danger', visibility: true });    
+          this.setState({ loading: false });
+        }
       }
 
 
       handlePageSelect(eventKey) {
-        this.setState({ activePage: eventKey });
-        this.fetchData();
+        this.fetchData(eventKey);
       }
 
 
@@ -94,11 +93,11 @@ class Browse extends Component {
         return this.state.currentRow && this.state.currentRow.id === NEW_ROW_ID;
       }
 
-      onEditContactOKClick(event) {
+      async onEditContactOKClick(event) {
         event.preventDefault();
         if(this.haveNewRow()) {
-          Services.insertContact(this.state.currentRow, this.props.store.getState().user.token)
-          .then(res => {
+          try {
+            let res = await Services.insertContact(this.state.currentRow, this.props.store.getState().user.token);
             let contacts = this.state.contacts;
             let selected = this.state.selected;
             let newContact = Object.assign({}, this.state.currentRow);
@@ -106,27 +105,27 @@ class Browse extends Component {
             contacts.push(newContact);
             selected[newContact.id] = false;
             this.setState({ contacts: contacts, selected: selected, showEditContact: false });
-          })
-          .catch(err => {
+          }
+          catch(err) {
             console.error(err);
             const msg = err.response && err.response.data? err.response.data.error: err.message;
             this.props.setAlert({ title: 'Oops!', message: msg, bsStyle: 'danger', visibility: true });    
             this.setState({ showEditContact: false });
-          });
+          }
         }
         else {
-          Services.updateContact(this.state.currentRow, this.props.store.getState().user.token)
-          .then(res => {
+          try {
+            let res = Services.updateContact(this.state.currentRow, this.props.store.getState().user.token)
             let contacts = this.state.contacts;
             contacts[this.state.currentRowIndex] = Object.assign({}, this.state.currentRow);
             this.setState({ contacts: contacts, showEditContact: false });
-          })
-          .catch(err => {
+          }
+          catch(err) {
             console.error(err);
             const msg = err.response && err.response.data? err.response.data.error: err.message;
             this.props.setAlert({ title: 'Oops!', message: msg, bsStyle: 'danger', visibility: true });    
             this.setState({ showEditContact: false });
-          });
+          }
         }
       }
 
@@ -240,20 +239,6 @@ class Browse extends Component {
 
         return (
           <div className="contacts-table">
-            <div>
-              <Pagination
-                prev
-                next
-                first
-                last
-                ellipsis
-                boundaryLinks
-                items={this.state.pageCount}
-                maxButtons={5}
-                style={{marginTop: 0, marginBottom: 0}}
-                activePage={this.state.activePage}
-                onSelect={this.handlePageSelect}
-              />
             <div className="btn-group" style={{ float: 'right', marginBottom: '10px'}}>
               <a className="btn icon-btn btn-default" style={{color: 'gray'}} onClick={this.handleDeleteContacts}>
                 <span className="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger"></span>
@@ -273,7 +258,7 @@ class Browse extends Component {
                 New
               </a>
             </div>
-            </div>
+
             <table>
               {/* <caption>All Records</caption> */}
               <thead>
@@ -332,6 +317,15 @@ class Browse extends Component {
                 })}                
               </tbody>
             </table>
+            <Well bsSize="sm" style={{marginTop: '1px', textAlign: 'right'}}>
+              <Pagination style={{margin: '0'}}
+                prev next first last ellipsis boundaryLinks 
+                maxButtons={3}
+                items={this.state.pageCount}
+                activePage={this.state.activePage}
+                onSelect={this.handlePageSelect}
+              />
+            </Well>
             <EditContact 
               showModal={this.state.showEditContact}
               onInputChange = {this.onEditContactInputChange.bind(this)}
