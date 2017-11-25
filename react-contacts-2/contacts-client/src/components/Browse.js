@@ -140,11 +140,13 @@ class Browse extends Component {
         this.setState({sortToggle: sortToggle});
       }
 
-      sortRows(column, ascending, numeric) {
+      sortRows(column, descending, numeric) {
         let sortedRows = this.state.contacts.sort( (a, b) => {
           const left = numeric? parseInt(a[column], 10): a[column];
           const right = numeric? parseInt(b[column], 10): b[column];
-          return (ascending? left < right: left > right);
+          if (left < right) return descending? 1: -1;
+          else if (left > right) return descending? -1: 1;
+          else return 0;
         });
         this.setState({contacts: sortedRows });
       }
