@@ -155,7 +155,14 @@ app.use('/', apiRoutes);
 
 
 app.get('/contacts', (req, res) => {
-  res.json({ Items: contacts[req.decoded.email] });
+  const pageSize = req.query.pageSize? parseInt(req.query.pageSize, 10): contacts[req.decoded.email].length;
+  const activePage = req.query.activePage? parseInt(req.query.activePage, 10): 1;
+  console.log(`{ pageSize: ${pageSize}, activePage= ${activePage}}`);
+
+  res.json({ 
+    Items: contacts[req.decoded.email], 
+    totalRows:  contacts[req.decoded.email].length
+  });
 });
 
 

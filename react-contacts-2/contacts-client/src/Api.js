@@ -15,8 +15,8 @@ function Axios(token) {
 }
 
 
-async function getAllContacts(token) {
-  return Axios(token).get('contacts');
+async function getAllContacts(token, pageSize, activePage) {
+  return Axios(token).get(`contacts?pageSize=${pageSize}&activePage=${activePage}`);
 }
 
 async function insertContact(contact, token) {

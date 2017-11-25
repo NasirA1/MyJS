@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Checkbox, Pagination, Pager } from 'react-bootstrap';
+import { Checkbox, Pagination } from 'react-bootstrap';
 import * as Services from '../Api';
 import EditContact from './EditContact';
 import * as Util from '../util';
@@ -26,7 +26,9 @@ class Browse extends Component {
         this.state = { 
           contacts: [], 
           selected: {},
-          activePage: 0,
+          activePage: 1,
+          pageSize: 20,
+          pageCount: 1,
           toggleAll: false,
           loading: false, 
           sortToggle: false,
@@ -56,10 +58,13 @@ class Browse extends Component {
 
       fetchData() {
         this.setState({loading: true});
-        Services.getAllContacts(this.props.store.getState().user.token)
+        Services.getAllContacts(this.props.store.getState().user.token, this.state.pageSize, this.state.activePage)
           .then(res => {
+            const pageCount = Math.floor( res.data.totalRows / this.state.pageSize )
+                            + (res.data.totalRows % this.state.pageSize? 1: 0);
             this.setState({
               contacts: res.data.Items,
+              pageCount: pageCount,
               selected: this.fillSelectedMap(res.data.Items, false),
               loading: false
             });
@@ -76,7 +81,6 @@ class Browse extends Component {
 
 
       handlePageSelect(eventKey) {
-        alert(eventKey);
         this.setState({ activePage: eventKey });
       }
 
@@ -243,9 +247,9 @@ class Browse extends Component {
                 last
                 ellipsis
                 boundaryLinks
-                items={3}
+                items={this.state.pageCount}
                 maxButtons={5}
-                style={{marginTop: 0}}
+                style={{marginTop: 0, marginBottom: 0}}
                 activePage={this.state.activePage}
                 onSelect={this.handlePageSelect}
               />
