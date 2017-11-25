@@ -38,7 +38,6 @@ class Login extends Component {
 
     try {
       const response = await Services.login(this.state.user);
-      console.log(response.data);
       this.props.store.dispatch( { type: 'USER_LOGIN', firstName: response.data.firstName, token: response.data.token } );
       this.props.navigateTo('/browse');
     } catch (err) {
