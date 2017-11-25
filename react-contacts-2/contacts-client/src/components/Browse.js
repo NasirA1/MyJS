@@ -82,6 +82,7 @@ class Browse extends Component {
 
       handlePageSelect(eventKey) {
         this.setState({ activePage: eventKey });
+        this.fetchData();
       }
 
 

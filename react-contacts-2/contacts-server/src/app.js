@@ -159,8 +159,10 @@ app.get('/contacts', (req, res) => {
   const activePage = req.query.activePage? parseInt(req.query.activePage, 10): 1;
   console.log(`{ pageSize: ${pageSize}, activePage= ${activePage}}`);
 
+  let subset = contacts[req.decoded.email].slice(pageSize * (activePage - 1),  pageSize * (activePage - 1) + pageSize);
+
   res.json({ 
-    Items: contacts[req.decoded.email], 
+    Items: subset,
     totalRows:  contacts[req.decoded.email].length
   });
 });
