@@ -143,7 +143,7 @@ class Register extends Component {
 
   render() {
     return (
-      <Col lg={4} lgOffset={4}  className="vertical-center">>
+      <Col  lg={4} lgOffset={4} sm={6} smOffset={3} className="vertical-center">
         <Panel header="Register" bsStyle="primary">
           <Grid fluid>
             <Row>
