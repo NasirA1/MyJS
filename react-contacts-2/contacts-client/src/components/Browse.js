@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Checkbox } from 'react-bootstrap';
+import { Checkbox, Pagination, Pager } from 'react-bootstrap';
 import * as Services from '../Api';
 import EditContact from './EditContact';
 import * as Util from '../util';
@@ -26,6 +26,7 @@ class Browse extends Component {
         this.state = { 
           contacts: [], 
           selected: {},
+          activePage: 0,
           toggleAll: false,
           loading: false, 
           sortToggle: false,
@@ -37,6 +38,7 @@ class Browse extends Component {
         this.handleSort = this.handleSort.bind(this);
         this.handleToggleAll = this.handleToggleAll.bind(this);
         this.handleDeleteContacts = this.handleDeleteContacts.bind(this);
+        this.handlePageSelect = this.handlePageSelect.bind(this);
       }
 
       componentWillMount() {
@@ -70,6 +72,12 @@ class Browse extends Component {
               loading: false
             });                
           });
+      }
+
+
+      handlePageSelect(eventKey) {
+        alert(eventKey);
+        this.setState({ activePage: eventKey });
       }
 
 
@@ -227,6 +235,20 @@ class Browse extends Component {
 
         return (
           <div className="contacts-table">
+            <div>
+              <Pagination
+                prev
+                next
+                first
+                last
+                ellipsis
+                boundaryLinks
+                items={3}
+                maxButtons={5}
+                style={{marginTop: 0}}
+                activePage={this.state.activePage}
+                onSelect={this.handlePageSelect}
+              />
             <div className="btn-group" style={{ float: 'right', marginBottom: '10px'}}>
               <a className="btn icon-btn btn-default" style={{color: 'gray'}} onClick={this.handleDeleteContacts}>
                 <span className="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger"></span>
@@ -245,6 +267,7 @@ class Browse extends Component {
                 <span className="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
                 New
               </a>
+            </div>
             </div>
             <table>
               {/* <caption>All Records</caption> */}
