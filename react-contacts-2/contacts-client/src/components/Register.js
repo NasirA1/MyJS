@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, Button, Col, Panel, Grid, Row } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Button, Col, Panel, Grid, Row } from 'react-bootstrap';
 import * as Services from '../Api';
 import _ from 'lodash';
 import * as validator from 'validator';
@@ -143,8 +143,7 @@ class Register extends Component {
 
   render() {
     return (
-      <Col lg={4} lgOffset={4}>
-        <div className="centered-parent"><div className="centered-child">
+      <Col lg={4} lgOffset={4}  className="vertical-center">>
         <Panel header="Register" bsStyle="primary">
           <Grid fluid>
             <Row>
@@ -211,7 +210,6 @@ class Register extends Component {
             </Row>
           </Grid>
         </Panel>
-        </div></div>
       </Col>
     );
   }

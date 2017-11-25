@@ -42,39 +42,29 @@
 				/**FOR DEMO ONLY**/
 			}
 		}
-
-    .centered-parent {
-			/* needed by vertical center in child */
-			height: 350px;
-			
-			/* horizontal center of child */
-			text-align: center;
-			
-			/* border: 1px dashed red; */
-    }
-
-    .centered-child {
-			/* autosize to content */
-			display: inline-block;
-			
-			/* vertical-align center */
-			position: relative;
-			top: 50%;
-			transform: translateY(-50%);
-			
-			/* For Demo purpose only */
-			/* border: 1px dashed gray;
-			padding: 30px; */
-    }
 		
 
-    @media screen and (min-width: 40em) {
-      .centered-parent {
-        height: 700px;
+    .vertical-center {
+      display: flex;
+      align-items: center;
+    }
+
+    /* desktop */
+		@media screen and (min-width: 600px) {
+      .vertical-center {
+        min-height: 80%;
+        min-height: 80vh;
       }
     }
 
-
+    /* mobile */
+		@media screen and (max-width: 600px) {
+      .vertical-center {
+        min-height: 70%;
+        min-height: 70vh;
+      }
+    }
+    
 
     /* The Browse page responsive table */
 		.contacts-table .container {
