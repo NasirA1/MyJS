@@ -61,7 +61,7 @@ class Browse extends Component {
     if (!pageSize) pageSize = 10;
     if (!pageNo) pageNo = 1;
     this.setState({ loading: true });
-    
+
     try {
       let res = await Services.getAllContacts(this.props.store.getState().user.token, pageSize, pageNo);
       const pageCount = Math.floor(res.data.totalRows / pageSize) + (res.data.totalRows % pageSize? 1: 0);
@@ -325,7 +325,7 @@ class Browse extends Component {
             })}
           </tbody>
         </table>
-        <Well bsSize="sm" style={{ marginTop: '1px' }}>
+        <Well bsSize="sm" style={{ marginTop: '2px', background: '#ddd' }}>
           <Grid fluid>
             <Row>
               <FormGroup controlId="formControlsSelect">
