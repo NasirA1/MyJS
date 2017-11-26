@@ -7,19 +7,17 @@ const DEFAULT_USER ={
 };
 
 
-const userReducer = ( state = {user: DEFAULT_USER}, action ) => {
+const userReducer = ( state = DEFAULT_USER, action ) => {
   switch (action.type) {
     case 'USER_LOGIN':
       Object.assign(state, {
-        user: {
-          firstName: action.firstName,
-          token: action.token,
-          isLoggedIn: true
-        }
+        firstName: action.firstName,
+        token: action.token,
+        isLoggedIn: true
       });
       return state;
     case 'USER_LOGOUT':
-      Object.assign( state, { user: DEFAULT_USER } );
+      Object.assign( state, DEFAULT_USER );
       return state;
     default:
       return state;

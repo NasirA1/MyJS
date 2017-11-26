@@ -54,16 +54,16 @@ class App extends Component {
   }
 
   getUserLink() {
-    if(this.props.store.getState().userReducer.user.isLoggedIn) {
+    if(this.props.store.getState().userReducer.isLoggedIn) {
       return (
-        <Navbar.Link href="#">{this.props.store.getState().userReducer.user.firstName}</Navbar.Link>
+        <Navbar.Link href="#">{this.props.store.getState().userReducer.firstName}</Navbar.Link>
       );
     }
     return null;
   }
   
   render() {
-    const $tate = this.props.store.getState().userReducer;
+    const userSession = this.props.store.getState().userReducer;
 
     return (
       <div className="container-fixed">
@@ -76,14 +76,14 @@ class App extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <NavItem eventKey={1} onClick={this.navigateTo.bind(this, "/browse")} disabled={!$tate.user.isLoggedIn}>Browse</NavItem>
+              <NavItem eventKey={1} onClick={this.navigateTo.bind(this, "/browse")} disabled={!userSession.isLoggedIn}>Browse</NavItem>
             </Nav>
             <Nav pullRight>
-              <NavItem eventKey={2} onClick={this.navigateTo.bind(this, "/login")}>{ $tate.user.isLoggedIn? 'Logout': 'Login' }</NavItem>
+              <NavItem eventKey={2} onClick={this.navigateTo.bind(this, "/login")}>{ userSession.isLoggedIn? 'Logout': 'Login' }</NavItem>
               <NavItem eventKey={3} onClick={this.navigateTo.bind(this, "/register")}>Register</NavItem>
             </Nav>
             <Navbar.Text pullRight>
-              {$tate.user.isLoggedIn? 'Logged in as: ': ''}
+              {userSession.isLoggedIn? 'Logged in as: ': ''}
               { this.getUserLink() }
             </Navbar.Text>            
             <Navbar.Form pullRight>
