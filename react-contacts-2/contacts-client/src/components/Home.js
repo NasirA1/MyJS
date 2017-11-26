@@ -5,10 +5,6 @@ import { Jumbotron, Button, Well } from 'react-bootstrap';
 
 class Home extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>
@@ -18,7 +14,7 @@ class Home extends Component {
             Please <em>log in</em> or <em>register</em> to start using the system.
           </p>
           <br />
-          <Well bsSize="lg" style={{maxWidth: '260px'}} className="center-block">
+          <Well bsSize="lg" className="center-block">
             <Link to="/login"><Button bsSize="lg" bsStyle="primary" disabled={this.props.store.getState().userReducer.isLoggedIn}>
               &nbsp;&nbsp;Login&nbsp;&nbsp;
             </Button></Link>{' '}
