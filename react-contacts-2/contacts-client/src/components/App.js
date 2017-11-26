@@ -13,9 +13,6 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-
-    console.log(props);
-
     this.state = {
       alert: {
         title: '',
@@ -121,7 +118,11 @@ class App extends Component {
           </Row>
           
           <Row>
-            <Route path="/" exact component={Home} />
+            <Route path="/" exact render={ (props) => (
+              <Home {...props} 
+                store={this.props.store}
+              />
+            )} />
             <Route path="/browse" render={ (props) => (
               <Browse {...props} 
                 setAlert={(state) => this.setAlertState(state)}
