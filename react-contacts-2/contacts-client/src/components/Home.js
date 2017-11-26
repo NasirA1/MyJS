@@ -11,7 +11,7 @@ class Home extends Component {
         <Jumbotron style={{textAlign: 'center'}}>
           <h1>Welcome!</h1>
           <p>Contacts Manager is a simple multi-user web application for managing contacts.  
-            Please <em>log in</em> or <em>register</em> to start using the system.
+            Please <em>log in</em> to start using the system or <em>register</em> if you're a first-time visitor.
           </p>
           <br />
           <Well bsSize="lg" className="center-block">
