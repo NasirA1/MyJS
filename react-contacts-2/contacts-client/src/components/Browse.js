@@ -63,7 +63,7 @@ class Browse extends Component {
     this.setState({ loading: true });
 
     try {
-      let res = await Services.getAllContacts(this.props.store.getState().user.token, pageSize, pageNo);
+      let res = await Services.getAllContacts(this.props.store.getState().userReducer.user.token, pageSize, pageNo);
       const pageCount = Math.floor(res.data.totalRows / pageSize) + (res.data.totalRows % pageSize? 1: 0);
 
       this.setState({
@@ -105,7 +105,7 @@ class Browse extends Component {
     event.preventDefault();
     if (this.haveNewRow()) {
       try {
-        let res = await Services.insertContact(this.state.currentRow, this.props.store.getState().user.token);
+        let res = await Services.insertContact(this.state.currentRow, this.props.store.getState().userReducer.user.token);
         let contacts = this.state.contacts;
         let selected = this.state.selected;
         let newContact = Object.assign({}, this.state.currentRow);
@@ -123,7 +123,7 @@ class Browse extends Component {
     }
     else {
       try {
-        Services.updateContact(this.state.currentRow, this.props.store.getState().user.token)
+        Services.updateContact(this.state.currentRow, this.props.store.getState().userReducer.user.token)
         let contacts = this.state.contacts;
         contacts[this.state.currentRowIndex] = Object.assign({}, this.state.currentRow);
         this.setState({ contacts: contacts, showEditContact: false });
@@ -192,7 +192,7 @@ class Browse extends Component {
       return;
     }
 
-    Services.deleteContacts(ids, this.props.store.getState().user.token)
+    Services.deleteContacts(ids, this.props.store.getState().userReducer.user.token)
       .then(res => {
         const contacts = this.state.contacts.filter(contact => !res.data.deleted.includes(contact.id));
         this.setState({ contacts: contacts, selected: this.fillSelectedMap(contacts, false), toggleAll: false });

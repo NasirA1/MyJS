@@ -14,6 +14,8 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    console.log(props);
+
     this.state = {
       alert: {
         title: '',
@@ -52,16 +54,16 @@ class App extends Component {
   }
 
   getUserLink() {
-    if(this.props.store.getState().user.isLoggedIn) {
+    if(this.props.store.getState().userReducer.user.isLoggedIn) {
       return (
-        <Navbar.Link href="#">{this.props.store.getState().user.firstName}</Navbar.Link>
+        <Navbar.Link href="#">{this.props.store.getState().userReducer.user.firstName}</Navbar.Link>
       );
     }
     return null;
   }
   
   render() {
-    const appState = this.props.store.getState();
+    const $tate = this.props.store.getState().userReducer;
 
     return (
       <div className="container-fixed">
@@ -74,14 +76,14 @@ class App extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <NavItem eventKey={1} onClick={this.navigateTo.bind(this, "/browse")} disabled={!this.props.store.getState().user.isLoggedIn}>Browse</NavItem>
+              <NavItem eventKey={1} onClick={this.navigateTo.bind(this, "/browse")} disabled={!$tate.user.isLoggedIn}>Browse</NavItem>
             </Nav>
             <Nav pullRight>
-              <NavItem eventKey={2} onClick={this.navigateTo.bind(this, "/login")}>{ appState.user.isLoggedIn? 'Logout': 'Login' }</NavItem>
+              <NavItem eventKey={2} onClick={this.navigateTo.bind(this, "/login")}>{ $tate.user.isLoggedIn? 'Logout': 'Login' }</NavItem>
               <NavItem eventKey={3} onClick={this.navigateTo.bind(this, "/register")}>Register</NavItem>
             </Nav>
             <Navbar.Text pullRight>
-              {appState.user.isLoggedIn? 'Logged in as: ': ''}
+              {$tate.user.isLoggedIn? 'Logged in as: ': ''}
               { this.getUserLink() }
             </Navbar.Text>            
             <Navbar.Form pullRight>
