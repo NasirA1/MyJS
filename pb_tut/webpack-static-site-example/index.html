@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>I Can Haz Cheeseburger?</title>
-    <link href="./src/css/main.css" rel="stylesheet">
+    <script src="./dist/bundle.js"></script>    
   </head>
   <body>
     <div class="container">
@@ -41,7 +41,15 @@
       </footer>
     </div>
 
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="./src/js/main.js"></script>
+    <script>
+      $('.slick-slider').slick({
+        dots: true,
+        arrows: false,
+        infinite: true,
+        speed: 500,
+        fade: true,
+        cssEase: 'linear'
+      });
+    </script>    
   </body>
 </html>
