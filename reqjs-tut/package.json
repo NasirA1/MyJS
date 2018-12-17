@@ -1,18 +1,14 @@
 {
-  "name": "homework_app",
+  "name": "reqjs-tut",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --config=config/webpack.dev.js"
+  "dependencies": {
   },
-  "keywords": [],
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
-  }
+  "license": "ISC"
 }

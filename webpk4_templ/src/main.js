@@ -1,3 +1,3 @@
+//require("lib/require.js")
 console.log("Hello world!");
 
-document.body.style.background = "lightgrey";
