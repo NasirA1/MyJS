@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "angular": "^1.7.5"
+    "angular": "^1.7.5",
+    "bootstrap": "^4.2.1"
   }
 }
