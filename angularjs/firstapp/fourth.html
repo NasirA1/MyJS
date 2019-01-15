@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>HTML CSS Centering</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+        }
+
+        * {
+            font-family: "Arial"
+        }
+
+        body {
+            height: 100%;
+            width: 100%;
+        }
+
+        .center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .container {
+            padding: 1em;
+            border: 1px double #00308f;
+        }
+
+        .rect {
+            background-color: #89cff0;
+            width: 200px;
+            height: 100px;
+            padding: 5px;
+        }
+
+        #top-left-position {
+            position: absolute;
+        }
+
+        #top-right-position {
+            position: absolute;
+            right: 0;
+        }
+
+        #bottom-left-position {
+            position: absolute;
+            bottom: 0;
+        }
+
+        #bottom-right-position {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="rect" id="top-left-position">
+        top left
+    </div>
+    <div class="rect" id="top-right-position">
+        top right
+    </div>
+    <div class="rect" id="bottom-right-position">
+        bottom right
+    </div>
+    <div class="rect" id="bottom-left-position">
+        bottom left
+    </div>
+    <div class="container center">
+        <p style="background-color: yellow; padding: 5px;">Centered horizontally and vertically</p>
+        <script>
+            $(document).ready(() => {
+                $.ajax({
+                    url: 'https://cat-fact.herokuapp.com/facts',
+                    type: 'GET',
+                    dataType: 'jsonp',
+                    success: (resp) => {
+                        console.log(resp);
+                    },
+                    error: (xhr, status) => {
+                        console.log('error: ', status);
+                    }
+                });
+            });
+        </script>
+    </div>
+
+</body>
+
+</html>
