@@ -1,97 +1,32 @@
-<!DOCTYPE html>
-<html ng-app="myApp" ng-init="person={fName: 'Derek', lName: 'Banas'}; 
-  capitals=[
-    {city: 'Montegomery', state: 'Alabama'}, 
-    {city: 'Juneau', state: 'Alaska'}, 
-    {city: 'Phoenix', state: 'Arizona'}, 
-    {city: 'Los Angeles', state: 'California'}
-]">
-
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="/node_modules/angular/angular.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-</head>
-
-<body>
-  <div class="container-fluid" style="padding:1em">
-
-    <!-- First -->
-    <div ng-controller="ctrl1"> <!-- view -->
-      <span>Values:</span>
-      <input type="text" ng-model="first" />
-      <input type="text" ng-model="second" />
-      <button ng-click="updateValue()">Calculate</button>
-      <br/>
-      <br/>
-      <h1>{{calculation}}</h1>
-      <ul>
-        <li ng-repeat="capital in capitals">
-          {{'City: ' + capital.city + ', State: ' + capital.state}}
-        </li>
-      </ul>        
-    </div>
+<!doctype html>
+<html lang="en" ng-app="selectExample">
+  <head>
+    <meta charset="utf-8">
+    <title>My HTML File</title>
+    <script src="node_modules/angular/angular.js"></script>
     <script>
-      var myApp = angular.module('myApp', []);
-      myApp.controller('ctrl1', function ($scope) {
-        $scope.first = 1;
-        $scope.second = 2;
-        $scope.updateValue = function () {
-          $scope.calculation = $scope.first + ' + ' + $scope.second + ' = ' + (+$scope.first + +$scope.second);
-        }
-      });
-    </script>
+        angular.module('selectExample', [])
+        .controller('myController', ['$scope', function($scope) {
+          $scope.colors = [
+            { name: 'black' },
+            { name: 'green' },
+            { name: 'blue' },
+            { name: 'yellow' },
+            { name: 'orange' },
+            { name: 'pink' },
+            { name: 'white' }
+          ];
+          $scope.selectedColor = $scope.colors[2];
+        }]);
+      </script>  
+  </head>
 
-
-    <!-- Second -->
-    <div ng-controller="ctrl2">
-      <h3 class="ListTitle">{{groceries.length}} Groceries to Get</h3>
-      <ol style="margin-bottom: -2px;">
-        <li>{{groceries[0].item}}</li>
-      </ol>
-      <ol start="2">
-        <li ng-repeat="grocery in groceries" ng-if="$index > 0">
-          {{grocery.item}} {{$index}}
-        </li>
-      </ol>
-      <table cellpadding="10" border="2">
-        <tr ng-repeat="groc in groceries">
-          <td>{{groc.item}}</td>
-          <td>{{groc.purchased}}</td>
-        </tr>
-      </table><br/>
-      Change 1st item:
-      <input ng-model="groceries[0].item" />
+  <body>    
+    <div ng-controller="myController">
+      <label for="myColors">Colours: </label>
+      <select id="myColors" ng-model="myColor" ng-options="color.name for color in colors">
+        <option value="">-- choose colour --</option>
+      </select>
     </div>
-    <script>
-      myApp.controller('ctrl2', ($scope) => {
-        $scope.groceries = [
-          { item: 'Tomatoes', purchased: false },
-          { item: 'Potatoes', purchased: false },
-          { item: 'Bread', purchased: false },
-          { item: 'Tea', purchased: false }
-        ];
-      });
-    </script>
- 
-    <!-- Dirty -->
-    <br />
-    <div ng-controller="ctrl3">
-      <form name="myform">
-        <input name="mydata" ng-model="data" ng-blur="onBlur()" />
-      </form>
-    </div>
-    <script>
-      myApp.controller('ctrl3', ($scope) => {
-        $scope.data = "data initialised";
-
-        $scope.onBlur = function() {
-          if($scope.myform.mydata.$dirty)
-            alert('form is in dirty state');
-        }
-      });
-    </script>
-
-</body>
-
+  </body>
 </html>
