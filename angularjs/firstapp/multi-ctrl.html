@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+
+<head>
+  <meta charset="utf-8">
+  <title>Multi Controller - Mood Generator</title>
+  <script src="node_modules/angular/angular.js"></script>
+
+  <script>
+        var app = angular.module('app', []);
+        
+        app.controller('badCtrl', function($scope) {
+            var badFeelings = ["Disregarded", "Unimportant", "Rejected", "Powerless"];
+            $scope.bad = badFeelings[Math.floor(Math.random() * 4)];
+        });
+    
+        app.controller('goodCtrl', function($scope) {
+            var badFeelings = ["Good", "Awesome", "Lovable", "Inner Peace"];
+            $scope.good = badFeelings[Math.floor(Math.random() * 4)];
+        });
+      </script>
+      
+</head>
+
+<body>
+    <script src="dirwatch.js"></script>
+    <div ng-app="app">
+        <h5 ng-controller="badCtrl">I'm feeling {{bad}}</h5>
+        <h5 ng-controller="goodCtrl">I'm feeling {{good}}</h5>
+    </div>
+
+
+
+</body>
+
+</html>

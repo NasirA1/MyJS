@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+
+<head>
+  <meta charset="utf-8">
+  <title>My HTML File</title>
+  <script src="node_modules/angular/angular.js"></script>
+</head>
+
+<body>
+    <script src="dirwatch.js"></script>
+    <div ng-app="app">
+        <h4 ng-controller="myCtrl">First  Random Number: {{randomNum1}}</h4>
+        <h4 ng-controller="myCtrl">Second Random Number: {{randomNum2}}</h4>
+    </div>
+
+  <script>
+    var app = angular.module('app', []);
+    
+    app.controller('myCtrl', ['$scope', function ($scope) {
+        $scope.randomNum1 = Math.floor((Math.random() * 6) + 1);
+        $scope.randomNum2 = Math.floor((Math.random() * 6) + 1);
+    }]);
+
+  </script>
+
+
+</body>
+
+</html>
