@@ -1,3 +1,5 @@
 .vs
 node_modules
 dirwatch.js
+dirwatch/dirwatch/x64/
+dirwatch/x64/
