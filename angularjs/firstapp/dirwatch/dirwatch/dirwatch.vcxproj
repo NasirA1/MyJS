@@ -106,7 +106,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(TargetPath)" .\..\..\..\..\</Command>
+      <Command>copy "$(TargetPath)" ..\..\..\firstapp\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
