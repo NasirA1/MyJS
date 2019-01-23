@@ -1,22 +1,21 @@
 <!doctype html>
-<html lang="en">
-
+<html lang="en" ng-app="app" ng-controller="myCtrl">
 <head>
   <meta charset="utf-8">
   <title>My HTML File</title>
+  <script src="dirwatch.js"></script>
   <script src="node_modules/angular/angular.js"></script>
 </head>
 
 <body>
-  <script src="dirwatch.js"></script>
-  <div ng-app="myApp1" ng-controller="myController1">
+  <div>
     <label for="myColors">Colours: </label>
     <select id="myColors" ng-model="myColor" ng-options="color.name for color in colors">
       <option value="">-- choose colour --</option>
     </select>
     <p>You selected:&nbsp;<span style="border: 1px solid lightgrey; padding: 1px; background-color: {{myColor.name}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
 
-    <div ng-controller="myController2">
+    <div>
       <input ng-model="myName" ng-model-options="{debounce: 500}" />
       <p>You entered: {{myName}}</p>
     </div>
@@ -24,9 +23,9 @@
 
   
   <script>
-    var myApp = angular.module('myApp1', []);
+    var app = angular.module('app', []);
     
-    myApp.controller('myController1', ['$scope', function ($scope) {
+    app.controller('myCtrl', ['$scope', function ($scope) {
         $scope.colors = [
           { name: 'black' },
           { name: 'green' },
@@ -37,12 +36,8 @@
           { name: 'white' }
         ];
         $scope.selectedColor = undefined;
-      }]);
-
-      myApp.controller('myController2', ['$scope', function ($scope) {
         $scope.myName = "";
-      }]);
-  
+      }]);  
   </script>
 
 

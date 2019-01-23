@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" ng-app="app" ng-controller="myCtrl">
+
+<head>
+    <meta charset="utf-8">
+    <title>My HTML File</title>
+    <script src="node_modules/angular/angular.js"></script>
+</head>
+
+<body>
+    <script src="dirwatch.js"></script>
+
+    <div>
+        <p>Here is some random numbers:</p>
+        <div ng-include="'ng-include-ol.tpl'"></div>
+        <br/>
+    </div>
+    <div style="position: absolute; right: 0; top: 0;">
+        <label>
+            <input type="checkbox" ng-model="showList" /> Show Ordered List
+        </label>
+        <ng-include src="getList()"></ng-include>
+    </div>
+
+    <input ng-blur="blur = blur + 1;" />
+    <span ng-hide="!blur">Blur Count: {{blur}}</span>
+
+    <script>
+        var app = angular.module('app', []);
+
+        app.controller('myCtrl', ['$scope', function ($scope) {
+            $scope.randomNumbers = [];
+            for (let i = 0; i < 10; ++i) {
+                $scope.randomNumbers.push(Math.random());
+            }
+
+            $scope.getList = function () {
+                return $scope.showList ? 'ng-include-ol.tpl' : 'ng-include-ul.tpl';
+            }
+        }]);
+    </script>
+</body>
+
+</html>

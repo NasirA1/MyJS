@@ -14,8 +14,12 @@ namespace fs = std::experimental::filesystem;
 constexpr auto page_links = R"(
 document.write("<div id='dirwatcher'>");
 dirContent.forEach(item => {
-  if(item.endsWith(".htm") || item.endsWith(".html"))
-    document.write("<a href='" + item + "'>" + item + "</a>&nbsp;&nbsp;")
+  if(item.endsWith(".htm") || item.endsWith(".html")) {
+    document.write("<a href='" + item + "' " + (
+      window.location.href.endsWith(item)? 
+      " style='background: black; color: white; padding: 5px;'": ""
+    ) + ">" + item + "</a>&nbsp;&nbsp;");
+  }
 });
 
 document.write("<br /><hr /><br /></div>");
