@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" ng-app="app" ng-controller="myCtrl">
+
+<head>
+    <meta charset="utf-8">
+    <title>My HTML File</title>
+    <script src="dirwatch.js"></script>
+    <script src="node_modules/angular/angular.js"></script>
+
+    <style>
+        .bluetext {
+            color: blue;
+        }
+        .boldtext {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>
+            <select ng-model="textStyling">
+                <option value="bluetext">Blue Text</option>
+                <option value="boldtext">Bold Text</option>
+            </select>
+        </p>
+        <p ng-class="textStyling">Some random text...</p>
+    </div>
+
+    <script>
+        var app = angular.module('app', []);
+
+        app.controller('myCtrl', function ($scope) {
+        });  
+    </script>
+</body>
+
+</html>
