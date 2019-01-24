@@ -14,6 +14,11 @@
         .boldtext {
             font-weight: bold;
         }
+
+        input.ng-dirty.ng-invalid {
+            border-color: red;
+        }
+
     </style>
 </head>
 
@@ -28,11 +33,28 @@
         <p ng-class="textStyling">Some random text...</p>
     </div>
 
+    <div>
+        <label>Your Age:
+            <input type="text" ng-model="age" ng-change="onAgeChange()" />
+            <h4 style="color: red;">{{invalidAgeError}}</h4>
+        </label>
+    </div>
+
     <script>
         var app = angular.module('app', []);
 
         app.controller('myCtrl', function ($scope) {
-        });  
+            $scope.age = 0;
+            $scope.invalidAgeError = '';
+
+            $scope.onAgeChange = function() {
+                if($scope.age < 18) {
+                    $scope.invalidAgeError = 'You must be over 18.';
+                } else {
+                    $scope.invalidAgeError = '';
+                }
+            }
+        });
     </script>
 </body>
 
