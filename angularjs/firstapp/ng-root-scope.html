@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+
+<head>
+  <meta charset="utf-8">
+  <title>My HTML File</title>
+  <script src="dirwatch.js"></script>
+  <script src="node_modules/angular/angular.js"></script>
+</head>
+
+<body>
+  <h2>Communication between two Controllers using Root Scope</h2>
+  <hr />
+  <br /><br />
+  <div ng-controller="myCtrl" style='border: 1px solid; padding: 10px;'>
+    <h3>Controller 1</h3>
+    {{x}}
+    <br />
+    <br />
+    <button ng-click="increment()">Increment</button>
+  </div>
+  <br />
+  <br />
+  <div ng-controller="myCtrl2" style='border: 1px solid green; padding: 10px;'>
+    <h3>Controller 2</h3>
+    {{updateMsg}}
+  </div>
+
+
+  <script>
+    var app = angular.module('app', []);
+
+    app.controller('myCtrl', function ($scope, $rootScope) {
+      $scope.x = 0;
+
+      $scope.increment = function () {
+        $scope.x++;
+        $rootScope.$broadcast('onIncrement', { newValue: $scope.x });
+      }
+    });
+
+    app.controller('myCtrl2', function ($scope) {
+      $scope.updateMsg = '';
+      $scope.$on('onIncrement', function(event, args) {
+        $scope.updateMsg = 'x was updated to: ' + args.newValue;
+      });
+    });    
+
+  </script>
+
+
+</body>
+
+</html>

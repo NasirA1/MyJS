@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+
+<head>
+  <meta charset="utf-8">
+  <title>My HTML File</title>
+  <script src="dirwatch.js"></script>
+  <script src="node_modules/angular/angular.js"></script>  
+</head>
+
+<body>
+  <h2>Custom Directives</h2>
+  <hr />
+  <br />
+  <br />
+  <div ng-controller="myCtrl" style='border: 1px solid; padding: 10px;'>
+
+    <ul jql-directive>
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+      <li>Item 4</li>
+      <li>Item 5</li>
+      <li>Item 6</li>
+      <li>Item 7</li>
+    </ul>
+
+    <br/><br/>
+    <p id="mypara">A paragraph with background color set via <em>angular</em></p>
+
+    <br /><br />
+    <fieldset style="padding: 20px; margin: 20px;">
+      <legend>Custom Element Directive</legend>
+      <pet type="Dog">Spike</pet>
+      <pet type="Cat">Thomas</pet>
+      <pet type="Mouse">Jerry</pet>
+      <pet type="Snake">Nagini</pet>
+    </fieldset>
+  </div>
+
+  <script>
+      var app = angular.module('app', []);
+  
+      //attribute directive
+      app.directive('jqlDirective', function () {
+        return function (scope, element, attrs) {
+          for (i = 0; i < element.children().length; i++) {
+            if (i % 2 == 0)
+              element.children().eq(i).css('color', 'red');
+          }
+        }
+      });
+  
+      //element directive
+      app.directive('pet', function(){
+          var directive = {};
+          directive.transclude = true;
+          directive.restrict = 'E';
+          directive.template = 'Pet: <span ng-transclude></span> ({{pet.type}})<br/>';
+          directive.scope = { pet: '=type' };
+          directive.compile = function(elem, attr) {
+            return /* link-func */ function($scope, elem, attr) {
+              elem.bind('click', function() {
+                $scope.toggle = !$scope.toggle;
+                if($scope.toggle)
+                  elem.css('text-decoration', 'line-through');
+                else
+                  elem.css('text-decoration', 'none');
+              });
+            }
+          }
+          return directive;
+      });
+  
+      app.controller('myCtrl', function ($scope) {
+        angular.element(document.querySelector('#mypara')).css('background', 'yellow');
+
+        $scope.Dog = { type: 'Dog' };
+        $scope.Cat = { type: 'Cat' };
+        $scope.Mouse = { type: 'Mouse' };
+        $scope.Snake = { type: 'Snake' };
+      });
+  
+    </script>
+    
+</body>
+
+</html>
