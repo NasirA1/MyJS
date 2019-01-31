@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+
+<head>
+  <meta charset="utf-8">
+  <title>My HTML File</title>
+  <script src="dirwatch.js"></script>
+  <script src="node_modules/angular/angular.js"></script>
+
+  <style>
+    td.key {
+      min-width: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>AngularJS Services</h2>
+  <hr />
+  <br />
+  <br />
+  <div ng-controller="myCtrl" style='border: 1px solid lime; padding: 10px;'>
+  </div>
+
+  <br/><br/>
+    <table ng-controller="myCtrl2" style='padding: 10px;'>
+      <tr><td class='key'>URL</td><td>{{currUrl}}</td></tr>
+      <tr><td class='key'>Port</td><td>{{currPort}}</td></tr>
+      <tr><td class='key'>Time</td><td>{{time}}</td></tr>
+      <tr><td class='key'>Data loaded from JSON file</td><td>{{data}}</td></tr>
+    </table>
+  
+
+  <script>
+      var app = angular.module('app', []);
+
+      //Defining a service
+      app.service('HelloService', function(){
+        this.sayHello = function() {
+          console.log('Hello from HelloService!');
+        };
+      });
+    
+      //Using a service
+      app.controller('myCtrl', function (HelloService) {
+        HelloService.sayHello();
+      });
+
+      app.controller('myCtrl2', function($scope, $window, $location, $interval, $http) {
+        $scope.currUrl = $location.absUrl();
+        $scope.currPort = $location.port();
+
+        $interval(function() {
+          var hour = new Date().getHours();
+          var min = ('0' + new Date().getMinutes()).slice(-2);
+          var sec = ('0' + new Date().getSeconds()).slice(-2);
+          $scope.time = hour + ':' + min + ':' + sec;
+        });
+
+        $http.get('ng-services-data.json').then(
+          function(resp) {
+            $scope.data = resp.data;
+          },
+          function(err) {
+            $scope.data = `${err.status} - ${err.statusText}`;
+          }
+        );
+      });
+  
+    </script>
+    
+</body>
+
+</html>
