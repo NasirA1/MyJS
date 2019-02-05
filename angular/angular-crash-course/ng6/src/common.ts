@@ -6,9 +6,9 @@ export const common = {
     trigger('listStagger', [
       transition('* <=> *', [
         query(':enter', [
-          style({ opacity: 0, transform: 'translateY(-15px)' }),
+          style({ opacity: 0, transform: 'translateY(-25px)' }),
           stagger('100ms',
-            animate('1000ms ease-out',
+            animate('500ms ease-out',
               style({ opacity: 1, transform: 'translateY(0px)' })
             )
           )
