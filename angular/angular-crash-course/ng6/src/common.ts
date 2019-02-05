@@ -15,5 +15,5 @@ export const common = {
         ], { optional: true }),
         query(':leave', animate('50ms', style({ opacity: 0 })), { optional: true })
       ])
-    ]) //end of listStagger
+    ]) //end-of-listStagger
 };
