@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -7,7 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  currentUrl: string;
+
+  constructor(private router: Router) { 
+    router.events.subscribe( (_: NavigationEnd) => { 
+      if(_.url && _.url != this.currentUrl) {
+        this.currentUrl = _.url;
+        console.log(`Current url is: ${this.currentUrl}`);
+      }
+    });
+  }
 
   ngOnInit() {
   }
