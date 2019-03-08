@@ -1,0 +1,5 @@
+<form></form>
+<div *ngFor="let x of xs; let i = index">
+  <input type="text" name="x{{i}}" id="x{{i}}" [(ngModel)] = "x.name" /><br/>
+</div>
+<input type="button" (click)="clickHandler()" value="Click Me">
